@@ -48,6 +48,8 @@ header nav ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
+    z-index: 2;
+    position: relative;
 }
 
 header nav ul li {
@@ -83,4 +85,52 @@ header nav ul li.btn a {
 
 header nav ul li.btn a:hover {
     background: #DC2;
+}
+
+.hero {
+    padding: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero--info {
+    width: 530px;
+    padding-top: 70px;
+}
+
+.hero--info h2 {
+    color: #DC7000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.hero--info h1 {
+    color: #DC7000;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.hero--info p {
+    font-weight: 600;
+    line-height: 170%;
+    margin: 30px;
+}
+
+.hero--info .btn {
+    background: #DC7000;
+    color: #fff;
+    border-radius: 15px 30px;
+    border: none;
+    transition: all 0.5s ease;
+}
+
+.hero--info .btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.hero img {
+    position: absolute;
+    top: -150px;
+    right: 0;
 }
