@@ -7,7 +7,6 @@
     <list default="true" id="b8d74075-9e1c-42b7-97db-89541833bb97" name="Changes" comment="Web">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,9 +125,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768131386933</updated>
-      <workItem from="1768131388354" duration="2564000" />
+      <workItem from="1768131388354" duration="3692000" />
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Web">
+      <option name="closed" value="true" />
+      <created>1768146596881</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1768146596881</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

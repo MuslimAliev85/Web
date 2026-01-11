@@ -22,6 +22,8 @@ img {
 .wrapper {
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(42, 123, 155, 1) 100%);
     width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 .container {
@@ -72,14 +74,14 @@ header nav ul li.active::after {
     left: -15px;
 }
 
-header nav ul li:not(.activ):not(.btn) a:hover {
+header nav ul li:not(.active):not(.btn) a:hover {
     border-bottom: 5px solid #DC7000;
 }
 
 header nav ul li.btn a {
     background: #DC7000;
     padding: 9px 17px;
-    border-radius: 5px;
+    border-radius: 300px;
     transition: all 0.5s ease;
 }
 
@@ -119,7 +121,7 @@ header nav ul li.btn a:hover {
 .hero--info .btn {
     background: #DC7000;
     color: #fff;
-    border-radius: 15px 30px;
+    border-radius: 45px 60px;
     border: none;
     transition: all 0.5s ease;
 }
@@ -131,6 +133,6 @@ header nav ul li.btn a:hover {
 
 .hero img {
     position: absolute;
-    top: -150px;
+    top: 150px;
     right: 0;
 }
