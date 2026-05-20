@@ -1,35 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <title>Dental | Премиальная Стоматология</title>
+
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Подключение внешнего файла стилей CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <header class="container">
-            <span class="logo">logo</span>
-            <nav>
-                <ul>
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">News</a></li>
-                    <li class="bth"><a href="#">Contracts</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <div class="hero container">
-            <div class="hero--info">
-                <h2>3D game Dev</h2>
-                <h1>Text</h1>
-                <p>text</p>
-                <button class="btn">Download</button>
+<header id="header">
+    <div class="logo">Dental</div>
+    <nav class="nav-links">
+        <a href="#about">О клинике</a>
+        <a href="#results">Результаты</a>
+        <a href="#team">Персонал</a>
+        <a href="#contact">Контакты</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1 id="heroTitle">Чистота. Эстетика. Результат.</h1>
+    <p id="heroText">Премиальная стоматология в белом стиле. Мы создаем улыбки, которые вдохновляют.</p>
+</section>
+
+<section id="about" class="about">
+    <div class="about-grid">
+        <div class="about-text" id="revealAboutText">
+            <h2>Новый стандарт комфорта</h2>
+            <div class="about-content">
+                <p>Более 20 лет наша клиника помогает пациентам сохранять здоровые зубы. Мы гордимся тем, что:</p>
+
+                <p>Наши родные доверяют своё здоровье именно нам;</p>
+
+                <p>Большинство пациентов приходят по рекомендации тех, кто уже прошёл у нас лечение;</p>
+
+                <p>Мы ставим во главу угла бережный подход и сохранение естественных зубов;</p>
+
+                <p>В нашей команде - единомышленники, лучшие из лучших в стоматологии. Мы сочетаем современные технологии с щадящими методами лечения: серьёзные вмешательства - только в крайнем случае;</p>
+
+                <p>Результат? Безупречное здоровье зубов, уверенность в улыбке и радость жизни - то, что мы дарим каждому пациенту уже два десятка лет.</p>
             </div>
-            <img src="img/1.jpg" alt="">
+        </div>
+        <div class="about-image" id="revealAboutImg">
+            <img src="img/1.png" alt="Интерьер премиальной клиники">
         </div>
     </div>
+</section>
+
+<section id="results" class="results">
+    <div class="results-header" id="revealResultsTitle">
+        <h2>Наши работы</h2>
+        <p>Мы показываем честный и практический результат</p>
+    </div>
+
+    <div class="comparison-grid">
+        <!-- Карточка 1 -->
+        <div class="card reveal-card">
+            <div class="vertical-compare">
+                <div class="img-box">
+                    <span class="badge">До</span>
+                    <img src="img/r1d.jpg" alt="До лечения">
+                </div>
+                <div class="img-box">
+                    <span class="badge accent">После</span>
+                    <img src="img/r1p.jpg" alt="После лечения">
+                </div>
+            </div>
+            <div class="card-desc">
+                <h3>Комплексная реставрация улыбки</h3>
+                <p>Устранили дисколорит, исправили дефекты зубного ряда и вернули безупречную эстетику.</p>
+            </div>
+        </div>
+
+        <!-- Карточка 2 -->
+        <div class="card reveal-card">
+            <div class="vertical-compare">
+                <div class="img-box">
+                    <span class="badge">До</span>
+                    <img src="img/r2d.jpg" alt="До лечения">
+                </div>
+                <div class="img-box">
+                    <span class="badge accent">После</span>
+                    <img src="img/r2p.jpg" alt="После лечения">
+                </div>
+            </div>
+            <div class="card-desc">
+                <h3>Тотальное преображение</h3>
+                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+            </div>
+        </div>
+
+        <!-- Карточка 3 -->
+        <div class="card reveal-card">
+            <div class="vertical-compare">
+                <div class="img-box">
+                    <span class="badge">До</span>
+                    <img src="img/r3d.jpg" alt="До лечения">
+                </div>
+                <div class="img-box">
+                    <span class="badge accent">После</span>
+                    <img src="img/r3p.jpg" alt="После лечения">
+                </div>
+            </div>
+            <div class="card-desc">
+                <h3>Тотальное преображение</h3>
+                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+            </div>
+        </div>
+
+        <!-- Карточка 4 -->
+        <div class="card reveal-card">
+            <div class="vertical-compare">
+                <div class="img-box">
+                    <span class="badge">До</span>
+                    <img src="img/r4d.jpg" alt="До лечения">
+                </div>
+                <div class="img-box">
+                    <span class="badge accent">После</span>
+                    <img src="img/r4p.jpg" alt="После лечения">
+                </div>
+            </div>
+            <div class="card-desc">
+                <h3>Тотальное преображение</h3>
+                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+            </div>
+        </div>
+
+        <!-- Карточка 5 -->
+        <div class="card reveal-card">
+            <div class="vertical-compare">
+                <div class="img-box">
+                    <span class="badge">До</span>
+                    <img src="img/r5d.jpg" alt="До лечения">
+                </div>
+                <div class="img-box">
+                    <span class="badge accent">После</span>
+                    <img src="img/r5p.jpg" alt="После лечения">
+                </div>
+            </div>
+            <div class="card-desc">
+                <h3>Тотальное преображение</h3>
+                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- СЕКЦИЯ ПЕРСОНАЛ -->
+<section id="team" class="team">
+    <div class="team-header" id="revealTeamTitle">
+        <h2>Наша команда</h2>
+        <p>Профессионалы экспертного уровня, которым доверяют самое ценное</p>
+    </div>
+
+    <div class="team-grid">
+        <!-- Врач 1 -->
+        <div class="member-card reveal-team">
+            <!-- Картинка задается как фон, чтобы углы гарантированно скруглялись -->
+            <div class="member-image" style="background-image: url('img/c1.jpg');"></div>
+            <h3>Константинов К. К.</h3>
+            <p>Главный врач, стоматолог-ортопед</p>
+        </div>
+
+        <!-- Врач 2 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c2.jpg');"></div>
+            <h3>Иванова А. С.</h3>
+            <p>Стоматолог-терапевт, эндодонтист</p>
+        </div>
+
+        <!-- Врач 3 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c3.jpg');"></div>
+            <h3>Николаев С. В.</h3>
+            <p>Хирург-имплантолог, челюстно-лицевой хирург</p>
+        </div>
+
+        <!-- Врач 4 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c4.jpg');"></div>
+            <h3>Николаев С. В.</h3>
+            <p>Хирург-имплантолог, челюстно-лицевой хирург</p>
+        </div>
+
+        <!-- Врач 5 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c5.jpg');"></div>
+            <h3>Николаев С. В.</h3>
+            <p>Хирург-имплантолог, челюстно-лицевой хирург</p>
+        </div>
+
+        <!-- Врач 6 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c6.jpg');"></div>
+            <h3>Николаев С. В.</h3>
+            <p>Хирург-имплантолог, челюстно-лицевой хирург</p>
+        </div>
+
+        <!-- Врач 7 -->
+        <div class="member-card reveal-team">
+            <div class="member-image" style="background-image: url('img/c7.jpg');"></div>
+            <h3>Николаев С. В.</h3>
+            <p>Хирург-имплантолог, челюстно-лицевой хирург</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contacts">
+    <h2 style="font-size: 2.5rem;">Всегда на связи</h2>
+    <div class="contacts-grid">
+        <div class="contact-item">
+            <h3>Адрес</h3>
+            <p>Новый Уренгой, <br>микрорайон Советский, 2к2</p>
+        </div>
+        <div class="contact-item">
+            <h3>Телефон</h3>
+            <p>+7 (912) 424-51-95</p>
+        </div>
+        <div class="contact-item">
+            <h3>Режим работы</h3>
+            <p>Ежедневно <br>09:00 — 20:00</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Анимация первого экрана
+        setTimeout(() => {
+            document.getElementById('heroTitle').classList.add('reveal');
+            setTimeout(() => {
+                document.getElementById('heroText').classList.add('reveal');
+            }, 300);
+        }, 300);
+
+        // Поведение шапки
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 60) {
+                header.style.padding = '12px 5%';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                header.style.padding = '20px 5%';
+                header.style.background = 'rgba(255, 255, 255, 0.8)';
+            }
+        });
+
+        // Настройка появления элементов при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Элементы для отслеживания
+        const elementsToWatch = [
+            document.getElementById('revealAboutText'),
+            document.getElementById('revealAboutImg'),
+            document.getElementById('revealResultsTitle'),
+            document.getElementById('revealTeamTitle'),
+            ...document.querySelectorAll('.reveal-card'),
+            ...document.querySelectorAll('.reveal-team')
+        ];
+
+        elementsToWatch.forEach(el => {
+            if(el) observer.observe(el);
+        });
+
+        // Плавный скролл по навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
