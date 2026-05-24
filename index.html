@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dental | Премиальная Стоматология</title>
-
-    <!-- Подключение шрифтов -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- Подключение внешнего файла стилей CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,200 +20,164 @@
 </header>
 
 <section class="hero">
-    <h1 id="heroTitle">Чистота. Эстетика. Результат.</h1>
-    <p id="heroText">Премиальная стоматология в белом стиле. Мы создаем улыбки, которые вдохновляют.</p>
+    <h1>Чистота. Эстетика. Результат.</h1>
+    <p>Премиальная стоматология в белом стиле. Мы создаем улыбки, которые вдохновляют.</p>
 </section>
 
 <section id="about" class="about">
     <div class="about-grid">
-        <div class="about-text" id="revealAboutText">
-            <h2>Новый стандарт комфорта</h2>
+        <div class="about-text">
+            <h2>Новый standard комфорта</h2>
             <div class="about-content">
                 <p>Более 20 лет наша клиника помогает пациентам сохранять здоровые зубы. Мы гордимся тем, что:</p>
-
                 <p>Наши родные доверяют своё здоровье именно нам;</p>
-
                 <p>Большинство пациентов приходят по рекомендации тех, кто уже прошёл у нас лечение;</p>
-
                 <p>Мы ставим во главу угла бережный подход и сохранение естественных зубов;</p>
-
-                <p>В нашей команде - единомышленники, лучшие из лучших в стоматологии. Мы сочетаем современные технологии с щадящими методами лечения: серьёзные вмешательства - только в крайнем случае;</p>
-
+                <p>В нашей команде - единомышленники, лучшие из лучших в стоматологии. Мы сочетаем современные технологии с щадящими методами лечения: серьёзные вмешательства - только в крайшем случае;</p>
                 <p>Результат? Безупречное здоровье зубов, уверенность в улыбке и радость жизни - то, что мы дарим каждому пациенту уже два десятка лет.</p>
             </div>
         </div>
-        <div class="about-image" id="revealAboutImg">
+        <div class="about-image">
             <img src="img/1.png" alt="Интерьер премиальной клиники">
         </div>
     </div>
 </section>
 
+<!-- СЕКЦИЯ РЕЗУЛЬТАТОВ: Мега-слайдер со шторкой -->
 <section id="results" class="results">
-    <div class="results-header" id="revealResultsTitle">
+    <div class="results-header">
         <h2>Наши работы</h2>
-        <p>Мы показываем честный и практический результат</p>
+        <p>Потяните за центральную линию в стороны, чтобы детально рассмотреть результат</p>
     </div>
 
-    <div class="comparison-grid">
-        <!-- Карточка 1 -->
-        <div class="card reveal-card slider-card">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide-item"><img src="img/r1d.jpg" alt="До лечения"></div>
-                    <div class="slide-item"><img src="img/r1p.jpg" alt="После лечения"></div>
-                </div>
-                <div class="slider-badges">
-                    <span class="badge slide-badge-before active">До</span>
-                    <span class="badge accent slide-badge-after">После</span>
-                </div>
-                <div class="slider-controls">
-                    <button class="slide-btn prev-btn" aria-label="Назад">&#8592;</button>
-                    <button class="slide-btn next-btn" aria-label="Вперед">&#8594;</button>
-                </div>
-            </div>
-            <div class="card-desc">
-                <h3>Комплексная реставрация улыбки</h3>
-                <p>Устранили дисколорит, исправили дефекты зубного ряда и вернули безупречную эстетику.</p>
-            </div>
-        </div>
+    <div class="main-gallery-wrapper">
+        <div class="mega-slider-card">
 
-        <!-- Карточка 2 -->
-        <div class="card reveal-card slider-card">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide-item"><img src="img/r2d.jpg" alt="До лечения"></div>
-                    <div class="slide-item"><img src="img/r2p.jpg" alt="После лечения"></div>
-                </div>
-                <div class="slider-badges">
-                    <span class="badge slide-badge-before active">До</span>
-                    <span class="badge accent slide-badge-after">После</span>
-                </div>
-                <div class="slider-controls">
-                    <button class="slide-btn prev-btn" aria-label="Назад">&#8592;</button>
-                    <button class="slide-btn next-btn" aria-label="Вперед">&#8594;</button>
-                </div>
-            </div>
-            <div class="card-desc">
-                <h3>Тотальное преображение</h3>
-                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
-            </div>
-        </div>
+            <div class="showcase-viewport">
+                <div class="cases-track" id="casesTrack">
 
-        <!-- Карточка 3 -->
-        <div class="card reveal-card slider-card">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide-item"><img src="img/r3d.jpg" alt="До лечения"></div>
-                    <div class="slide-item"><img src="img/r3p.jpg" alt="После лечения"></div>
-                </div>
-                <div class="slider-badges">
-                    <span class="badge slide-badge-before active">До</span>
-                    <span class="badge accent slide-badge-after">После</span>
-                </div>
-                <div class="slider-controls">
-                    <button class="slide-btn prev-btn" aria-label="Назад">&#8592;</button>
-                    <button class="slide-btn next-btn" aria-label="Вперед">&#8594;</button>
-                </div>
-            </div>
-            <div class="card-desc">
-                <h3>Тотальное преображение</h3>
-                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
-            </div>
-        </div>
+                    <!-- Кейс 1 -->
+                    <div class="case-slide">
+                        <div class="ba-slider">
+                            <div class="side before-side"><img src="img/r1d.jpg" alt="До лечения"></div>
+                            <div class="side after-side"><img src="img/r1p.jpg" alt="После лечения"></div>
+                            <div class="drag-line"><div class="drag-button"></div></div>
+                        </div>
+                        <div class="case-info">
+                            <h3>Комплексная реставрация улыбки</h3>
+                            <p>Устранили дисколорит, исправили дефекты зубного ряда и вернули безупречную эстетику.</p>
+                        </div>
+                    </div>
 
-        <!-- Карточка 4 -->
-        <div class="card reveal-card slider-card">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide-item"><img src="img/r4d.jpg" alt="До лечения"></div>
-                    <div class="slide-item"><img src="img/r4p.jpg" alt="После лечения"></div>
-                </div>
-                <div class="slider-badges">
-                    <span class="badge slide-badge-before active">До</span>
-                    <span class="badge accent slide-badge-after">После</span>
-                </div>
-                <div class="slider-controls">
-                    <button class="slide-btn prev-btn" aria-label="Назад">&#8592;</button>
-                    <button class="slide-btn next-btn" aria-label="Вперед">&#8594;</button>
-                </div>
-            </div>
-            <div class="card-desc">
-                <h3>Тотальное преображение</h3>
-                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
-            </div>
-        </div>
+                    <!-- Кейс 2 -->
+                    <div class="case-slide">
+                        <div class="ba-slider">
+                            <div class="side before-side"><img src="img/r2d.jpg" alt="До лечения"></div>
+                            <div class="side after-side"><img src="img/r2p.jpg" alt="После лечения"></div>
+                            <div class="drag-line"><div class="drag-button"></div></div>
+                        </div>
+                        <div class="case-info">
+                            <h3>Тотальное преображение</h3>
+                            <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+                        </div>
+                    </div>
 
-        <!-- Карточка 5 -->
-        <div class="card reveal-card slider-card">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide-item"><img src="img/r5d.jpg" alt="До лечения"></div>
-                    <div class="slide-item"><img src="img/r5p.jpg" alt="После лечения"></div>
-                </div>
-                <div class="slider-badges">
-                    <span class="badge slide-badge-before active">До</span>
-                    <span class="badge accent slide-badge-after">После</span>
-                </div>
-                <div class="slider-controls">
-                    <button class="slide-btn prev-btn" aria-label="Назад">&#8592;</button>
-                    <button class="slide-btn next-btn" aria-label="Вперед">&#8594;</button>
+                    <!-- Кейс 3 -->
+                    <div class="case-slide">
+                        <div class="ba-slider">
+                            <div class="side before-side"><img src="img/r3d.jpg" alt="До лечения"></div>
+                            <div class="side after-side"><img src="img/r3p.jpg" alt="После лечения"></div>
+                            <div class="drag-line"><div class="drag-button"></div></div>
+                        </div>
+                        <div class="case-info">
+                            <h3>Эстетическая коррекция</h3>
+                            <p>Восстановили анатомическую форму зубов и вернули природный блеск эмали.</p>
+                        </div>
+                    </div>
+
+                    <!-- Кейс 4 -->
+                    <div class="case-slide">
+                        <div class="ba-slider">
+                            <div class="side before-side"><img src="img/r4d.jpg" alt="До лечения"></div>
+                            <div class="side after-side"><img src="img/r4p.jpg" alt="После лечения"></div>
+                            <div class="drag-line"><div class="drag-button"></div></div>
+                        </div>
+                        <div class="case-info">
+                            <h3>Исправление прикуса и эстетика</h3>
+                            <p>Комплексный ортодонтический и ортопедический этап лечения для восстановления функции и гармонии лица.</p>
+                        </div>
+                    </div>
+
+                    <!-- Кейс 5 -->
+                    <div class="case-slide">
+                        <div class="ba-slider">
+                            <div class="side before-side"><img src="img/r5d.jpg" alt="До лечения"></div>
+                            <div class="side after-side"><img src="img/r5p.jpg" alt="После лечения"></div>
+                            <div class="drag-line"><div class="drag-button"></div></div>
+                        </div>
+                        <div class="case-info">
+                            <h3>Хирургическое и ортопедическое восстановление</h3>
+                            <p>Восстановление утраченных зубов с помощью современных имплантов и ультратонких коронок.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="card-desc">
-                <h3>Тотальное преображение</h3>
-                <p>Проведена ювелирная работа по созданию новой сияющей улыбки, полностью изменившая образ пациента.</p>
+
+            <div class="gallery-controls">
+                <div class="nav-arrows">
+                    <button class="arrow-btn" id="prevCase" type="button" aria-label="Назад">&#8592;</button>
+                    <span class="counter" id="caseCounter">1 из 5</span>
+                    <button class="arrow-btn" id="nextCase" type="button" aria-label="Вперед">&#8594;</button>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
 
-<!-- СЕКЦИЯ ПЕРСОНАЛ -->
+<!-- СЕКЦИЯ ПЕРСОНАЛА: Возвращены все 5 специалистов -->
 <section id="team" class="team">
-    <div class="team-header" id="revealTeamTitle">
+    <div class="team-header">
         <h2>Наша команда</h2>
         <p>Профессионалы экспертного уровня, которым доверяют самое ценное</p>
     </div>
 
     <div class="team-grid">
-        <!-- Врач 1 -->
-        <div class="member-card reveal-team">
+        <div class="member-card">
             <div class="member-image" style="background-image: url('img/c1.jpg');"></div>
             <h3>Гура Андрей Петрович</h3>
             <p>Стоматолог - ортопед</p>
         </div>
 
-        <!-- Врач 2 -->
-        <div class="member-card reveal-team">
-            <div class="member-image" style="background-image: url('img/c4.jpg');"></div>
-            <h3>Магомедова Сабина Магомедтагировна</h3>
-            <p>Стоматолог - ортодонт</p>
-        </div>
-
-        <!-- Врач 3 -->
-        <div class="member-card reveal-team">
+        <div class="member-card">
             <div class="member-image" style="background-image: url('img/c2.jpg');"></div>
             <h3>Садуев Абдул Гаджиевич</h3>
             <p>Стоматолог - терапевт</p>
         </div>
 
-        <!-- Врач 4 -->
-        <div class="member-card reveal-team">
+        <div class="member-card">
             <div class="member-image" style="background-image: url('img/c3.jpg');"></div>
-            <h3>Малладова Айшат Абдурахмановна</h3>
-            <p>Стоматолог - терапевт</p>
+            <h3>Умаров Арсен Вахаевич</h3>
+            <p>Стоматолог - хирург, имплантолог</p>
         </div>
 
-        <!-- Врач 5 -->
-        <div class="member-card reveal-team">
+        <div class="member-card">
+            <div class="member-image" style="background-image: url('img/c4.jpg');"></div>
+            <h3>Магомедова Сабина Магомедтагировна</h3>
+            <p>Стоматолог - ортодонт</p>
+        </div>
+
+        <div class="member-card">
             <div class="member-image" style="background-image: url('img/c5.jpg');"></div>
-            <h3>Махмудов Насим Низомович</h3>
-            <p>Стоматолог - терапевт</p>
+            <h3>Абдуллаева Аминат Магомедовна</h3>
+            <p>Детский стоматолог</p>
         </div>
     </div>
 </section>
 
 <section id="contact" class="contacts">
-    <h2 style="font-size: 2.5rem;">Всегда на связи</h2>
+    <h2>Всегда на связи</h2>
     <div class="contacts-grid">
         <div class="contact-item">
             <h3>Адрес</h3>
@@ -234,113 +194,6 @@
     </div>
 </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Анимация первого экрана
-        setTimeout(() => {
-            document.getElementById('heroTitle').classList.add('reveal');
-            setTimeout(() => {
-                document.getElementById('heroText').classList.add('reveal');
-            }, 300);
-        }, 300);
-
-        // Поведение шапки
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 60) {
-                header.style.padding = '12px 5%';
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-            } else {
-                header.style.padding = '20px 5%';
-                header.style.background = 'rgba(255, 255, 255, 0.8)';
-            }
-        });
-
-        // Инициализация логики горизонтальных слайдеров До/После
-        const sliderCards = document.querySelectorAll('.slider-card');
-
-        sliderCards.forEach(card => {
-            const track = card.querySelector('.slider-track');
-            const prevBtn = card.querySelector('.prev-btn');
-            const nextBtn = card.querySelector('.next-btn');
-            const badgeBefore = card.querySelector('.slide-badge-before');
-            const badgeAfter = card.querySelector('.slide-badge-after');
-
-            let isAfterView = false; // По умолчанию показываем "До" (index 0)
-
-            function updateSlider(goToAfter) {
-                isAfterView = goToAfter;
-                if (isAfterView) {
-                    track.style.transform = 'translateX(-50%)';
-                    badgeBefore.classList.remove('active');
-                    badgeAfter.classList.add('active');
-                } else {
-                    track.style.transform = 'translateX(0%)';
-                    badgeBefore.classList.add('active');
-                    badgeAfter.classList.remove('active');
-                }
-            }
-
-            // Навешиваем ручное переключение кнопками
-            prevBtn.addEventListener('click', () => updateSlider(false));
-            nextBtn.addEventListener('click', () => updateSlider(true));
-        });
-
-        // Настройка появления элементов при скролле + триггер авто-анимации слайдера
-        const observerOptions = { threshold: 0.25 };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-
-                    // Если доскроллили до карточки слайдера и авто-демонстрация еще не происходила
-                    if (entry.target.classList.contains('slider-card') && !entry.target.dataset.animated) {
-                        entry.target.dataset.animated = 'true'; // Ставим метку, чтобы не крутить бесконечно
-
-                        const track = entry.target.querySelector('.slider-track');
-                        const badgeBefore = entry.target.querySelector('.slide-badge-before');
-                        const badgeAfter = entry.target.querySelector('.slide-badge-after');
-
-                        // Задержка перед стартом, чтобы пользователь успел зафиксировать взгляд
-                        setTimeout(() => {
-                            track.style.transform = 'translateX(-50%)';
-                            badgeBefore.classList.remove('active');
-                            badgeAfter.classList.add('active');
-                        }, 1200);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Элементы для отслеживания
-        const elementsToWatch = [
-            document.getElementById('revealAboutText'),
-            document.getElementById('revealAboutImg'),
-            document.getElementById('revealResultsTitle'),
-            document.getElementById('revealTeamTitle'),
-            ...document.querySelectorAll('.reveal-card'),
-            ...document.querySelectorAll('.reveal-team')
-        ];
-
-        elementsToWatch.forEach(el => {
-            if(el) observer.observe(el);
-        });
-
-        // Плавный скролл по навигации
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    });
-</script>
+<script src="script.js"></script>
 </body>
 </html>

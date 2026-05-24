@@ -4,7 +4,7 @@
     --text-main: #323131;
     --text-secondary: #86868b;
     --light-gray: #f5f5f7;
-    --transition: all 0.7s cubic-bezier(0.15, 1, 0.3, 1);
+    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,14 +26,13 @@ header {
     align-items: center;
     position: fixed;
     width: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.05);
     transition: var(--transition);
 }
-
 .logo { font-weight: 600; font-size: 1.4rem; letter-spacing: -0.5px; text-transform: uppercase; }
 .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 30px; font-size: 0.9rem; transition: 0.3s; }
 .nav-links a:hover { color: var(--accent-blue); }
@@ -49,158 +48,120 @@ header {
     padding: 0 10%;
     background: radial-gradient(circle at center, #f9fbff 0%, #ffffff 100%);
 }
-.hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 25px; font-weight: 600; letter-spacing: -1.5px; opacity: 0; transform: translateY(30px); }
-.hero p { max-width: 600px; color: var(--text-secondary); font-size: 1.25rem; opacity: 0; transform: translateY(30px); }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 25px; font-weight: 600; letter-spacing: -1.5px; }
+.hero p { max-width: 600px; color: var(--text-secondary); font-size: 1.25rem; }
 
-/* --- СЕКЦИЯ 1: О КЛИНИКЕ (Большой текст) --- */
-.about { padding: 120px 5%; max-width: 1300px; margin: 0 auto; background: var(--bg-color); }
+/* О клинике */
+.about { padding: 120px 5%; max-width: 1300px; margin: 0 auto; }
 .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: start; }
-
-.about-text { opacity: 0; transform: translateX(-50px); transition: var(--transition); }
 .about-text h2 { font-size: 3rem; margin-bottom: 40px; line-height: 1.2; font-weight: 600; }
-.about-content {
-    color: #4a4a4a;
-    font-size: 1.1rem;
-}
+.about-content { color: #4a4a4a; font-size: 1.1rem; }
 .about-content p { margin-bottom: 20px; }
-
-.about-image { opacity: 0; transform: translateX(50px); transition: var(--transition); position: sticky; top: 120px; }
+.about-image { position: sticky; top: 120px; }
 .about-image img { width: 100%; border-radius: 60px; box-shadow: 0 40px 80px rgba(0,0,0,0.06); }
 
-/* --- СЕКЦИЯ 2: РЕЗУЛЬТАТЫ (Интерактивный горизонтальный слайдер) --- */
-.results { padding: 120px 5%; background: var(--light-gray); text-align: center; }
-.results-header { margin-bottom: 60px; }
+/* Результаты - Адаптивный Мега-Слайдер со шторкой */
+.results { padding: 120px 5%; background: var(--light-gray); }
+.results-header { text-align: center; margin-bottom: 60px; }
 .results-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
 .results-header p { color: var(--text-secondary); font-size: 1.1rem; }
 
-.comparison-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.card {
-    background: white;
-    padding: 24px;
-    border-radius: 40px;
-    transition: var(--transition);
-    opacity: 0;
-    transform: translateY(40px);
-    display: flex;
-    flex-direction: column;
-    will-change: transform;
-}
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-}
+.main-gallery-wrapper { max-width: 900px; margin: 0 auto; }
+.mega-slider-card { background: #ffffff; padding: 35px; border-radius: 50px; box-shadow: 0 30px 60px rgba(0,0,0,0.04); }
 
-/* Контейнер окна слайдера */
-.slider-container {
+.showcase-viewport { overflow: hidden; border-radius: 32px; background: #f5f5f7; width: 100%; }
+.cases-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 500%; }
+.case-slide { width: 20%; flex-shrink: 0; display: flex; flex-direction: column; }
+
+/* Контейнер шторки */
+.ba-slider {
     position: relative;
-    height: 380px; /* Фиксированная комфортная высота для фото-блока */
-    border-radius: 28px;
-    overflow: hidden; /* Обрезает все, что выходит за рамки при смещении */
-    margin-bottom: 25px;
-    background-color: #e5e5ea;
-}
-
-/* Длина трека вмещает две картинки бок о бок (100% + 100% = 200%) */
-.slider-track {
-    display: flex;
-    width: 200%;
-    height: 100%;
-    transition: transform 0.8s cubic-bezier(0.15, 1, 0.3, 1); /* Плавная анимация ухода влево */
-}
-
-/* Каждый слайд занимает ровно половину длины трека (то есть 100% от окна контейнера) */
-.slide-item {
-    width: 50%;
-    height: 100%;
-}
-.slide-item img {
+    height: 500px;
     width: 100%;
+    overflow: hidden;
+    background: #e5e5ea;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.side {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.side img {
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    pointer-events: none;
 }
 
-/* Блок плашек До/После внутри слайдера */
-.slider-badges {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    gap: 8px;
-    z-index: 5;
+/* До - слева */
+.before-side {
+    left: 0;
+    width: 50%;
+    z-index: 2;
 }
-.slider-badges .badge {
-    background: rgba(0, 0, 0, 0.4);
-    color: rgba(255, 255, 255, 0.6);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: 0.3s ease;
-    opacity: 0.5;
-}
-/* Подсвечиваем ту плашку, которая открыта в данный момент */
-.slider-badges .badge.active {
-    opacity: 1;
-    color: white;
-    background: rgba(0, 0, 0, 0.75);
-}
-.slider-badges .badge.accent.active {
-    background: var(--accent-blue);
+.before-side img {
+    left: 0;
 }
 
-/* Кнопки управления (стрелки) поверх фото */
-.slider-controls {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    display: flex;
-    gap: 10px;
-    z-index: 5;
+/* После - справа */
+.after-side {
+    right: 0;
+    width: 100%;
+    z-index: 1;
 }
-.slide-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    color: var(--text-main);
-    width: 40px;
-    height: 40px;
+.after-side img {
+    right: 0;
+}
+
+/* Линия-разделитель */
+.drag-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    z-index: 3;
+    cursor: ew-resize;
+}
+.drag-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
     border-radius: 50%;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.3s ease;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.slide-btn:hover {
-    background: white;
-    transform: scale(1.05);
-    color: var(--accent-blue);
+.drag-button::before {
+    content: '↔';
+    color: var(--text-main);
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
-/* Описание под слайдером */
-.card-desc {
-    text-align: left;
-    margin-top: auto;
-    padding: 0 8px;
-}
-.card-desc h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-main); }
-.card-desc p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; }
+.case-info { padding: 30px 10px 10px 10px; }
+.case-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
+.case-info p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5; }
 
-/* --- СЕКЦИЯ 3: ПЕРСОНАЛ --- */
+/* Стрелки навигации */
+.gallery-controls { display: flex; justify-content: center; align-items: center; margin-top: 25px; }
+.nav-arrows { display: flex; align-items: center; gap: 20px; }
+.arrow-btn { background: var(--light-gray); border: none; color: var(--text-main); width: 50px; height: 50px; border-radius: 50%; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.arrow-btn:hover { background: #e5e5ea; color: var(--accent-blue); transform: scale(1.05); }
+.counter { font-size: 1rem; font-weight: 600; color: var(--text-main); min-width: 70px; text-align: center; }
+
+/* Персонал: Сетка под 5 карточек */
 .team { padding: 120px 5%; background: var(--bg-color); text-align: center; }
 .team-header { margin-bottom: 60px; }
 .team-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
@@ -208,55 +169,27 @@ header {
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1300px;
     margin: 0 auto;
 }
-.member-card {
-    background: var(--light-gray);
-    padding: 20px;
-    border-radius: 40px;
-    text-align: left;
-    transition: var(--transition);
-    opacity: 0;
-    transform: translateY(40px);
-}
-.member-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+.member-card { background: var(--light-gray); padding: 15px; border-radius: 35px; text-align: left; transition: var(--transition); }
+.member-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
 
-/* Обновленный блок для картинок-фонов */
-.member-image {
-    height: 400px; /* Сделали карточку повыше, чтобы фото сидело свободнее */
-    border-radius: 30px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    background-color: #f5f5f7;
-    background-position: center 20%; /* Сдвигает фокус фотографии чуть выше, чтобы не обрезались макушки */
-    background-repeat: no-repeat;
-    background-size: cover; /* Заполняет весь блок, заставляя углы фотографии идеально скруглиться вместе с рамкой */
-}
-.member-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: #f5f5f7;
-    border-radius: 24px !important; /* !important заставит браузер скруглить углы самой фотографии */
-}
-.member-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
-.member-card p { color: var(--accent-blue); font-size: 0.95rem; font-weight: 400; }
+.member-image { height: 320px; border-radius: 25px; overflow: hidden; margin-bottom: 15px; background-position: center 20%; background-repeat: no-repeat; background-size: cover; }
+.member-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); line-height: 1.3; }
+.member-card p { color: var(--accent-blue); font-size: 0.85rem; }
 
 /* Контакты */
 .contacts { padding: 120px 10%; background: #2c2c2e; color: white; border-radius: 80px 80px 0 0; text-align: center; }
+.contacts h2 { font-size: 2.5rem; margin-bottom: 20px; }
 .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
 .contact-item h3 { color: var(--accent-blue); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
 .contact-item p { font-size: 1.4rem; font-weight: 300; }
 
-/* Вспомогательный класс для анимации */
-.reveal { opacity: 1 !important; transform: translate(0, 0) !important; }
-
 @media (max-width: 1024px) {
     .about-grid { grid-template-columns: 1fr; gap: 60px; }
     .about-image { position: static; }
-    .comparison-grid { grid-template-columns: 1fr; }
-    .team-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .ba-slider { height: 380px; }
 }
