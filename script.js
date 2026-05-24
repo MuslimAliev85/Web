@@ -128,4 +128,39 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 6. Интеграция Яндекс Карт
+    if (typeof ymaps !== 'undefined') {
+        ymaps.ready(initMap);
+    }
+
+    function initMap() {
+        const mapElement = document.getElementById("map");
+        if (!mapElement) return;
+
+        // Ваши точные координаты для клиники Dental
+        const exactClinicCoordinates = [66.117996, 76.679430];
+
+        const myMap = new ymaps.Map("map", {
+            center: exactClinicCoordinates,
+            zoom: 17, // Оптимальный крупный масштаб, чтобы четко видеть вход в здание
+            controls: ['zoomControl', 'fullscreenControl']
+        });
+
+        // Отключаем зум колесиком мыши, чтобы страница не залипала при скролле
+        myMap.behaviors.disable('scrollZoom');
+
+        // Создаем метку строго по вашим координатам
+        const myPlacemark = new ymaps.Placemark(exactClinicCoordinates, {
+            hintContent: 'Стоматология Dental',
+            balloonContentHeader: '<strong>Dental</strong>',
+            balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
+            balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~66.117996,76.679430" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
+        }, {
+            preset: 'islands#blueMedicalIcon' // Наша аккуратная синяя медицинская иконка
+        });
+
+        // Добавляем метку на карту
+        myMap.geoObjects.add(myPlacemark);
+    }
 });
