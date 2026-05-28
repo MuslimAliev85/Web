@@ -1,6 +1,131 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Фиксация и анимация прозрачности шапки
+    document.body.classList.add('loading');
+
+    // === СИСТЕМА САЛЮТА НА CANVAS ===
+    const canvas = document.getElementById('fireworks-canvas');
+    let animationActive = true;
+
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+
+        class Particle {
+            constructor(x, y, color, speedX, speedY, size) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speedX = speedX;
+                this.speedY = speedY;
+                this.gravity = 0.04;
+                this.alpha = 1;
+                this.decay = 0.015;
+                this.size = size;
+            }
+
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+
+                // ЗАЩИТНАЯ ЗОНА: Проверяем расстояние от частицы до центра экрана
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const distX = this.x - centerX;
+                const distY = this.y - centerY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+
+                // Если искра подлетает к надписи ближе чем на 180 пикселей,
+                // она начинает стремительно растворяться, не долетая до букв
+                if (distance < 180) {
+                    this.alpha -= 0.1;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha); // Исключаем отрицательную прозрачность
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createExplosion(x, y) {
+            const particleCount = 35;
+            const colors = ['#007AFF', '#5AC8FA', '#0051FF', '#E5E5EA', '#3498db'];
+
+            // Проверяем, чтобы сам центр взрыва не генерировался прямо на надписи
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const distX = x - centerX;
+            const distY = y - centerY;
+            if (Math.sqrt(distX * distX + distY * distY) < 150) return;
+
+            for (let i = 0; i < particleCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 4 + 1;
+                const speedX = Math.cos(angle) * speed;
+                const speedY = Math.sin(angle) * speed;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const size = Math.random() * 2 + 1.5;
+
+                particles.push(new Particle(x, y, color, speedX, speedY, size));
+            }
+        }
+
+        let lastLaunch = 0;
+        function animateFireworks(timestamp) {
+            if (!animationActive) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (timestamp - lastLaunch > 350) {
+                // Генерируем залпы в стороне от центра: либо левее, либо правее, либо выше/ниже надписи
+                const startX = Math.random() * canvas.width;
+                const startY = Math.random() * (canvas.height * 0.7);
+                createExplosion(startX, startY);
+                lastLaunch = timestamp;
+            }
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateFireworks);
+        }
+
+        requestAnimationFrame(animateFireworks);
+    }
+
+    const introLoader = document.getElementById('intro-loader');
+    if (introLoader) {
+        setTimeout(() => {
+            animationActive = false;
+            introLoader.classList.add('fade-out');
+            document.body.classList.remove('loading');
+        }, 3000);
+    }
+
+    // 1. Анимация шапки при скролле
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -14,61 +139,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Инициализация и логика шторки сравнения
+    // 2. Логика интерактивной шторки "До / После"
     const sliders = document.querySelectorAll('.ba-slider');
 
-    function initSliders() {
+    function syncSliderImages() {
         sliders.forEach(slider => {
-            const containerWidth = slider.offsetWidth;
-            const beforeSide = slider.querySelector('.before-side');
-            const afterSide = slider.querySelector('.after-side');
-            const beforeImg = beforeSide.querySelector('img');
-            const afterImg = afterSide.querySelector('img');
-            const dragLine = slider.querySelector('.drag-line');
+            const width = slider.offsetWidth;
+            const beforeImg = slider.querySelector('.before-side img');
+            const afterImg = slider.querySelector('.after-side img');
 
-            // Устанавливаем точную ширину картинок равную ширине родительского окна
-            beforeImg.style.width = containerWidth + 'px';
-            afterImg.style.width = containerWidth + 'px';
-
-            function updateSplit(clientX) {
-                const rect = slider.getBoundingClientRect();
-                let offsetX = clientX - rect.left;
-
-                if (offsetX < 0) offsetX = 0;
-                if (offsetX > rect.width) offsetX = rect.width;
-
-                const pct = (offsetX / rect.width) * 100;
-                dragLine.style.left = pct + '%';
-                beforeSide.style.width = pct + '%';
+            if (beforeImg && afterImg) {
+                beforeImg.style.width = width + 'px';
+                afterImg.style.width = width + 'px';
             }
-
-            // Слушатели для мыши внутри конкретного слайда
-            slider.addEventListener('mousemove', (e) => {
-                if (e.buttons === 1) {
-                    updateSplit(e.clientX);
-                    stopAutoPlay();
-                }
-            });
-
-            slider.addEventListener('mousedown', (e) => {
-                updateSplit(e.clientX);
-                stopAutoPlay();
-            });
-
-            // Поддержка мобильных тач-событий
-            slider.addEventListener('touchmove', (e) => {
-                updateSplit(e.touches[0].clientX);
-                stopAutoPlay();
-            }, { passive: true });
         });
     }
 
-    // Запуск подгонки изображений
-    initSliders();
-    window.addEventListener('resize', initSliders);
+    syncSliderImages();
+    window.addEventListener('resize', syncSliderImages);
+
+    sliders.forEach(slider => {
+        const beforeSide = slider.querySelector('.before-side');
+        const dragLine = slider.querySelector('.drag-line');
+
+        function processMove(clientX) {
+            const rect = slider.getBoundingClientRect();
+            let x = clientX - rect.left;
+
+            if (x < 0) x = 0;
+            if (x > rect.width) x = rect.width;
+
+            const percentage = (x / rect.width) * 100;
+            dragLine.style.left = percentage + '%';
+            beforeSide.style.width = percentage + '%';
+        }
+
+        slider.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) {
+                processMove(e.clientX);
+                stopAutoPlay();
+            }
+        });
+        slider.addEventListener('mousedown', (e) => {
+            processMove(e.clientX);
+            stopAutoPlay();
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                processMove(e.touches[0].clientX);
+                stopAutoPlay();
+            }
+        }, { passive: true });
+    });
 
 
-    // 3. Карусель кейсов (Стрелки навигации)
+    // 3. Логика переключения карточек работ (Карусель)
     let currentSlide = 0;
     const totalSlides = 5;
     const casesTrack = document.getElementById('casesTrack');
@@ -76,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prevCase');
     const nextBtn = document.getElementById('nextCase');
 
-    function renderSlide(index) {
+    function showTargetSlide(index) {
         currentSlide = index;
         if (currentSlide >= totalSlides) currentSlide = 0;
         if (currentSlide < 0) currentSlide = totalSlides - 1;
@@ -84,38 +210,66 @@ document.addEventListener('DOMContentLoaded', () => {
         casesTrack.style.transform = `translateX(-${currentSlide * 20}%)`;
         caseCounter.textContent = `${currentSlide + 1} из ${totalSlides}`;
 
-        // Переинициализируем размеры шторки для нового открывшегося слайда
-        initSliders();
+        setTimeout(syncSliderImages, 50);
     }
 
-    // Изолированные клики на кнопки управления
-    prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        stopAutoPlay();
-        renderSlide(currentSlide - 1);
-    });
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            stopAutoPlay();
+            showTargetSlide(currentSlide - 1);
+        });
 
-    nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        stopAutoPlay();
-        renderSlide(currentSlide + 1);
-    });
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            stopAutoPlay();
+            showTargetSlide(currentSlide + 1);
+        });
+    }
 
-
-    // 4. Безопасный таймер автоматического переключения кейсов
-    let autoPlayInterval = setInterval(() => {
-        renderSlide(currentSlide + 1);
-    }, 6000);
+    let sliderInterval = setInterval(() => {
+        showTargetSlide(currentSlide + 1);
+    }, 5000);
 
     function stopAutoPlay() {
-        if (autoPlayInterval) {
-            clearInterval(autoPlayInterval);
-            autoPlayInterval = null;
+        if (sliderInterval) {
+            clearInterval(sliderInterval);
+            sliderInterval = null;
         }
     }
 
 
-    // 5. Навигационные якорные ссылки
+    // 4. Логика слайдера отзывов (Карусель отзывов)
+    let currentReview = 0;
+    const totalReviews = 3;
+    const reviewsTrack = document.getElementById('reviewsTrack');
+    const reviewCounter = document.getElementById('reviewCounter');
+    const prevReviewBtn = document.getElementById('prevReview');
+    const nextReviewBtn = document.getElementById('nextReview');
+
+    function showTargetReview(index) {
+        currentReview = index;
+        if (currentReview >= totalReviews) currentReview = 0;
+        if (currentReview < 0) currentReview = totalReviews - 1;
+
+        reviewsTrack.style.transform = `translateX(-${currentReview * (100 / totalReviews)}%)`;
+        reviewCounter.textContent = `${currentReview + 1} из ${totalReviews}`;
+    }
+
+    if (prevReviewBtn && nextReviewBtn) {
+        prevReviewBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showTargetReview(currentReview - 1);
+        });
+
+        nextReviewBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showTargetReview(currentReview + 1);
+        });
+    }
+
+
+    // 5. Навигация по якорям (Обновлено)
     document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -129,7 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Интеграция Яндекс Карт
+
+    // 6. Интеграция Яндекс Карт (Ваши точные координаты)
     if (typeof ymaps !== 'undefined') {
         ymaps.ready(initMap);
     }
@@ -138,29 +293,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const mapElement = document.getElementById("map");
         if (!mapElement) return;
 
-        // Ваши точные координаты для клиники Dental
         const exactClinicCoordinates = [66.117996, 76.679430];
 
         const myMap = new ymaps.Map("map", {
             center: exactClinicCoordinates,
-            zoom: 17, // Оптимальный крупный масштаб, чтобы четко видеть вход в здание
+            zoom: 17,
             controls: ['zoomControl', 'fullscreenControl']
         });
 
-        // Отключаем зум колесиком мыши, чтобы страница не залипала при скролле
         myMap.behaviors.disable('scrollZoom');
 
-        // Создаем метку строго по вашим координатам
         const myPlacemark = new ymaps.Placemark(exactClinicCoordinates, {
             hintContent: 'Стоматология Dental',
             balloonContentHeader: '<strong>Dental</strong>',
             balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
             balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~66.117996,76.679430" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
         }, {
-            preset: 'islands#blueMedicalIcon' // Наша аккуратная синяя медицинская иконка
+            preset: 'islands#blueMedicalIcon'
         });
 
-        // Добавляем метку на карту
         myMap.geoObjects.add(myPlacemark);
     }
 });

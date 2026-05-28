@@ -9,12 +9,20 @@
 </head>
 <body>
 
+<!-- АНИМАЦИЯ ПРИ ВХОДЕ (Обновлено) -->
+<div id="intro-loader">
+    <canvas id="fireworks-canvas"></canvas> <!-- Холст для салюта -->
+    <div class="intro-logo">DENTAL</div>
+</div>
+
 <header id="header">
     <div class="logo">Dental</div>
     <nav class="nav-links">
         <a href="#about">О клинике</a>
         <a href="#results">Результаты</a>
         <a href="#team">Персонал</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#price">Прайс</a>
         <a href="#contact">Контакты</a>
     </nav>
 </header>
@@ -27,13 +35,13 @@
 <section id="about" class="about">
     <div class="about-grid">
         <div class="about-text">
-            <h2>Новый standard комфорта</h2>
+            <h2>Новый стандарт комфорта</h2>
             <div class="about-content">
                 <p>Более 20 лет наша клиника помогает пациентам сохранять здоровые зубы. Мы гордимся тем, что:</p>
                 <p>Наши родные доверяют своё здоровье именно нам;</p>
                 <p>Большинство пациентов приходят по рекомендации тех, кто уже прошёл у нас лечение;</p>
                 <p>Мы ставим во главу угла бережный подход и сохранение естественных зубов;</p>
-                <p>В нашей команде - единомышленники, лучшие из лучших в стоматологии. Мы сочетаем современные технологии с щадящими методами лечения: серьёзные вмешательства - только в крайшем случае;</p>
+                <p>В нашей команде - единомышленники, лучшие из лучших в стоматологии. Мы сочетаем современные технологии с щадящими методами лечения: серьёзные вмешательства - только в крайнем случае;</p>
                 <p>Результат? Безупречное здоровье зубов, уверенность в улыбке и радость жизни - то, что мы дарим каждому пациенту уже два десятка лет.</p>
             </div>
         </div>
@@ -43,7 +51,6 @@
     </div>
 </section>
 
-<!-- СЕКЦИЯ РЕЗУЛЬТАТОВ: Мега-слайдер со шторкой -->
 <section id="results" class="results">
     <div class="results-header">
         <h2>Наши работы</h2>
@@ -56,7 +63,6 @@
             <div class="showcase-viewport">
                 <div class="cases-track" id="casesTrack">
 
-                    <!-- Кейс 1 -->
                     <div class="case-slide">
                         <div class="ba-slider">
                             <div class="side before-side"><img src="img/r1d.jpg" alt="До лечения"></div>
@@ -69,7 +75,6 @@
                         </div>
                     </div>
 
-                    <!-- Кейс 2 -->
                     <div class="case-slide">
                         <div class="ba-slider">
                             <div class="side before-side"><img src="img/r2d.jpg" alt="До лечения"></div>
@@ -82,7 +87,6 @@
                         </div>
                     </div>
 
-                    <!-- Кейс 3 -->
                     <div class="case-slide">
                         <div class="ba-slider">
                             <div class="side before-side"><img src="img/r3d.jpg" alt="До лечения"></div>
@@ -95,7 +99,6 @@
                         </div>
                     </div>
 
-                    <!-- Кейс 4 -->
                     <div class="case-slide">
                         <div class="ba-slider">
                             <div class="side before-side"><img src="img/r4d.jpg" alt="До лечения"></div>
@@ -108,7 +111,6 @@
                         </div>
                     </div>
 
-                    <!-- Кейс 5 -->
                     <div class="case-slide">
                         <div class="ba-slider">
                             <div class="side before-side"><img src="img/r5d.jpg" alt="До лечения"></div>
@@ -136,7 +138,6 @@
     </div>
 </section>
 
-<!-- СЕКЦИЯ ПЕРСОНАЛА: Возвращены все 5 специалистов -->
 <section id="team" class="team">
     <div class="team-header">
         <h2>Наша команда</h2>
@@ -176,6 +177,65 @@
     </div>
 </section>
 
+<section id="reviews" class="reviews">
+    <div class="reviews-header">
+        <h2>Отзывы пациентов</h2>
+        <p>Искренние слова благодарности от тех, кто доверил нам свою улыбку</p>
+    </div>
+    <div class="reviews-wrapper">
+        <div class="reviews-viewport">
+            <div class="reviews-track" id="reviewsTrack">
+                <div class="review-card">
+                    <p class="review-text">«Потрясающий сервис и абсолютная чистота! Проходила комплексное лечение у Садуева Абдула Гаджиевича. Все этапы лечения объяснялись доступно, никакой боли. Результат превзошел все ожидания, зубы выглядят идеально естественно!»</p>
+                    <div class="review-author">Елена В.</div>
+                </div>
+                <div class="review-card">
+                    <p class="review-text">«Выражаю огромную благодарность Гуре Андрею Петровичу за его ювелирную работу по установке виниров. Настоящий мастер своего дела. В клинике создана потрясающая атмосфера спокойствия и премиального комфорта.»</p>
+                    <div class="review-author">Михаил Т.</div>
+                </div>
+                <div class="review-card">
+                    <p class="review-text">«Сабина Магомедтагировна — лучший ортодонт! Исправляли прикус на элайнерах. Очень чуткий врач, всегда на связи, каждый прием был в удовольствие. Клиника Dental — это совершенно новый уровень медицины.»</p>
+                    <div class="review-author">Кристина К.</div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-controls">
+            <div class="nav-arrows">
+                <button class="arrow-btn" id="prevReview" type="button" aria-label="Назад">&#8592;</button>
+                <span class="counter" id="reviewCounter">1 из 3</span>
+                <button class="arrow-btn" id="nextReview" type="button" aria-label="Вперед">&#8594;</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="price" class="price">
+    <div class="price-header">
+        <h2>Стоимость услуг</h2>
+        <p>Прозрачное ценообразование без скрытых платежей. В стоимость включены все премиальные материалы</p>
+    </div>
+    <div class="price-grid">
+        <div class="price-card">
+            <h3>Диагностика и профилактика</h3>
+            <div class="price-item"><span>Консультация и составление плана</span><strong>Бесплатно</strong></div>
+            <div class="price-item"><span>Компьютерная томография (КТ)</span><strong>3 500 ₽</strong></div>
+            <div class="price-item"><span>Комплексная гигиена Air Flow</span><strong>7 500 ₽</strong></div>
+        </div>
+        <div class="price-card">
+            <h3>Терапия и эстетика</h3>
+            <div class="price-item"><span>Лечение кариеса (премиум композит)</span><strong>от 6 000 ₽</strong></div>
+            <div class="price-item"><span>Лечение каналов под микроскопом</span><strong>от 12 000 ₽</strong></div>
+            <div class="price-item"><span>Отбеливание Zoom 4 (США)</span><strong>35 000 ₽</strong></div>
+        </div>
+        <div class="price-card">
+            <h3>Ортопедия и хирургия</h3>
+            <div class="price-item"><span>Керамический винир E.max</span><strong>от 45 000 ₽</strong></div>
+            <div class="price-item"><span>Коронка из диоксида циркония</span><strong>от 38 000 ₽</strong></div>
+            <div class="price-item"><span>Имплантация (под ключ)</span><strong>от 65 000 ₽</strong></div>
+        </div>
+    </div>
+</section>
+
 <section id="contact" class="contacts">
     <h2>Всегда на связи</h2>
     <div class="contacts-grid">
@@ -193,13 +253,11 @@
         </div>
     </div>
 
-    <!-- БЛОК ДЛЯ КАРТЫ (добавлен сюда) -->
     <div class="map-wrapper">
         <div id="map"></div>
     </div>
 </section>
 
-<!-- ПОДКЛЮЧЕНИЕ API ЯНДЕКС КАРТ (добавлено перед вашим script.js) -->
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 <script src="script.js"></script>
 </body>
