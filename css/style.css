@@ -146,16 +146,19 @@ header {
 
 
 /* =======================================================
-   БЛОК РУЧНОЙ ПОДГОНКИ КАРТИНОК (КОРРЕКТИРУЙТЕ ТУТ)
+   БЛОК РУЧНОЙ ПОДГОНКИ КАРТИНОК
+   Внутри translate: первая цифра — вправо/влево, вторая — вверх/вниз
    ======================================================= */
 
 /* --- КЕЙС 1 --- */
+/* Если в Кейсе 1 на фото "После" нужно поднять зубы на 20 пикселей вверх: */
 .case-slide:nth-child(1) .before-side img { transform: translate(0px, 0px) scale(1); }
-.case-slide:nth-child(1) .after-side img  { transform: translate(0px, 0px) scale(1); }
+.case-slide:nth-child(1) .after-side img  { transform: translate(0px, -20px) scale(1); }
 
 /* --- КЕЙС 2 --- */
+/* Если в Кейсе 2 на фото "После" нужно опустить зубы на 10 пикселей вниз: */
 .case-slide:nth-child(2) .before-side img { transform: translate(0px, 0px) scale(1); }
-.case-slide:nth-child(2) .after-side img  { transform: translate(0px, 0px) scale(1); }
+.case-slide:nth-child(2) .after-side img  { transform: translate(0px, 10px) scale(1); }
 
 /* --- КЕЙС 3 --- */
 .case-slide:nth-child(3) .before-side img { transform: translate(0px, 0px) scale(1); }
