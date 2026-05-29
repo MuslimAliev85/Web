@@ -116,13 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animateFireworks);
     }
 
+    // === ТАЙМЕР ДЛЯ ВЫКЛЮЧЕНИЯ ИНТРО (ОБНОВЛЕНО) ===
     const introLoader = document.getElementById('intro-loader');
     if (introLoader) {
         setTimeout(() => {
-            animationActive = false;
+            // Запускаем полет экрана вверх
             introLoader.classList.add('fade-out');
+            // Возвращаем скролл сайту
             document.body.classList.remove('loading');
-        }, 3000);
+
+            // Выключаем движок салюта чуть позже (через 1 секунду),
+            // когда экран уже полностью улетит за пределы видимости.
+            // Благодаря этому искры будут красиво падать прямо во время полета экрана!
+            setTimeout(() => {
+                animationActive = false;
+            }, 2000);
+
+        }, 2000); // Ровно 3 секунды на показ логотипа и салюта
     }
 
     // 1. Анимация шапки при скролле
