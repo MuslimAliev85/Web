@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Благодаря этому искры будут красиво падать прямо во время полета экрана!
             setTimeout(() => {
                 animationActive = false;
-            }, 2000);
+            }, 3000);
 
         }, 2000); // Ровно 3 секунды на показ логотипа и салюта
     }
