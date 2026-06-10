@@ -357,9 +357,11 @@ header {
     .review-card { padding: 10px 10px; }
 }
 
-/* ==========================================
-   ИНТРО С ЭФФЕКТОМ ЗАЛИВКИ (ОБНОВЛЕНО)
-========================================== */
+/* css/style.css */
+
+/* ==========================================================================
+   ИНТРО С ЭФФЕКТОМ ЗАЛИВКИ И "РАСПАДА" БУКВ СЛЕВА НАПРАВО (ИСПРАВЛЕНО)
+   ========================================================================== */
 body.loading {
     overflow: hidden;
 }
@@ -370,50 +372,94 @@ body.loading {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #505050; /* Благородный светло-серый фон */
+    background-color: #505050; /* Светло-серый фон */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    /* Уход вверх займет 0.8s, чтобы вписаться в общий лимит 3 секунды */
-    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.5s;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
 }
 
 #intro-loader.fade-out {
     transform: translateY(-100%);
 }
 
-/* Текст с эффектом наполнения слева направо */
+/* Контейнер теперь отвечает за ОБЩУЮ заливку всего слова сразу */
 .intro-logo {
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    font-weight: 600; /* Сделали буквы чуть толще */
-    text-transform: uppercase;
-    letter-spacing: 6px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 
-    /* Создаем двухцветный градиент-маску для заливки */
+    /* Единый градиент на все слово целиком */
     background: linear-gradient(to right, #ffffff 50%, #757577 50%);
     background-size: 200% 100%;
-    background-position: 100% 0; /* Изначально текст полностью серый */
+    background-position: 100% 0; /* Изначально все серое */
 
-    /* Магия CSS: красим только сам текст, а не его фон */
+    /* Магия маски на весь контейнер */
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
 
-    /* Заливка начнется сразу и за 1.8 секунды плавно дойдет до конца */
-    animation: textFillReveal 2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+    /* Запускаем общую волну заливки (1.5s с секундной задержкой) */
+    animation: textFillReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
 }
 
-/* Анимация движения градиента (смещаем белую заливку слева направо) */
+/* Анимация движения общей волны */
 @keyframes textFillReveal {
-    0% {
-        background-position: 100% 0;
-    }
-    100% {
-        background-position: 0% 0; /* Текст полностью заполнился белым */
-    }
+    0% { background-position: 100% 0; }
+    100% { background-position: 0% 0; } /* Все слово стало белым */
 }
 
+/* Буквы теперь просто "пропускают" общий градиент сквозь себя */
+.intro-logo span {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    display: inline-block;
+    transform-origin: center center;
+
+    /* Наследуем прозрачность, чтобы видеть подложку-градиент */
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* ——— ЭТАП 2: ЗАПУСК ЭФФЕКТА "РАСПАДА" (Добавляется через JS) ——— */
+/* Когда запускается распад, мы убираем общий градиент и красим каждую букву отдельно */
+#intro-loader.disintegrate .intro-logo {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+}
+
+#intro-loader.disintegrate .intro-logo span {
+    /* Фиксируем белый цвет букв перед улетом */
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+
+    /* Включаем анимацию улета */
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    animation-fill-mode: forwards;
+}
+
+/* Чередуем направления и выставляем поочередную задержку (слева направо) */
+#intro-loader.disintegrate .intro-logo span:nth-child(1) { animation-name: letterDisintegrateOdd;  animation-delay: 0.0s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(2) { animation-name: letterDisintegrateEven; animation-delay: 0.2s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(3) { animation-name: letterDisintegrateOdd;  animation-delay: 0.4s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(4) { animation-name: letterDisintegrateEven; animation-delay: 0.6s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(5) { animation-name: letterDisintegrateOdd;  animation-delay: 0.8s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(6) { animation-name: letterDisintegrateEven; animation-delay: 1.0s; }
+
+/* Анимации улета */
+@keyframes letterDisintegrateOdd {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(80px); } /* Нечетные (D, N, A) летят вниз */
+}
+
+@keyframes letterDisintegrateEven {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-80px); } /* Четные (E, T, L) летят вверх */
+}
 
 /* ==========================================
    НОВЫЙ ДИЗАЙН ПЕРСОНАЛА (ШАХМАТНЫЕ ЛИНИИ)

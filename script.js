@@ -1,15 +1,33 @@
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Блокируем скролл основного сайта
+    // === БЛОКИРОВКА СКРОЛЛА ПРИ СТАРТЕ ===
     document.body.classList.add('loading');
 
+    // === ЛОГИКА ИНТРО-ЭКРАНА (ОБНОВЛЕНО ДЛЯ "РАСПАДА") ===
     const introLoader = document.getElementById('intro-loader');
     if (introLoader) {
+
+        // 1. Ждем, пока закрасится текст (задержка 1s + заливка 1.5s = 2.5s)
+        // Добавим микропаузу на фиксацию закрашенного состояния (0.3s)
         setTimeout(() => {
-            // Команда на взлет экрана (срабатывает на отметке 2.15 сек)
-            introLoader.classList.add('fade-out');
-            document.body.classList.remove('loading');
-        }, 2150); // Экран начнет улетать ровно тогда, когда буквы полностью станут белыми
+
+            // Запускаем эффект "распада" букв вверх/вниз
+            introLoader.classList.add('disintegrate');
+
+            // 2. Ждем, пока все буквы исчезнут.
+            // Последняя буква исчезает через 1s (delay) + 0.5s (duration) = 1.5s
+            setTimeout(() => {
+
+                // Команда на сворачивание всего окна вверх
+                introLoader.classList.add('fade-out');
+
+                // Возвращаем скролл сайту
+                document.body.classList.remove('loading');
+
+            }, 1500); // Тайминг полной анимации исчезновения букв
+
+        }, 2800); // Тайминг полного закрашивания + фиксация (1000 + 1500 + 300)
     }
 
     // 1. Анимация шапки при скролле
