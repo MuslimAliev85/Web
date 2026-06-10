@@ -9,12 +9,9 @@
 </head>
 <body>
 
-<!-- АНИМАЦИЯ ПРИ ВХОДЕ (Обновлено) -->
+<!-- АНИМАЦИЯ ЗАЛИВКИ ТЕКСТА ПРИ ВХОДЕ -->
 <div id="intro-loader">
-    <canvas id="fireworks-canvas"></canvas>
-    <div class="intro-logo">
-        <span>D</span><span>E</span><span>N</span><span>T</span><span>A</span><span>L</span>
-    </div>
+    <div class="intro-logo">Dental</div>
 </div>
 
 <header id="header">
@@ -146,35 +143,74 @@
         <p>Профессионалы экспертного уровня, которым доверяют самое ценное</p>
     </div>
 
-    <div class="team-grid">
-        <div class="member-card">
-            <div class="member-image" style="background-image: url('img/c1.jpg');"></div>
-            <h3>Гура Андрей Петрович</h3>
-            <p>Стоматолог - ортопед</p>
+    <div class="team-rows-container">
+
+        <!-- Врач 1 -->
+        <div class="member-row">
+            <div class="member-photo-box">
+                <div class="member-image" style="background-image: url('img/c1.webp');"></div>
+            </div>
+            <div class="member-info-box">
+                <div class="member-titles">
+                    <h3>Гура Андрей Петрович</h3>
+                    <p class="position">Стоматолог - ортопед</p>
+                </div>
+                <div class="member-actions">
+                    <button class="btn-more" type="button">Подробнее о враче</button>
+                    <button class="btn-book" type="button">Записаться на приём</button>
+                </div>
+            </div>
         </div>
 
-        <div class="member-card">
-            <div class="member-image" style="background-image: url('img/c2.jpg');"></div>
-            <h3>Садуев Абдул Гаджиевич</h3>
-            <p>Стоматолог - терапевт</p>
+        <!-- Врач 2 -->
+        <div class="member-row">
+            <div class="member-photo-box">
+                <div class="member-image" style="background-image: url('img/c2.webp');"></div>
+            </div>
+            <div class="member-info-box">
+                <div class="member-titles">
+                    <h3>Магомедова Сабина Магомедтагировна</h3>
+                    <p class="position">Стоматолог - ортодонт</p>
+                </div>
+                <div class="member-actions">
+                    <button class="btn-more" type="button">Подробнее о враче</button>
+                    <button class="btn-book" type="button">Записаться на приём</button>
+                </div>
+            </div>
         </div>
 
-        <div class="member-card">
-            <div class="member-image" style="background-image: url('img/c3.jpg');"></div>
-            <h3>Умаров Арсен Вахаевич</h3>
-            <p>Стоматолог - хирург, имплантолог</p>
+        <!-- Врач 3 -->
+        <div class="member-row">
+            <div class="member-photo-box">
+                <div class="member-image" style="background-image: url('img/c3.webp');"></div>
+            </div>
+            <div class="member-info-box">
+                <div class="member-titles">
+                    <h3>Садуев Абдул Гаджиевич</h3>
+                    <p class="position">Стоматолог - терапевт</p>
+                </div>
+                <div class="member-actions">
+                    <button class="btn-more" type="button">Подробнее о враче</button>
+                    <button class="btn-book" type="button">Записаться на приём</button>
+                </div>
+            </div>
         </div>
 
-        <div class="member-card">
-            <div class="member-image" style="background-image: url('img/c4.jpg');"></div>
-            <h3>Магомедова Сабина Магомедтагировна</h3>
-            <p>Стоматолог - ортодонт</p>
-        </div>
-
-        <div class="member-card">
-            <div class="member-image" style="background-image: url('img/c5.jpg');"></div>
-            <h3>Абдуллаева Аминат Магомедовна</h3>
-            <p>Детский стоматолог</p>
+        <!-- Врач 4 -->
+        <div class="member-row">
+            <div class="member-photo-box">
+                <div class="member-image" style="background-image: url('img/c4.webp');"></div>
+            </div>
+            <div class="member-info-box">
+                <div class="member-titles">
+                    <h3>Малладова Айшат Абдурахмановна</h3>
+                    <p class="position">Стоматолог - терапевт</p>
+                </div>
+                <div class="member-actions">
+                    <button class="btn-more" type="button">Подробнее о враче</button>
+                    <button class="btn-book" type="button">Записаться на приём</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -218,22 +254,12 @@
     </div>
     <div class="price-grid">
         <div class="price-card">
-            <h3>Диагностика и профилактика</h3>
-            <div class="price-item"><span>Консультация и составление плана</span><strong>Бесплатно</strong></div>
-            <div class="price-item"><span>Компьютерная томография (КТ)</span><strong>3 500 ₽</strong></div>
-            <div class="price-item"><span>Комплексная гигиена Air Flow</span><strong>7 500 ₽</strong></div>
-        </div>
-        <div class="price-card">
-            <h3>Терапия и эстетика</h3>
-            <div class="price-item"><span>Лечение кариеса (премиум композит)</span><strong>от 6 000 ₽</strong></div>
-            <div class="price-item"><span>Лечение каналов под микроскопом</span><strong>от 12 000 ₽</strong></div>
-            <div class="price-item"><span>Отбеливание Zoom 4 (США)</span><strong>35 000 ₽</strong></div>
-        </div>
-        <div class="price-card">
-            <h3>Ортопедия и хирургия</h3>
-            <div class="price-item"><span>Керамический винир E.max</span><strong>от 45 000 ₽</strong></div>
-            <div class="price-item"><span>Коронка из диоксида циркония</span><strong>от 38 000 ₽</strong></div>
-            <div class="price-item"><span>Имплантация (под ключ)</span><strong>от 65 000 ₽</strong></div>
+            <h3>Терапия</h3>
+            <div class="price-item"><h4>Карьес</h4><span>от 6 670 ₽ до 8 500 ₽</span></div>
+            <div class="price-item"><h4>Пульпит</h4><span>от 13 950 ₽ до 20 890 ₽</span></div>
+            <div class="price-item"><h4>Периодонтит</h4><span>от 19 720 ₽ до 26 460 ₽</span></div>
+            <h3>Дополнительно</h3>
+            <div class="price-item"><h4>Штифт</h4><span>2 380 ₽</span></div>
         </div>
     </div>
 </section>

@@ -1,138 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Блокируем скролл основного сайта
     document.body.classList.add('loading');
 
-    // === СИСТЕМА САЛЮТА НА CANVAS ===
-    const canvas = document.getElementById('fireworks-canvas');
-    let animationActive = true;
-
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        let particles = [];
-
-        class Particle {
-            constructor(x, y, color, speedX, speedY, size) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.speedX = speedX;
-                this.speedY = speedY;
-                this.gravity = 0.04;
-                this.alpha = 1;
-                this.decay = 0.015;
-                this.size = size;
-            }
-
-            update() {
-                this.speedY += this.gravity;
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.decay;
-
-                // ЗАЩИТНАЯ ЗОНА: Проверяем расстояние от частицы до центра экрана
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
-                const distX = this.x - centerX;
-                const distY = this.y - centerY;
-                const distance = Math.sqrt(distX * distX + distY * distY);
-
-                // Если искра подлетает к надписи ближе чем на 180 пикселей,
-                // она начинает стремительно растворяться, не долетая до букв
-                if (distance < 180) {
-                    this.alpha -= 0.1;
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha); // Исключаем отрицательную прозрачность
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        function createExplosion(x, y) {
-            const particleCount = 35;
-            const colors = ['#007AFF', '#5AC8FA', '#0051FF', '#E5E5EA', '#3498db'];
-
-            // Проверяем, чтобы сам центр взрыва не генерировался прямо на надписи
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const distX = x - centerX;
-            const distY = y - centerY;
-            if (Math.sqrt(distX * distX + distY * distY) < 150) return;
-
-            for (let i = 0; i < particleCount; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 4 + 1;
-                const speedX = Math.cos(angle) * speed;
-                const speedY = Math.sin(angle) * speed;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const size = Math.random() * 2 + 1.5;
-
-                particles.push(new Particle(x, y, color, speedX, speedY, size));
-            }
-        }
-
-        let lastLaunch = 0;
-        function animateFireworks(timestamp) {
-            if (!animationActive) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            if (timestamp - lastLaunch > 350) {
-                // Генерируем залпы в стороне от центра: либо левее, либо правее, либо выше/ниже надписи
-                const startX = Math.random() * canvas.width;
-                const startY = Math.random() * (canvas.height * 0.7);
-                createExplosion(startX, startY);
-                lastLaunch = timestamp;
-            }
-
-            for (let i = particles.length - 1; i >= 0; i--) {
-                particles[i].update();
-                particles[i].draw();
-
-                if (particles[i].alpha <= 0) {
-                    particles.splice(i, 1);
-                }
-            }
-
-            requestAnimationFrame(animateFireworks);
-        }
-
-        requestAnimationFrame(animateFireworks);
-    }
-
-    // === ТАЙМЕР ДЛЯ ВЫКЛЮЧЕНИЯ ИНТРО (ОБНОВЛЕНО) ===
     const introLoader = document.getElementById('intro-loader');
     if (introLoader) {
         setTimeout(() => {
-            // Запускаем полет экрана вверх
+            // Команда на взлет экрана (срабатывает на отметке 2.15 сек)
             introLoader.classList.add('fade-out');
-            // Возвращаем скролл сайту
             document.body.classList.remove('loading');
-
-            // Выключаем движок салюта чуть позже (через 1 секунду),
-            // когда экран уже полностью улетит за пределы видимости.
-            // Благодаря этому искры будут красиво падать прямо во время полета экрана!
-            setTimeout(() => {
-                animationActive = false;
-            }, 3000);
-
-        }, 2000); // Ровно 3 секунды на показ логотипа и салюта
+        }, 2150); // Экран начнет улетать ровно тогда, когда буквы полностью станут белыми
     }
 
     // 1. Анимация шапки при скролле
