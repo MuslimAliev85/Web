@@ -143,7 +143,7 @@ header {
 .results { padding: 120px 5%; background: var(--light-gray); }
 .results-header { text-align: center; margin-bottom: 60px; }
 .results-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.results-header p { color: var(--text-secondary); font-size: 1.1rem; }
+.results-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6}
 
 .main-gallery-wrapper { max-width: 900px; margin: 0 auto; }
 .mega-slider-card { background: #ffffff; padding: 35px; border-radius: 50px; box-shadow: 0 30px 60px rgba(0,0,0,0.04); }
@@ -283,7 +283,7 @@ header {
 .member-card p { color: var(--accent-blue); font-size: 0.85rem; }
 
 /* Контакты */
-.contacts { padding: 120px 10%; background: #2c2c2e; color: white; border-radius: 80px 80px 0 0; text-align: center; }
+.contacts { padding: 120px 10%; background: #18181b; color: white; border-radius: 80px 80px 0 0; text-align: center; }
 .contacts h2 { font-size: 2.5rem; margin-bottom: 20px; }
 .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
 .contact-item h3 { color: var(--accent-blue); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
@@ -311,11 +311,24 @@ header {
     animation-delay: 0.5s;
 }
 
-/* Высота самой карты */
+/* ==========================================
+   СТРОГИЙ ТЕМНО-СЕРЫЙ МОНОХРОМ (БЕЗ ЦВЕТОВ)
+========================================== */
 #map {
     width: 100%;
     height: 450px;
-    background-color: #2c2c2e; /* Цвет заглушки, пока карта грузится */
+    border-radius: 40px;
+    overflow: hidden;
+    background: #1a1a1e; /* Базовый темно-серый фон */
+
+    /* Идеальный баланс: убираем цвета, инвертируем и глушим белый неон */
+    filter: grayscale(100%) invert(92%) brightness(85%) contrast(120%);
+}
+
+/* Приглушаем подписи и кнопки Яндекса, чтобы они не выбивались из стиля */
+#map [class*="controls-pane"],
+#map [class*="copyright"] {
+    filter: grayscale(100%) invert(92%) brightness(80%) !important;
 }
 
 /* Анимация плавного появления */
@@ -337,35 +350,234 @@ header {
     }
 }
 
-/* ==========================================
-   СЕКЦИЯ ОТЗЫВЫ
-========================================== */
-.reviews { padding: 120px 5%; background: var(--bg-color); }
-.reviews-header { text-align: center; margin-bottom: 60px; }
-.reviews-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.reviews-header p { color: var(--text-secondary); font-size: 1.1rem; }
+/* ==========================================================================
+   ОБНОВЛЕННЫЙ СТИЛЬ ОТЗЫВОВ (ИСПРАВЛЕННЫЙ ТРЕК СКРОЛЛА)
+========================================================================== */
+.reviews {
+    padding: 100px 0;
+    background-color: #18181b;
+    color: #ffffff;
+}
 
-.reviews-wrapper { max-width: 800px; margin: 0 auto; text-align: center; }
-.reviews-viewport { overflow: hidden; width: 100%; min-height: 250px; }
-.reviews-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 300%; }
-.review-card { width: 33.333%; flex-shrink: 0; padding: 20px 40px; display: flex; flex-direction: column; justify-content: center; }
-.review-text { font-size: 1.3rem; font-weight: 300; font-style: italic; color: var(--text-main); line-height: 1.7; margin-bottom: 25px; }
-.review-author { font-size: 1rem; font-weight: 600; color: var(--accent-blue); letter-spacing: 0.5px; }
+.reviews-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.reviews-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.reviews-header p {
+    color: #a1a1aa;
+    font-size: 1.1rem;
+}
+
+/* Контейнер сетки с увеличенными отступами для плавного хода sticky-текста */
+.reviews-container {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 90px; /* Было 60px. Чем больше цифра, тем дальше колонки друг от друга */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 5% 80px 5%;
+}
+
+/* Левая колонка — теперь это полноценная рельса на всю высоту списка отзывов */
+.reviews-motivation {
+    position: relative;
+    height: 100%;
+    border-right: 1px solid #3f3f46; /* Стильная серая линия-разделитель */
+    padding: 200px 5% 200px 5%;
+}
+
+/* Исправленный фиксированный блок: без устаревших префиксов */
+.motivation-sticky {
+    position: sticky; /* Этой строчки сейчас абсолютно достаточно */
+    top: 50vh;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.motivation-sticky p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #e4e4e7;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Правая колонка: список карточек */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.review-item {
+    background: #222226;
+    padding: 35px;
+    border-radius: 6px; /* Строгие острые углы */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border-left: 3px solid #3f3f46;
+}
+
+.review-item:hover {
+    transform: translateX(5px);
+    border-left-color: #007AFF;
+}
+
+.review-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #f4f4f6;
+    margin: 0 0 25px 0;
+    font-weight: 300;
+    white-space: pre-line;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2f2f35;
+    padding-top: 15px;
+}
+
+.review-author {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.review-date {
+    font-size: 0.9rem;
+    color: #71717a;
+}
+
+/* Элементы скрытия */
+.review-item.hidden-review {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.review-item.show-animated {
+    display: block !important;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-more-reviews {
+    width: 100%;
+    margin-top: 10px;
+    padding: 18px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-more-reviews:hover {
+    background: #ffffff;
+    color: #18181b;
+    border-color: #ffffff;
+}
+
+/* Контейнер для кнопок управления */
+.reviews-controls {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Стили для кнопки "Скрыть", если захочется сделать её чуть блеклее (опционально) */
+.btn-hide-reviews {
+    border-color: #2f2f35;
+    color: #a1a1aa;
+}
+
+/* Контейнер для кнопок */
+.reviews-controls {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* По умолчанию: кнопку Скрыть — прячем, Читать больше — показываем */
+#hideReviews {
+    display: none;
+}
+#loadMoreReviews {
+    display: block;
+}
+
+/* Когда список раскрыт (JS добавит класс .expanded контейнеру) */
+.reviews-controls.expanded #hideReviews {
+    display: block !important; /* Гарантированно показываем */
+}
+.reviews-controls.expanded #loadMoreReviews {
+    display: none !important; /* Гарантированно прячем */
+}
+
+@media (max-width: 991px) {
+    .reviews-motivation {
+        border-right: none;  /* Убираем линию на смартфонах, когда колонки встают друг под друга */
+        padding: 0;
+    }
+    .motivation-sticky {
+        position: static;
+        transform: none;
+        margin-bottom: 10px;
+    }
+    .review-item {
+        padding: 25px;
+    }
+}
 
 /* ==========================================
    СЕКЦИЯ ПРАЙС
 ========================================== */
-.price { padding: 120px 5%; background: var(--light-gray); }
-.price-header { text-align: center; margin-bottom: 60px; }
-.price-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.price-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 70px; margin: 0 auto; }
+.price {
+    padding: 120px 5%;
+    background: var(--light-gray);
+}
+
+.price-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.price-header h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.price-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px; /* ИСПРАВЛЕНО: Вместо 70px поставили идеальную ширину */
+    margin: 0 auto;
+    line-height: 1.6;
+}
 
 /* ==========================================
    ОПТИМИЗАЦИЯ ПРАЙСА ПОД ОДНУ КАРТОЧКУ
 ========================================== */
 .price-grid {
-    display: flex;               /* Меняем grid на flex */
-    justify-content: center;     /* Центрируем карточку на экране */
+    display: flex;
+    justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -375,21 +587,31 @@ header {
     padding: 40px;
     border-radius: 40px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.02);
-
-    /* Устанавливаем идеальную премиальную ширину под текст */
     width: 100%;
-    max-width: 600px;            /* Ограничиваем ширину, чтобы она не растягивалась */
+    max-width: 600px;
 }
 
-.price-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 30px; color: var(--text-main); border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 15px; }
+.price-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--text-main);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding-bottom: 15px;
+}
+
+/* Отступ сверху для второго заголовка "Дополнительно", чтобы не слипался */
+.price-card h3:not(:first-child) {
+    margin-top: 40px;
+}
 
 /* ==========================================
-   ОБНОВЛЕННЫЙ ПРАЙС (под h4 и span)
+   ОБНОВЛЕННЫЙ ПРАЙС (Внутренние элементы)
 ========================================== */
 .price-item {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end; /* Выравнивает текст и цену ровно по нижней линии */
+    align-items: flex-end;
     margin-bottom: 20px;
     font-size: 1rem;
 }
@@ -403,6 +625,18 @@ header {
     padding-right: 8px;
     position: relative;
     z-index: 1;
+    order: 1; /* Гарантирует, что название идёт первым */
+}
+
+/* Элегантные точки-разделители (Код объединен и исправлен) */
+.price-item::after {
+    content: "";
+    flex-grow: 1;
+    border-bottom: 1px dashed #e5e5ea;
+    position: relative;
+    top: -5px;
+    margin: 0 4px;
+    order: 2; /* Линия встает строго посередине */
 }
 
 .price-item span {
@@ -414,26 +648,24 @@ header {
     position: relative;
     z-index: 1;
     white-space: nowrap;
+    order: 3; /* Цена всегда в конце */
 }
 
-/* Элегантные точки-разделители, которые создают авто-пробел */
-.price-item::after {
-    content: "";
-    flex-grow: 1;
-    border-bottom: 1px dashed #e5e5ea; /* Красивая пунктирная линия */
+.price-item strong {
+    color: var(--text-main);
+    font-weight: 600;
+    background: #ffffff;
+    padding-left: 8px;
     position: relative;
-    top: -5px; /* Смещение линии чуть выше, ровно по центру текста */
-    margin: 0;
+    z-index: 1;
+    white-space: nowrap;
 }
 
-.price-item strong { color: var(--text-main); font-weight: 600; background: #ffffff; padding-left: 8px; position: relative; z-index: 1; white-space: nowrap; }
-
-/* Элегантные точки-разделители между услугой и ценой */
-.price-item::after { content: ""; flex-grow: 1; border-bottom: 1px dashed #e5e5ea; position: relative; top: -5px; margin: 0 4px; }
-
+/* Адаптив */
 @media (max-width: 768px) {
-    .review-text { font-size: 1.1rem; }
-    .review-card { padding: 10px 10px; }
+    .price { padding: 60px 20px; }
+    .price-header h2 { font-size: 2rem; }
+    .price-card { padding: 25px; border-radius: 24px; }
 }
 
 /* css/style.css */

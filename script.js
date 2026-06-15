@@ -214,9 +214,51 @@ document.addEventListener('DOMContentLoaded', () => {
             balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
             balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~66.117996,76.679430" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
         }, {
-            preset: 'islands#blueMedicalIcon'
+            preset: 'islands#blackDarkGlyphIcon'
         });
 
         myMap.geoObjects.add(myPlacemark);
+    }
+
+    // === УПРАВЛЕНИЕ СПИСКОМ ОТЗЫВОВ (Через класс-переключатель) ===
+    const loadMoreBtn = document.getElementById('loadMoreReviews');
+    const hideBtn = document.getElementById('hideReviews');
+    const controlsContainer = document.getElementById('reviewsControls');
+    const hiddenReviews = document.querySelectorAll('.review-item.hidden-review');
+    const reviewsSection = document.getElementById('reviews');
+
+    // Проверяем, что все элементы управления физически есть на странице
+    if (loadMoreBtn && hideBtn && controlsContainer) {
+
+        // Клик на "Читать больше"
+        loadMoreBtn.addEventListener('click', function() {
+            hiddenReviews.forEach((review, index) => {
+                setTimeout(() => {
+                    review.classList.add('show-animated');
+                }, index * 120);
+            });
+
+            // Включаем режим "Раскрыто" (CSS сам спрячет первую кнопку и покажет вторую)
+            controlsContainer.classList.add('expanded');
+        });
+
+        // Клик на "Скрыть отзывы"
+        hideBtn.addEventListener('click', function() {
+            // 1. Прячем карточки
+            hiddenReviews.forEach((review) => {
+                review.classList.remove('show-animated');
+            });
+
+            // 2. Выключаем режим "Раскрыто" (кнопки вернутся в исходное состояние)
+            controlsContainer.classList.remove('expanded');
+
+            // 3. Скроллим к началу секции
+            if (reviewsSection) {
+                reviewsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     }
 });
