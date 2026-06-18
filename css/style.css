@@ -41,9 +41,28 @@ header {
    НОВАЯ ЛЕНТА ИСТОРИИ (КОНТРАСТНЫЙ, ГРАФИЧНЫЙ СТИЛЬ С ОСТРЫМИ УГЛАМИ)
 ========================================================================== */
 .hero-timeline {
-    padding: 160px 0 100px 0; /* Верхний отступ, чтобы текст не заходил под шапку */
-    background-color: #ffffff;
     position: relative;
+    padding: 160px 0 100px 0;
+
+    /* Изменяем эти параметры */
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+
+    /* ТЕПЕРЬ ТАК: картинка намертво привязана к секции и уезжает вместе с ней */
+    background-attachment: scroll !important;
+}
+
+/* БЕЛЫЙ СЛОЙ-МАСКА ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА */
+.hero-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.82) !important; /* Мягко глушит фото, проявляя текст */
+    z-index: 1;
 }
 
 /* Центральная ось для позиционирования */
@@ -52,6 +71,7 @@ header {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
+    z-index: 2; /* ОБЯЗАТЕЛЬНО: приподнимает карточки НАД белой маской */
 }
 
 /* Общий стиль для каждой строки */
@@ -79,6 +99,7 @@ header {
     background: #e2e2e5; /* ОБНОВЛЕНО: Более глубокий, уверенный серый цвет фона */
     padding: 35px 40px;
     border-radius: 6px;  /* ОБНОВЛЕНО: Убрали круглые формы, углы теперь строгие и острые */
+    border: 1px solid #000000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -116,10 +137,11 @@ header {
 @media (max-width: 768px) {
     .hero-timeline {
         padding-top: 120px;
+        background-attachment: scroll !important; /* ДОБАВИТЬ ЭТУ СТРОКУ: отключает параллакс на телефонах */
     }
     .timeline-item:nth-child(odd),
     .timeline-item:nth-child(even) {
-        justify-content: center; /* На смартфонах выстраиваем карточки по центру */
+        justify-content: center;
     }
     .timeline-card {
         max-width: 100%;
@@ -131,13 +153,87 @@ header {
 }
 
 /* О клинике */
-.about { padding: 120px 5%; max-width: 1300px; margin: 0 auto; }
+/* О клинике — НАСТРОЙКА ПЕРЕКРЫТИЯ */
+.about {
+    padding: 120px 5%;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    background-color: #ffffff; /* ОБЯЗАТЕЛЬНО: делаем секцию непрозрачной */
+    position: relative;        /* Чтобы сработал z-index */
+    z-index: 10;               /* Приподнимаем над первой секцией */
+}
 .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: start; }
 .about-text h2 { font-size: 3rem; margin-bottom: 40px; line-height: 1.2; font-weight: 600; }
 .about-content { color: #4a4a4a; font-size: 1.1rem; }
 .about-content p { margin-bottom: 20px; }
 .about-image { position: sticky; top: 120px; }
 .about-image img { width: 100%; border-radius: 60px; box-shadow: 0 40px 80px rgba(0,0,0,0.06); }
+
+/* ==========================================================================
+   ИЗОЛИРОВАННЫЙ ИСПРАВЛЕННЫЙ КОД РАМКИ (ИЗ ФОТО B2.JPG)
+========================================================================== */
+
+.timeline-container {
+    /* 1. Внутренние отступы, чтобы текст карточек не ложился на линии рамки */
+    padding: 60px 80px !important;
+    box-sizing: border-box !important;
+
+    /* 2. Сбрасываем старый фоновый рисунок, чтобы он не двоился под рамкой */
+    background-image: none !important;
+
+    /* 3. Включаем рамку (Замени пути на ../img/, если CSS лежит в отдельной папке) */
+    border: 160px solid transparent !important;
+    border-image-source: url('../img/b2.jpg') !important;
+
+    /* ВАЖНО: fill заставляет браузер использовать центр b2.jpg как фон, идеально стыкуя его с краями */
+    border-image-slice: 160 fill !important;
+
+    border-image-width: 60px !important;  /* Толщина рамки на экране */
+    border-image-repeat: stretch !important;
+}
+
+/* Адаптивность рамки под мобильные устройства */
+@media (max-width: 768px) {
+    .timeline-container {
+        border-width: 40px !important;
+        border-image-width: 40px !important; /* Делаем рамку тоньше на смартфонах */
+        border-image-slice: 120 fill !important; /* Корректируем нарезку под узкий экран */
+        padding: 30px 20px !important;
+    }
+}
+
+/* ==========================================================================
+   ФИНАЛЬНАЯ КОРРЕКЦИЯ ВЫРАВНИВАНИЯ И РАЗМЕРА ЗАГОЛОВКА
+========================================================================== */
+
+/* 1. Выравниваем «потолок и пол» всей секции (поднимаем выше и делаем симметрию) */
+.hero-timeline {
+    padding: 120px 0 !important; /* Было 160px сверху и 100px снизу — теперь идеально по 120px */
+}
+
+/* 2. Уменьшаем заголовок под размер и стиль других категорий (как в .about) */
+.timeline-container h2,
+.about-macro-title {
+    font-size: 3rem !important;      /* Точный размер остальных категорий сайта */
+    font-weight: 600 !important;     /* Убираем избыточную толщину, делаем аккуратным */
+    letter-spacing: normal !important; /* Возвращаем стандартный межбуквенный интервал */
+
+    margin-top: 10px !important;     /* Легкий баланс от верхнего края рамки */
+    margin-bottom: 50px !important;  /* Оптимальный отступ до первой карточки */
+}
+
+/* Мобильная адаптация, чтобы на телефонах тоже ничего не ехало */
+@media (max-width: 768px) {
+    .hero-timeline {
+        padding: 80px 0 !important;  /* Симметричные отступы на смартфонах */
+    }
+    .timeline-container h2,
+    .about-macro-title {
+        font-size: 2.2rem !important; /* Пропорционально уменьшаем на экранах телефонов */
+        margin-bottom: 35px !important;
+    }
+}
 
 /* Результаты - Адаптивный Мега-Слайдер со шторкой */
 .results { padding: 120px 5%; background: var(--light-gray); }
@@ -288,6 +384,43 @@ header {
 .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
 .contact-item h3 { color: var(--accent-blue); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
 .contact-item p { font-size: 1.4rem; font-weight: 300; }
+
+/* Контейнер для кнопок-адресов внутри карточки */
+.contacts-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Стиль кнопок в общем стиле сайта */
+.map-target-btn {
+    background: #e2e2e5; /* Серый цвет карточек */
+    border: 1px solid #000000; /* Тонкая черная обводка */
+    padding: 12px 15px;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 6px;
+    text-align: left; /* Текст выравниваем по левому краю, как в оригинале */
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* Эффект наведения */
+.map-target-btn:hover {
+    background: #dadade;
+    transform: translateY(-2px);
+}
+
+/* Активный адрес (подсвечивается синим цветом логотипа) */
+.map-target-btn.active {
+    background: #2E4A6F !important;
+    color: #ffffff !important;
+    border-color: #2E4A6F !important;
+}
 
 @media (max-width: 1024px) {
     .about-grid { grid-template-columns: 1fr; gap: 60px; }

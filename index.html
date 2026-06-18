@@ -19,7 +19,7 @@
 <header id="header">
     <div class="logo">Dental</div>
     <nav class="nav-links">
-        <a href="#about">О клинике</a>
+        <a href="#about">О нас</a>
         <a href="#results">Результаты</a>
         <a href="#team">Персонал</a>
         <a href="#reviews">Отзывы</a>
@@ -28,8 +28,10 @@
     </nav>
 </header>
 
-<section class="hero-timeline">
+<section id="about" class="hero-timeline" style="background-image: url('img/b1.png') !important;">
     <div class="timeline-container">
+
+        <h2 class="about-macro-title">О нас</h2>
 
         <div class="timeline-item">
             <div class="timeline-card">
@@ -330,13 +332,23 @@
 <section id="contact" class="contacts">
     <h2>Всегда на связи</h2>
     <div class="contacts-grid">
+
         <div class="contact-item">
-            <h3>Адрес</h3>
-            <p>Новый Уренгой, <br>микрорайон Советский, 2к2</p>
+            <h3>Адреса клиник</h3>
+            <div class="contacts-addresses">
+                <button class="map-target-btn active" data-coord="[66.117996, 76.679430]">
+                    Новый Уренгой, <br>микрорайон Советский, 2к2
+                </button>
+                <button class="map-target-btn" data-coord="[66.083964, 76.685328]">
+                    Новый Уренгой, <br>Ленинградский проспект, 10
+                </button>
+            </div>
         </div>
+
         <div class="contact-item">
             <h3>Телефон</h3>
             <p>+7 (912) 424-51-95</p>
+            <p>+7 (922) 776-48-78</p>
         </div>
         <div class="contact-item">
             <h3>Режим работы</h3>

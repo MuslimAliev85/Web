@@ -189,7 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // 6. Интеграция Яндекс Карт (Ваши точные координаты)
+    // Переменная карты теперь объявлена глобально, чтобы до нее доставал переключатель кнопок
+    let myMap;
+
     if (typeof ymaps !== 'undefined') {
         ymaps.ready(initMap);
     }
@@ -198,27 +200,62 @@ document.addEventListener('DOMContentLoaded', () => {
         const mapElement = document.getElementById("map");
         if (!mapElement) return;
 
-        const exactClinicCoordinates = [66.117996, 76.679430];
+        // Твои точные координаты для филиалов
+        const exactClinicCoordinates = [66.117996, 76.679430]; // Новый Уренгой
+        const moscowClinicCoordinates = [66.083964, 76.685328]; // Новый Уренгой, Ленинградский пр-т, 10
 
-        const myMap = new ymaps.Map("map", {
+        myMap = new ymaps.Map("map", {
             center: exactClinicCoordinates,
-            zoom: 17,
+            zoom: 17, // Твой базовый зум
             controls: ['zoomControl', 'fullscreenControl']
         });
 
+        // Твоя настройка: отключаем скролл мышкой, чтобы страница не залипала
         myMap.behaviors.disable('scrollZoom');
 
-        const myPlacemark = new ymaps.Placemark(exactClinicCoordinates, {
-            hintContent: 'Стоматология Dental',
-            balloonContentHeader: '<strong>Dental</strong>',
+        // 1. МЕТКА: Новый Уренгой (твоя оригинальная)
+        const placemarkNUR = new ymaps.Placemark(exactClinicCoordinates, {
+            hintContent: 'Стоматология Dental — Новый Уренгой',
+            balloonContentHeader: '<strong>Dental (Новый Уренгой)</strong>',
             balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
             balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~66.117996,76.679430" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
+        }, {
+            preset: 'islands#blackDarkGlyphIcon' // Твой стильный черный цвет значка
+        });
+
+        // 2. МЕТКА: Москва (сделана по аналогии с твоей первой)
+        const placemarkMSK = new ymaps.Placemark(moscowClinicCoordinates, {
+            hintContent: 'Стоматология Dental — Москва',
+            balloonContentHeader: '<strong>Dental (Москва)</strong>',
+            balloonContentBody: 'Премиальная стоматология<br>Ленинградский проспект, 10',
+            balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~55.782422,37.560126" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
         }, {
             preset: 'islands#blackDarkGlyphIcon'
         });
 
-        myMap.geoObjects.add(myPlacemark);
+        // Добавляем обе метки на карту
+        myMap.geoObjects.add(placemarkNUR).add(placemarkMSK);
     }
+
+// ЛОГИКА ПЕРЕКЛЮЧЕНИЯ АДРЕСОВ ПО КЛИКУ
+    document.querySelectorAll('.map-target-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            if (!myMap) return; // Защита: если карта еще не прогрузилась, выходим
+
+            // Переключаем активный класс подсветки кнопок
+            document.querySelectorAll('.map-target-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Считываем координаты из нажатой кнопки
+            const targetCoords = JSON.parse(this.getAttribute('data-coord'));
+
+            // Плавно летим к новому адресу, сохраняя твой масштаб 17
+            myMap.setCenter(targetCoords, 17, {
+                checkZoomRange: true,
+                duration: 1000 // Время полета камеры — 1 секунда
+            });
+        });
+    });
 
     // === УПРАВЛЕНИЕ СПИСКОМ ОТЗЫВОВ (Через класс-переключатель) ===
     const loadMoreBtn = document.getElementById('loadMoreReviews');
