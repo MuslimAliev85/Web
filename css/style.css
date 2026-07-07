@@ -38,219 +38,212 @@ header {
 .nav-links a:hover { color: var(--accent-blue); }
 
 /* ==========================================================================
-   НОВАЯ ЛЕНТА ИСТОРИИ (КОНТРАСТНЫЙ, ГРАФИЧНЫЙ СТИЛЬ С ОСТРЫМИ УГЛАМИ)
+   ОБНОВЛЕННАЯ ТИПОГРАФИКА И СЕТКА (ШРИФТ КАК НА ФОТО)
 ========================================================================== */
-.hero-timeline {
+
+/* 1. Главная секция — задаем базовый шрифт для всего блока */
+#about.hero-timeline {
+    background-color: #222226 !important;
+    color: #ffffff !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    padding: 160px 0 100px 0;
-
-    /* Изменяем эти параметры */
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-
-    /* ТЕПЕРЬ ТАК: картинка намертво привязана к секции и уезжает вместе с ней */
-    background-attachment: scroll !important;
+    padding: 220px 0 !important;
+    overflow: hidden;
+    /* Включаем антикву по умолчанию */
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    box-sizing: border-box;
+    text-align: center !important;
 }
 
-/* БЕЛЫЙ СЛОЙ-МАСКА ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА */
-.hero-timeline::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.82) !important; /* Мягко глушит фото, проявляя текст */
+/* 2. Контейнер текста */
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto !important;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 2;
+    text-align: center !important;
+}
+
+/* 1. Макро-заголовок "О нас" — стал еще величественнее */
+.about-macro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.2rem;          /* Было 3.5rem -> Сделали крупнее */
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 2px;
+    margin: 20px auto 80px auto !important;
+    color: #ffffff;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   ГЕОМЕТРИЯ ЛИНИЙ (СОХРАНЕНА ИЗ ПРОШЛОГО ШАГА)
+========================================================================== */
+.decor-top-pattern div,
+.decor-bottom-corner {
+    background-color: rgba(255, 255, 255, 0.95);
+    pointer-events: none;
     z-index: 1;
 }
-
-/* Центральная ось для позиционирования */
-.timeline-container {
-    position: relative;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-    z-index: 2; /* ОБЯЗАТЕЛЬНО: приподнимает карточки НАД белой маской */
+.decor-top-pattern {
+    position: absolute;
+    top: -50px;   /* Опущено на 100px ниже, как ты просил */
+    left: -160px;
+    width: 600px;
+    height: 900px;
+}
+.line-decor-v-1 {
+    position: absolute;
+    top: -40px;
+    height: 720px; /* Длинная ось (в 3 раза длиннее) */
+    left: 45px;
+    width: 1px;
+}
+.line-decor-v-2 {
+    position: absolute;
+    top: 20px;
+    height: 480px;
+    left: 65px;
+    width: 1px;
+}
+.line-decor-h-1 {
+    position: absolute;
+    top: 40px;
+    height: 1px;
+    left: -60px;
+    width: 430px; /* Безопасная длина, не задевает заголовок */
+}
+.line-decor-h-2 {
+    position: absolute;
+    top: 60px;
+    height: 1px;
+    left: 0;
+    width: 330px;
+}
+.decor-bottom-corner {
+    position: absolute;
+    right: -140px;
+    bottom: -100px;
+    width: 1px;
+    height: 240px;
+}
+.decor-bottom-corner::before {
+    content: '';
+    position: absolute;
+    bottom: 80px;
+    right: -60px;
+    left: -480px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* Общий стиль для каждой строки */
+
+/* ==========================================================================
+   СТИЛЬ ДЛЯ СТРОК ТЕКСТА
+========================================================================== */
 .timeline-item {
-    display: flex;
-    width: 100%;
     margin-bottom: 45px;
     position: relative;
-}
-
-/* НЕЧЕТНЫЕ окна (1, 3, 5) — выравниваем ПО ЛЕВОМУ краю */
-.timeline-item:nth-child(odd) {
-    justify-content: flex-start;
-}
-
-/* ЧЕТНЫЕ окна (2, 4) — выравниваем ПО ПРАВОМУ краю */
-.timeline-item:nth-child(even) {
-    justify-content: flex-end;
-}
-
-/* ОБНОВЛЕНО: Стилизация карточек (Более темные, контрастные, с острыми углами) */
-.timeline-card {
     width: 100%;
-    max-width: 500px;
-    background: #e2e2e5; /* ОБНОВЛЕНО: Более глубокий, уверенный серый цвет фона */
-    padding: 35px 40px;
-    border-radius: 6px;  /* ОБНОВЛЕНО: Убрали круглые формы, углы теперь строгие и острые */
-    border: 1px solid #000000;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
 }
 
-/* ОБНОВЛЕНО: Стили текста первых четырех окон (Максимальный контраст) */
+.timeline-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* 2. Основные абзацы текста — теперь они крупные и плотные, как на фото */
 .timeline-card p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #000000;       /* ОБНОВЛЕНО: Глубокий, абсолютно черный цвет для контраста */
-    margin: 0;
-    font-weight: 400;    /* ОБНОВЛЕНО: Сделали шрифт плотнее, убрав излишнюю тонкость */
-}
-
-/* Микро-интерактив при наведении */
-.timeline-card:hover {
-    transform: translateY(-3px);
-    background: #dadade; /* Чуть темнеет при наведении, подчеркивая строгую графику */
-}
-
-/* ОБНОВЛЕНО: Рукописное 5-е окно сохраняет свою индивидуальность */
-.timeline-card.handwritten-card {
-    background: #ededf0; /* Оставляем его чуть светлее остальных, чтобы выделить финал */
-    border-radius: 6px;  /* Тоже делаем углы острыми для соблюдения общего стиля */
-}
-
-.timeline-card.handwritten-card p {
-    font-family: 'Caveat', cursive;
-    font-size: 1.85rem;
-    line-height: 1.3;
-    color: #007AFF;      /* Фирменный акцентный синий */
-    font-weight: 700;
-}
-
-/* Адаптивность под мобильные устройства */
-@media (max-width: 768px) {
-    .hero-timeline {
-        padding-top: 120px;
-        background-attachment: scroll !important; /* ДОБАВИТЬ ЭТУ СТРОКУ: отключает параллакс на телефонах */
-    }
-    .timeline-item:nth-child(odd),
-    .timeline-item:nth-child(even) {
-        justify-content: center;
-    }
-    .timeline-card {
-        max-width: 100%;
-        padding: 25px 30px;
-    }
-    .timeline-card.handwritten-card p {
-        font-size: 1.6rem;
-    }
-}
-
-/* О клинике */
-/* О клинике — НАСТРОЙКА ПЕРЕКРЫТИЯ */
-.about {
-    padding: 120px 5%;
-    max-width: 1300px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.85rem;         /* Было 1.35rem -> Заметно увеличили масштаб */
+    line-height: 1.65;          /* Чуть уплотнили интервал для собранности */
+    color: #f0f0f0;
     margin: 0 auto;
-
-    background-color: #ffffff; /* ОБЯЗАТЕЛЬНО: делаем секцию непрозрачной */
-    position: relative;        /* Чтобы сработал z-index */
-    z-index: 10;               /* Приподнимаем над первой секцией */
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    text-align: center !important;
+    max-width: 740px;           /* Немного расширили рамки, чтобы строки не рубились по два слова */
 }
-.about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: start; }
-.about-text h2 { font-size: 3rem; margin-bottom: 40px; line-height: 1.2; font-weight: 600; }
-.about-content { color: #4a4a4a; font-size: 1.1rem; }
-.about-content p { margin-bottom: 20px; }
-.about-image { position: sticky; top: 120px; }
-.about-image img { width: 100%; border-radius: 60px; box-shadow: 0 40px 80px rgba(0,0,0,0.06); }
+
+/* Финальный акцентный абзац */
+.handwritten-card {
+    margin-top: 90px;
+    position: relative;
+}
+
+/* 3. Финальный акцентный абзац */
+.handwritten-card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 2.1rem;          /* Было 1.5rem -> Оформили как главный финальный акцент */
+    color: #ffffff;
+    font-weight: 400;
+    text-align: center !important;
+    margin: 0 auto;
+    max-width: 680px;
+}
+
 
 /* ==========================================================================
-   ИЗОЛИРОВАННЫЙ ИСПРАВЛЕННЫЙ КОД РАМКИ (ИЗ ФОТО B2.JPG)
+   АДАПТИВНОСТЬ
 ========================================================================== */
-
-.timeline-container {
-    /* 1. Внутренние отступы, чтобы текст карточек не ложился на линии рамки */
-    padding: 60px 80px !important;
-    box-sizing: border-box !important;
-
-    /* 2. Сбрасываем старый фоновый рисунок, чтобы он не двоился под рамкой */
-    background-image: none !important;
-
-    /* 3. Включаем рамку (Замени пути на ../img/, если CSS лежит в отдельной папке) */
-    border: 160px solid transparent !important;
-    border-image-source: url('../img/b2.jpg') !important;
-
-    /* ВАЖНО: fill заставляет браузер использовать центр b2.jpg как фон, идеально стыкуя его с краями */
-    border-image-slice: 160 fill !important;
-
-    border-image-width: 60px !important;  /* Толщина рамки на экране */
-    border-image-repeat: stretch !important;
-}
-
-/* Адаптивность рамки под мобильные устройства */
-@media (max-width: 768px) {
-    .timeline-container {
-        border-width: 40px !important;
-        border-image-width: 40px !important; /* Делаем рамку тоньше на смартфонах */
-        border-image-slice: 120 fill !important; /* Корректируем нарезку под узкий экран */
-        padding: 30px 20px !important;
-    }
+@media (max-width: 992px) {
+    .decor-top-pattern { width: 300px; left: -40px; top: -20px; height: 500px; }
+    .line-decor-v-1 { height: 400px; }
+    .line-decor-v-2 { height: 280px; }
+    .line-decor-h-1 { width: 300px; }
+    .line-decor-h-2 { width: 220px; }
+    .decor-bottom-corner { right: -40px; bottom: -60px; }
+    .decor-bottom-corner::before { left: -320px; }
 }
 
 /* ==========================================================================
-   ФИНАЛЬНАЯ КОРРЕКЦИЯ ВЫРАВНИВАНИЯ И РАЗМЕРА ЗАГОЛОВКА
+   ОБНОВЛЕННЫЙ АДАПТИВ (ЧТОБЫ НА ТЕЛЕФОНАХ ШРИФТ ТОЖЕ ОСТАЛСЯ ЧИТАЕМЫМ)
 ========================================================================== */
-
-/* 1. Выравниваем «потолок и пол» всей секции (поднимаем выше и делаем симметрию) */
-.hero-timeline {
-    padding: 120px 0 !important; /* Было 160px сверху и 100px снизу — теперь идеально по 120px */
-}
-
-/* 2. Уменьшаем заголовок под размер и стиль других категорий (как в .about) */
-.timeline-container h2,
-.about-macro-title {
-    font-size: 3rem !important;      /* Точный размер остальных категорий сайта */
-    font-weight: 600 !important;     /* Убираем избыточную толщину, делаем аккуратным */
-    letter-spacing: normal !important; /* Возвращаем стандартный межбуквенный интервал */
-
-    margin-top: 10px !important;     /* Легкий баланс от верхнего края рамки */
-    margin-bottom: 50px !important;  /* Оптимальный отступ до первой карточки */
-}
-
-/* Мобильная адаптация, чтобы на телефонах тоже ничего не ехало */
 @media (max-width: 768px) {
-    .hero-timeline {
-        padding: 80px 0 !important;  /* Симметричные отступы на смартфонах */
-    }
-    .timeline-container h2,
-    .about-macro-title {
-        font-size: 2.2rem !important; /* Пропорционально уменьшаем на экранах телефонов */
-        margin-bottom: 35px !important;
-    }
-}
+    #about.hero-timeline { padding: 120px 20px 80px 20px !important; }
+    .line-decor-v-2, .line-decor-h-2 { display: none !important; }
+    .decor-top-pattern { left: -10px; top: -10px; height: 300px; }
+    .line-decor-v-1 { left: 20px; height: 250px; }
+    .line-decor-h-1 { width: 160px; }
+    .decor-bottom-corner { right: 10px; bottom: -40px; }
+    .decor-bottom-corner::before { left: -180px; }
 
-/* Результаты - Адаптивный Мега-Слайдер со шторкой */
+    /* Пропорционально увеличили мобильные размеры */
+    .about-macro-title { font-size: 2.6rem; letter-spacing: 2px; }
+    .timeline-card p { font-size: 1.45rem; line-height: 1.6; }
+    .handwritten-card p { font-size: 1.65rem; }
+}
+/* Результаты - 5 отдельных премиальных окон */
 .results { padding: 120px 5%; background: var(--light-gray); }
 .results-header { text-align: center; margin-bottom: 60px; }
 .results-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.results-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6}
+.results-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
 .main-gallery-wrapper { max-width: 900px; margin: 0 auto; }
-.mega-slider-card { background: #ffffff; padding: 35px; border-radius: 50px; box-shadow: 0 30px 60px rgba(0,0,0,0.04); }
+
+/* Каждое окно теперь имеет независимый отступ друг от друга */
+.mega-slider-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 50px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+    margin-bottom: 50px; /* Отступ между окнами */
+}
+.mega-slider-card:last-child { margin-bottom: 0; } /* У последнего окна отступ убираем */
 
 .showcase-viewport { overflow: hidden; border-radius: 32px; background: #f5f5f7; width: 100%; }
-.cases-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 500%; }
-.case-slide { width: 20%; flex-shrink: 0; display: flex; flex-direction: column; }
 
-/* ==========================================
-   ВОЗВРАЩАЕМ СТРУКТУРУ И ДОБАВЛЯЕМ КОРРЕКЦИЮ
-========================================== */
 .ba-slider {
     position: relative;
     height: 500px;
@@ -268,7 +261,6 @@ header {
     overflow: hidden;
 }
 
-/* Базовые настройки: картинка занимает всю площадь, но мы разрешаем её двигать */
 .side img {
     position: absolute;
     height: 100%;
@@ -278,20 +270,11 @@ header {
 }
 
 /* До - слева */
-.before-side {
-    left: 0;
-    width: 50%;
-    z-index: 2;
-}
-
+.before-side { left: 0; width: 50%; z-index: 2; }
 /* После - справа */
-.after-side {
-    left: 0;
-    width: 100%;
-    z-index: 1;
-}
+.after-side { left: 0; width: 100%; z-index: 1; }
 
-/* Линия-разделитель */
+/* Линия-разделитель (Шторка) */
 .drag-line {
     position: absolute;
     top: 0;
@@ -319,35 +302,39 @@ header {
 }
 .drag-button::before { content: '↔'; color: var(--text-main); font-size: 1.2rem; font-weight: 600; }
 
+.case-info { padding: 30px 10px 10px 10px; }
+.case-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
+.case-info p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5; }
+
 
 /* =======================================================
-   БЛОК РУЧНОЙ ПОДГОНКИ КАРТИНОК
-   Внутри translate: первая цифра — вправо/влево, вторая — вверх/вниз
+   СОХРАНЕННЫЙ БЛОК РУЧНОЙ ПОДГОНКИ КАРТИНОК (ПЕРЕВЯЗАН НА ОКНА)
    ======================================================= */
 
-/* --- КЕЙС 1 --- */
-/* Если в Кейсе 1 на фото "После" нужно поднять зубы на 20 пикселей вверх: */
-.case-slide:nth-child(1) .before-side img { transform: translate(-30px, 50px) scale(1.7); }
-.case-slide:nth-child(1) .after-side img  { transform: translate(-120px, 65px) scale(1.4); }
+/* --- ОКНО 1 --- */
+.mega-slider-card:nth-child(1) .before-side img { transform: translate(-30px, 50px) scale(1.7); }
+.mega-slider-card:nth-child(1) .after-side img  { transform: translate(-120px, 65px) scale(1.4); }
 
-/* --- КЕЙС 2 --- */
-/* Если в Кейсе 2 на фото "После" нужно опустить зубы на 10 пикселей вниз: */
-.case-slide:nth-child(2) .before-side img { transform: translate(0px, 0px) scale(1.5); }
-.case-slide:nth-child(2) .after-side img  { transform: translate(-80px, 70px) scale(1.5); }
+/* --- ОКНО 2 --- */
+.mega-slider-card:nth-child(2) .before-side img { transform: translate(0px, 0px) scale(1.5); }
+.mega-slider-card:nth-child(2) .after-side img  { transform: translate(-80px, 70px) scale(1.5); }
 
-/* --- КЕЙС 3 --- */
-.case-slide:nth-child(3) .before-side img { transform: translate(0px, 15px) scale(1.3); }
-.case-slide:nth-child(3) .after-side img  { transform: translate(30px, -50px) scale(1.3); }
+/* --- ОКНО 3 --- */
+.mega-slider-card:nth-child(3) .before-side img { transform: translate(0px, 15px) scale(1.3); }
+.mega-slider-card:nth-child(3) .after-side img  { transform: translate(30px, -50px) scale(1.3); }
 
-/* --- КЕЙС 4 --- */
-.case-slide:nth-child(4) .before-side img { transform: translate(25px, -20px) scale(1.1); }
-.case-slide:nth-child(4) .after-side img  { transform: translate(0px, 30px) scale(1.2); }
+/* --- ОКНО 4 --- */
+.mega-slider-card:nth-child(4) .before-side img { transform: translate(25px, -20px) scale(1.1); }
+.mega-slider-card:nth-child(4) .after-side img  { transform: translate(0px, 30px) scale(1.2); }
 
-/* --- КЕЙС 5 --- */
-.case-slide:nth-child(5) .before-side img { transform: translate(0px, 15px) scale(1.1); }
-.case-slide:nth-child(5) .after-side img  { transform: translate(0px, 0px) scale(1); }
+/* --- ОКНО 5 --- */
+.mega-slider-card:nth-child(5) .before-side img { transform: translate(0px, 15px) scale(1.1); }
+.mega-slider-card:nth-child(5) .after-side img  { transform: translate(0px, 0px) scale(1); }
 
-.case-info { padding: 30px 10px 10px 10px; }
+.case-info {
+    padding: 30px 10px 10px 10px;
+    text-align: center; /* Выравниваем заголовки и описание работ по центру */
+}
 .case-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
 .case-info p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5; }
 

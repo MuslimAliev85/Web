@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8d74075-9e1c-42b7-97db-89541833bb97" name="Changes" comment="Web" />
+    <list default="true" id="b8d74075-9e1c-42b7-97db-89541833bb97" name="Changes" comment="Web">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +37,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MuslimAliev85/Web.git&quot;,
-    &quot;accountId&quot;: &quot;50f2b792-6334-458f-8b77-7f2cd384cad4&quot;
+    &quot;accountId&quot;: &quot;0708d909-41bb-4934-aa4b-52f595ef57eb&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -87,7 +91,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.24374.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
       </set>
     </attachedChunks>
   </component>
@@ -172,7 +176,15 @@
       <workItem from="1781374538236" duration="2705000" />
       <workItem from="1781542513359" duration="1197000" />
       <workItem from="1781632952715" duration="2315000" />
-      <workItem from="1781799300645" duration="1602000" />
+      <workItem from="1781799300645" duration="1961000" />
+      <workItem from="1782149786202" duration="3445000" />
+      <workItem from="1782311263779" duration="2279000" />
+      <workItem from="1782574518238" duration="6000" />
+      <workItem from="1782574547404" duration="134000" />
+      <workItem from="1782582851484" duration="22000" />
+      <workItem from="1782650261341" duration="6000" />
+      <workItem from="1782921231053" duration="1208000" />
+      <workItem from="1783447363881" duration="1544000" />
     </task>
     <task id="LOCAL-00007" summary="Web">
       <option name="closed" value="true" />
@@ -294,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781815419911</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Web">
+      <option name="closed" value="true" />
+      <created>1781815535076</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1781815535076</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
