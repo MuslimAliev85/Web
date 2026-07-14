@@ -1,3 +1,4 @@
+/*region 1. Базовые стили, переменные и анимация загрузки */
 :root {
     --bg-color: #ffffff;
     --accent-blue: #007AFF;
@@ -7,8 +8,16 @@
     --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', -apple-system, sans-serif;
     background-color: var(--bg-color);
@@ -18,7 +27,98 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Шапка */
+body.loading {
+    overflow: hidden;
+}
+
+#intro-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #505050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+}
+
+#intro-loader.fade-out {
+    transform: translateY(-100%);
+}
+
+.intro-logo {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to right, #ffffff 50%, #757577 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: textFillReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+}
+
+.intro-logo span {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    display: inline-block;
+    transform-origin: center center;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+#intro-loader.disintegrate .intro-logo {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+}
+
+#intro-loader.disintegrate .intro-logo span {
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+    animation-name: letterDropDown;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    animation-fill-mode: forwards;
+}
+
+#intro-loader.disintegrate .intro-logo span:nth-child(1) { animation-delay: 0.0s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(2) { animation-delay: 0.2s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(3) { animation-delay: 0.4s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(4) { animation-delay: 0.6s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(5) { animation-delay: 0.8s; }
+#intro-loader.disintegrate .intro-logo span:nth-child(6) { animation-delay: 1.0s; }
+
+@keyframes letterDropDown {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+}
+
+@keyframes textFillReveal {
+    0% { background-position: 100% 0; }
+    100% { background-position: 0% 0; }
+}
+
+@keyframes fadeInUpMap {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/*endregion*/
+
+/*region 2. Шапка сайта и навигация */
 header {
     padding: 20px 5%;
     display: flex;
@@ -33,77 +133,87 @@ header {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     transition: var(--transition);
 }
-.logo { font-weight: 600; font-size: 1.4rem; letter-spacing: -0.5px; text-transform: uppercase; }
-.nav-links a { text-decoration: none; color: var(--text-main); margin-left: 30px; font-size: 0.9rem; transition: 0.3s; }
-.nav-links a:hover { color: var(--accent-blue); }
 
-/* ==========================================================================
-   ОБНОВЛЕННАЯ ТИПОГРАФИКА И СЕТКА (ШРИФТ КАК НА ФОТО)
-========================================================================== */
+.logo {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
 
-/* 1. Главная секция — задаем базовый шрифт для всего блока */
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    margin-left: 30px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-blue);
+}
+/*endregion*/
+
+/*region 3. Главная секция и декоративные линии */
 #about.hero-timeline {
-    background-color: #222226 !important;
-    color: #ffffff !important;
+    background-color: #222226;
+    color: #ffffff;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 220px 0 !important;
+    padding: 220px 0;
     overflow: hidden;
-    /* Включаем антикву по умолчанию */
     font-family: 'Cormorant Garamond', Georgia, serif;
     box-sizing: border-box;
-    text-align: center !important;
+    text-align: center;
 }
 
-/* 2. Контейнер текста */
 .timeline-container {
     position: relative;
     max-width: 800px;
-    margin: 0 auto !important;
+    margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
     z-index: 2;
-    text-align: center !important;
+    text-align: center;
 }
 
-/* 1. Макро-заголовок "О нас" — стал еще величественнее */
 .about-macro-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4.2rem;          /* Было 3.5rem -> Сделали крупнее */
+    font-size: 4.2rem;
     font-weight: 400;
     font-style: italic;
     letter-spacing: 2px;
-    margin: 20px auto 80px auto !important;
+    margin: 20px auto 80px auto;
     color: #ffffff;
     display: inline-block;
 }
 
-/* ==========================================================================
-   ГЕОМЕТРИЯ ЛИНИЙ (СОХРАНЕНА ИЗ ПРОШЛОГО ШАГА)
-========================================================================== */
 .decor-top-pattern div,
 .decor-bottom-corner {
     background-color: rgba(255, 255, 255, 0.95);
     pointer-events: none;
     z-index: 1;
 }
+
 .decor-top-pattern {
     position: absolute;
-    top: -50px;   /* Опущено на 100px ниже, как ты просил */
+    top: -50px;
     left: -160px;
     width: 600px;
     height: 900px;
 }
+
 .line-decor-v-1 {
     position: absolute;
     top: -40px;
-    height: 720px; /* Длинная ось (в 3 раза длиннее) */
+    height: 720px;
     left: 45px;
     width: 1px;
 }
+
 .line-decor-v-2 {
     position: absolute;
     top: 20px;
@@ -111,13 +221,15 @@ header {
     left: 65px;
     width: 1px;
 }
+
 .line-decor-h-1 {
     position: absolute;
     top: 40px;
     height: 1px;
     left: -60px;
-    width: 430px; /* Безопасная длина, не задевает заголовок */
+    width: 430px;
 }
+
 .line-decor-h-2 {
     position: absolute;
     top: 60px;
@@ -125,6 +237,7 @@ header {
     left: 0;
     width: 330px;
 }
+
 .decor-bottom-corner {
     position: absolute;
     right: -140px;
@@ -132,6 +245,7 @@ header {
     width: 1px;
     height: 240px;
 }
+
 .decor-bottom-corner::before {
     content: '';
     position: absolute;
@@ -142,10 +256,6 @@ header {
     background-color: rgba(255, 255, 255, 0.95);
 }
 
-
-/* ==========================================================================
-   СТИЛЬ ДЛЯ СТРОК ТЕКСТА
-========================================================================== */
 .timeline-item {
     margin-bottom: 45px;
     position: relative;
@@ -155,94 +265,90 @@ header {
 }
 
 .timeline-card {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
 }
 
-/* 2. Основные абзацы текста — теперь они крупные и плотные, как на фото */
 .timeline-card p {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.85rem;         /* Было 1.35rem -> Заметно увеличили масштаб */
-    line-height: 1.65;          /* Чуть уплотнили интервал для собранности */
+    font-size: 1.85rem;
+    line-height: 1.65;
     color: #f0f0f0;
     margin: 0 auto;
     font-weight: 400;
     letter-spacing: 0.2px;
-    text-align: center !important;
-    max-width: 740px;           /* Немного расширили рамки, чтобы строки не рубились по два слова */
+    text-align: center;
+    max-width: 740px;
 }
 
-/* Финальный акцентный абзац */
 .handwritten-card {
     margin-top: 90px;
     position: relative;
 }
 
-/* 3. Финальный акцентный абзац */
 .handwritten-card p {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 2.1rem;          /* Было 1.5rem -> Оформили как главный финальный акцент */
+    font-size: 2.1rem;
     color: #ffffff;
     font-weight: 400;
-    text-align: center !important;
+    text-align: center;
     margin: 0 auto;
     max-width: 680px;
 }
+/*endregion*/
 
-
-/* ==========================================================================
-   АДАПТИВНОСТЬ
-========================================================================== */
-@media (max-width: 992px) {
-    .decor-top-pattern { width: 300px; left: -40px; top: -20px; height: 500px; }
-    .line-decor-v-1 { height: 400px; }
-    .line-decor-v-2 { height: 280px; }
-    .line-decor-h-1 { width: 300px; }
-    .line-decor-h-2 { width: 220px; }
-    .decor-bottom-corner { right: -40px; bottom: -60px; }
-    .decor-bottom-corner::before { left: -320px; }
+/*region 4. Результаты и слайдер сравнения "До / После" */
+.results {
+    padding: 120px 5%;
+    background: var(--light-gray);
 }
 
-/* ==========================================================================
-   ОБНОВЛЕННЫЙ АДАПТИВ (ЧТОБЫ НА ТЕЛЕФОНАХ ШРИФТ ТОЖЕ ОСТАЛСЯ ЧИТАЕМЫМ)
-========================================================================== */
-@media (max-width: 768px) {
-    #about.hero-timeline { padding: 120px 20px 80px 20px !important; }
-    .line-decor-v-2, .line-decor-h-2 { display: none !important; }
-    .decor-top-pattern { left: -10px; top: -10px; height: 300px; }
-    .line-decor-v-1 { left: 20px; height: 250px; }
-    .line-decor-h-1 { width: 160px; }
-    .decor-bottom-corner { right: 10px; bottom: -40px; }
-    .decor-bottom-corner::before { left: -180px; }
-
-    /* Пропорционально увеличили мобильные размеры */
-    .about-macro-title { font-size: 2.6rem; letter-spacing: 2px; }
-    .timeline-card p { font-size: 1.45rem; line-height: 1.6; }
-    .handwritten-card p { font-size: 1.65rem; }
+.results-header {
+    text-align: center;
+    margin-bottom: 60px;
 }
-/* Результаты - 5 отдельных премиальных окон */
-.results { padding: 120px 5%; background: var(--light-gray); }
-.results-header { text-align: center; margin-bottom: 60px; }
-.results-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.results-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-.main-gallery-wrapper { max-width: 900px; margin: 0 auto; }
+.results-header h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
 
-/* Каждое окно теперь имеет независимый отступ друг от друга */
+.results-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.main-gallery-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .mega-slider-card {
     background: #ffffff;
     padding: 35px;
     border-radius: 50px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.04);
-    margin-bottom: 50px; /* Отступ между окнами */
+    margin-bottom: 50px;
 }
-.mega-slider-card:last-child { margin-bottom: 0; } /* У последнего окна отступ убираем */
 
-.showcase-viewport { overflow: hidden; border-radius: 32px; background: #f5f5f7; width: 100%; }
+.mega-slider-card:last-child {
+    margin-bottom: 0;
+}
+
+.showcase-viewport {
+    overflow: hidden;
+    border-radius: 32px;
+    background: #f5f5f7;
+    width: 100%;
+}
 
 .ba-slider {
     position: relative;
@@ -269,12 +375,18 @@ header {
     pointer-events: none;
 }
 
-/* До - слева */
-.before-side { left: 0; width: 50%; z-index: 2; }
-/* После - справа */
-.after-side { left: 0; width: 100%; z-index: 1; }
+.before-side {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
 
-/* Линия-разделитель (Шторка) */
+.after-side {
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
 .drag-line {
     position: absolute;
     top: 0;
@@ -286,6 +398,7 @@ header {
     z-index: 3;
     cursor: ew-resize;
 }
+
 .drag-button {
     position: absolute;
     top: 50%;
@@ -300,56 +413,113 @@ header {
     align-items: center;
     justify-content: center;
 }
-.drag-button::before { content: '↔'; color: var(--text-main); font-size: 1.2rem; font-weight: 600; }
 
-.case-info { padding: 30px 10px 10px 10px; }
-.case-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
-.case-info p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5; }
-
-
-/* =======================================================
-   СОХРАНЕННЫЙ БЛОК РУЧНОЙ ПОДГОНКИ КАРТИНОК (ПЕРЕВЯЗАН НА ОКНА)
-   ======================================================= */
-
-/* --- ОКНО 1 --- */
-.mega-slider-card:nth-child(1) .before-side img { transform: translate(-30px, 50px) scale(1.7); }
-.mega-slider-card:nth-child(1) .after-side img  { transform: translate(-120px, 65px) scale(1.4); }
-
-/* --- ОКНО 2 --- */
-.mega-slider-card:nth-child(2) .before-side img { transform: translate(0px, 0px) scale(1.5); }
-.mega-slider-card:nth-child(2) .after-side img  { transform: translate(-80px, 70px) scale(1.5); }
-
-/* --- ОКНО 3 --- */
-.mega-slider-card:nth-child(3) .before-side img { transform: translate(0px, 15px) scale(1.3); }
-.mega-slider-card:nth-child(3) .after-side img  { transform: translate(30px, -50px) scale(1.3); }
-
-/* --- ОКНО 4 --- */
-.mega-slider-card:nth-child(4) .before-side img { transform: translate(25px, -20px) scale(1.1); }
-.mega-slider-card:nth-child(4) .after-side img  { transform: translate(0px, 30px) scale(1.2); }
-
-/* --- ОКНО 5 --- */
-.mega-slider-card:nth-child(5) .before-side img { transform: translate(0px, 15px) scale(1.1); }
-.mega-slider-card:nth-child(5) .after-side img  { transform: translate(0px, 0px) scale(1); }
+.drag-button::before {
+    content: '↔';
+    color: var(--text-main);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
 
 .case-info {
     padding: 30px 10px 10px 10px;
-    text-align: center; /* Выравниваем заголовки и описание работ по центру */
+    text-align: center;
 }
-.case-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
-.case-info p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5; }
 
-/* Стрелки навигации */
-.gallery-controls { display: flex; justify-content: center; align-items: center; margin-top: 25px; }
-.nav-arrows { display: flex; align-items: center; gap: 20px; }
-.arrow-btn { background: var(--light-gray); border: none; color: var(--text-main); width: 50px; height: 50px; border-radius: 50%; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-.arrow-btn:hover { background: #e5e5ea; color: var(--accent-blue); transform: scale(1.05); }
-.counter { font-size: 1rem; font-weight: 600; color: var(--text-main); min-width: 70px; text-align: center; }
+.case-info h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
 
-/* Персонал: Сетка под 5 карточек */
-.team { padding: 120px 5%; background: var(--bg-color); text-align: center; }
-.team-header { margin-bottom: 60px; }
-.team-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 600; }
-.team-header p { color: var(--text-secondary); font-size: 1.1rem; }
+.case-info p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.mega-slider-card:nth-child(1) .before-side img { transform: translate(-30px, 50px) scale(1.7); }
+.mega-slider-card:nth-child(1) .after-side img  { transform: translate(-120px, 65px) scale(1.4); }
+
+.mega-slider-card:nth-child(2) .before-side img { transform: translate(0px, 0px) scale(1.5); }
+.mega-slider-card:nth-child(2) .after-side img  { transform: translate(-80px, 70px) scale(1.5); }
+
+.mega-slider-card:nth-child(3) .before-side img { transform: translate(0px, 15px) scale(1.3); }
+.mega-slider-card:nth-child(3) .after-side img  { transform: translate(30px, -50px) scale(1.3); }
+
+.mega-slider-card:nth-child(4) .before-side img { transform: translate(25px, -20px) scale(1.1); }
+.mega-slider-card:nth-child(4) .after-side img  { transform: translate(0px, 30px) scale(1.2); }
+
+.mega-slider-card:nth-child(5) .before-side img { transform: translate(0px, 15px) scale(1.1); }
+.mega-slider-card:nth-child(5) .after-side img  { transform: translate(0px, 0px) scale(1); }
+
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.nav-arrows {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.arrow-btn {
+    background: var(--light-gray);
+    border: none;
+    color: var(--text-main);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.arrow-btn:hover {
+    background: #e5e5ea;
+    color: var(--accent-blue);
+    transform: scale(1.05);
+}
+
+.counter {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    min-width: 70px;
+    text-align: center;
+}
+/*endregion*/
+
+/*region 5. Наша команда и персонал */
+.team {
+    padding: 100px 0;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 90px;
+    padding: 0 20px;
+}
+
+.team-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.team-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
 
 .team-grid {
     display: grid;
@@ -358,121 +528,153 @@ header {
     max-width: 1300px;
     margin: 0 auto;
 }
-.member-card { background: var(--light-gray); padding: 15px; border-radius: 35px; text-align: left; transition: var(--transition); }
-.member-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
 
-.member-image { height: 320px; border-radius: 25px; overflow: hidden; margin-bottom: 15px; background-position: center 20%; background-repeat: no-repeat; background-size: cover; }
-.member-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); line-height: 1.3; }
-.member-card p { color: var(--accent-blue); font-size: 0.85rem; }
+.member-card {
+    background: var(--light-gray);
+    padding: 15px;
+    border-radius: 35px;
+    text-align: left;
+    transition: var(--transition);
+}
 
-/* Контакты */
-.contacts { padding: 120px 10%; background: #18181b; color: white; border-radius: 80px 80px 0 0; text-align: center; }
-.contacts h2 { font-size: 2.5rem; margin-bottom: 20px; }
-.contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-.contact-item h3 { color: var(--accent-blue); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
-.contact-item p { font-size: 1.4rem; font-weight: 300; }
+.member-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-main);
+    line-height: 1.3;
+}
 
-/* Контейнер для кнопок-адресов внутри карточки */
-.contacts-addresses {
+.member-card p {
+    color: var(--accent-blue);
+    font-size: 0.85rem;
+}
+
+.member-card .member-image {
+    height: 320px;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.team-rows-container {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ededf0;
+    min-height: 240px;
+    position: relative;
+    padding: 20px 80px;
+    border-radius: 4px;
+}
+
+.member-row:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.member-info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    width: 55%;
+}
+
+.member-row:not(:nth-child(even)) .member-info-box {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.member-row:nth-child(even) .member-info-box {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.member-titles h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #1d1d1f;
+    margin: 0 0 8px 0;
+}
+
+.member-titles .position {
+    font-size: 1.1rem;
+    color: #515154;
+    margin: 0;
+}
+
+.member-actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 15px;
+    width: 260px;
 }
 
-/* Стиль кнопок в общем стиле сайта */
-.map-target-btn {
-    background: #e2e2e5; /* Серый цвет карточек */
-    border: 1px solid #000000; /* Тонкая черная обводка */
-    padding: 12px 15px;
-    font-size: 1rem;
-    line-height: 1.4;
-    font-weight: 500;
-    color: #000000;
-    cursor: pointer;
+.btn-more, .btn-book {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
     border-radius: 6px;
-    text-align: left; /* Текст выравниваем по левому краю, как в оригинале */
+    cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.btn-more {
+    background: transparent;
+    color: #1d1d1f;
+    border: 1px solid #1d1d1f;
+}
+
+.btn-more:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-book {
+    background: #1d1d1f;
+    color: #ffffff;
+    border: 1px solid #1d1d1f;
+}
+
+.btn-book:hover {
+    background: #333336;
+    border-color: #333336;
+}
+
+.member-photo-box {
+    position: relative;
+    width: 320px;
+    height: 380px;
+    margin-top: -70px;
+    margin-bottom: -70px;
+    z-index: 5;
+}
+
+.member-photo-box .member-image {
     width: 100%;
+    height: 100%;
+    background-color: #b8b8bc;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
+/*endregion*/
 
-/* Эффект наведения */
-.map-target-btn:hover {
-    background: #dadade;
-    transform: translateY(-2px);
-}
-
-/* Активный адрес (подсвечивается синим цветом логотипа) */
-.map-target-btn.active {
-    background: #2E4A6F !important;
-    color: #ffffff !important;
-    border-color: #2E4A6F !important;
-}
-
-@media (max-width: 1024px) {
-    .about-grid { grid-template-columns: 1fr; gap: 60px; }
-    .about-image { position: static; }
-    .ba-slider { height: 380px; }
-}
-
-/* Контейнер для карты с отступом и скруглением */
-.map-wrapper {
-    max-width: 1100px;
-    margin: 50px auto 0 auto;
-    border-radius: 40px;
-    overflow: hidden; /* Чтобы углы карты скруглялись */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-
-    /* Плавное проявление при загрузке страницы */
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUpMap 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.5s;
-}
-
-/* ==========================================
-   СТРОГИЙ ТЕМНО-СЕРЫЙ МОНОХРОМ (БЕЗ ЦВЕТОВ)
-========================================== */
-#map {
-    width: 100%;
-    height: 450px;
-    border-radius: 40px;
-    overflow: hidden;
-    background: #1a1a1e; /* Базовый темно-серый фон */
-
-    /* Идеальный баланс: убираем цвета, инвертируем и глушим белый неон */
-    filter: grayscale(100%) invert(92%) brightness(85%) contrast(120%);
-}
-
-/* Приглушаем подписи и кнопки Яндекса, чтобы они не выбивались из стиля */
-#map [class*="controls-pane"],
-#map [class*="copyright"] {
-    filter: grayscale(100%) invert(92%) brightness(80%) !important;
-}
-
-/* Анимация плавного появления */
-@keyframes fadeInUpMap {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Адаптив для мобилок */
-@media (max-width: 768px) {
-    .map-wrapper {
-        margin-top: 40px;
-        border-radius: 24px;
-    }
-    #map {
-        height: 300px; /* На смартфонах карту делаем чуть компактнее */
-    }
-}
-
-/* ==========================================================================
-   ОБНОВЛЕННЫЙ СТИЛЬ ОТЗЫВОВ (ИСПРАВЛЕННЫЙ ТРЕК СКРОЛЛА)
-========================================================================== */
+/*region 6. Отзывы клиентов */
 .reviews {
     padding: 100px 0;
     background-color: #18181b;
@@ -497,27 +699,24 @@ header {
     font-size: 1.1rem;
 }
 
-/* Контейнер сетки с увеличенными отступами для плавного хода sticky-текста */
 .reviews-container {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    gap: 90px; /* Было 60px. Чем больше цифра, тем дальше колонки друг от друга */
+    gap: 90px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 5% 80px 5%;
 }
 
-/* Левая колонка — теперь это полноценная рельса на всю высоту списка отзывов */
 .reviews-motivation {
     position: relative;
     height: 100%;
-    border-right: 1px solid #3f3f46; /* Стильная серая линия-разделитель */
+    border-right: 1px solid #3f3f46;
     padding: 200px 5% 200px 5%;
 }
 
-/* Исправленный фиксированный блок: без устаревших префиксов */
 .motivation-sticky {
-    position: sticky; /* Этой строчки сейчас абсолютно достаточно */
+    position: sticky;
     top: 50vh;
     transform: translateY(-50%);
     text-align: center;
@@ -533,7 +732,6 @@ header {
     margin: 0;
 }
 
-/* Правая колонка: список карточек */
 .reviews-list {
     display: flex;
     flex-direction: column;
@@ -543,7 +741,7 @@ header {
 .review-item {
     background: #222226;
     padding: 35px;
-    border-radius: 6px; /* Строгие острые углы */
+    border-radius: 6px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, border-color 0.3s ease;
     border-left: 3px solid #3f3f46;
@@ -582,7 +780,6 @@ header {
     color: #71717a;
 }
 
-/* Элементы скрытия */
 .review-item.hidden-review {
     display: none;
     opacity: 0;
@@ -591,7 +788,7 @@ header {
 }
 
 .review-item.show-animated {
-    display: block !important;
+    display: block;
     opacity: 1;
     transform: translateY(0);
 }
@@ -616,58 +813,66 @@ header {
     border-color: #ffffff;
 }
 
-/* Контейнер для кнопок управления */
-.reviews-controls {
-    width: 100%;
-    margin-top: 10px;
-}
-
-/* Стили для кнопки "Скрыть", если захочется сделать её чуть блеклее (опционально) */
 .btn-hide-reviews {
     border-color: #2f2f35;
     color: #a1a1aa;
 }
 
-/* Контейнер для кнопок */
 .reviews-controls {
     width: 100%;
     margin-top: 20px;
 }
 
-/* По умолчанию: кнопку Скрыть — прячем, Читать больше — показываем */
 #hideReviews {
     display: none;
 }
+
 #loadMoreReviews {
     display: block;
 }
 
-/* Когда список раскрыт (JS добавит класс .expanded контейнеру) */
 .reviews-controls.expanded #hideReviews {
-    display: block !important; /* Гарантированно показываем */
+    display: block;
 }
+
 .reviews-controls.expanded #loadMoreReviews {
-    display: none !important; /* Гарантированно прячем */
+    display: none;
 }
 
-@media (max-width: 991px) {
-    .reviews-motivation {
-        border-right: none;  /* Убираем линию на смартфонах, когда колонки встают друг под друга */
-        padding: 0;
-    }
-    .motivation-sticky {
-        position: static;
-        transform: none;
-        margin-bottom: 10px;
-    }
-    .review-item {
-        padding: 25px;
-    }
+.review-text-wrap {
+    position: relative;
+    max-height: calc(1.5em * 10);
+    line-height: 1.5;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
 }
 
-/* ==========================================
-   СЕКЦИЯ ПРАЙС
-========================================== */
+.review-text-wrap.expanded {
+    max-height: 1000px;
+}
+
+.read-more-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--accent-blue, #007aff);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 0 14px 0;
+    text-align: left;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    outline: none;
+}
+
+.read-more-btn:hover {
+    opacity: 0.8;
+    transform: translateX(3px);
+}
+/*endregion*/
+
+/*region 7. Прайс-лист и тарифы */
 .price {
     padding: 120px 5%;
     background: var(--light-gray);
@@ -687,14 +892,11 @@ header {
 .price-header p {
     color: var(--text-secondary);
     font-size: 1.1rem;
-    max-width: 600px; /* ИСПРАВЛЕНО: Вместо 70px поставили идеальную ширину */
+    max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
 }
 
-/* ==========================================
-   ОПТИМИЗАЦИЯ ПРАЙСА ПОД ОДНУ КАРТОЧКУ
-========================================== */
 .price-grid {
     display: flex;
     justify-content: center;
@@ -720,14 +922,10 @@ header {
     padding-bottom: 15px;
 }
 
-/* Отступ сверху для второго заголовка "Дополнительно", чтобы не слипался */
 .price-card h3:not(:first-child) {
     margin-top: 40px;
 }
 
-/* ==========================================
-   ОБНОВЛЕННЫЙ ПРАЙС (Внутренние элементы)
-========================================== */
 .price-item {
     display: flex;
     justify-content: space-between;
@@ -745,10 +943,9 @@ header {
     padding-right: 8px;
     position: relative;
     z-index: 1;
-    order: 1; /* Гарантирует, что название идёт первым */
+    order: 1;
 }
 
-/* Элегантные точки-разделители (Код объединен и исправлен) */
 .price-item::after {
     content: "";
     flex-grow: 1;
@@ -756,7 +953,7 @@ header {
     position: relative;
     top: -5px;
     margin: 0 4px;
-    order: 2; /* Линия встает строго посередине */
+    order: 2;
 }
 
 .price-item span {
@@ -768,7 +965,7 @@ header {
     position: relative;
     z-index: 1;
     white-space: nowrap;
-    order: 3; /* Цена всегда в конце */
+    order: 3;
 }
 
 .price-item strong {
@@ -780,288 +977,217 @@ header {
     z-index: 1;
     white-space: nowrap;
 }
+/*endregion*/
 
-/* Адаптив */
-@media (max-width: 768px) {
-    .price { padding: 60px 20px; }
-    .price-header h2 { font-size: 2rem; }
-    .price-card { padding: 25px; border-radius: 24px; }
-}
-
-/* css/style.css */
-
-/* ==========================================================================
-   ИНТРО С ЭФФЕКТОМ ЗАЛИВКИ И "РАСПАДА" БУКВ СЛЕВА НАПРАВО (ИСПРАВЛЕНО)
-   ========================================================================== */
-body.loading {
-    overflow: hidden;
-}
-
-#intro-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #505050; /* Светло-серый фон */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-}
-
-#intro-loader.fade-out {
-    transform: translateY(-100%);
-}
-
-/* Контейнер теперь отвечает за ОБЩУЮ заливку всего слова сразу */
-.intro-logo {
-    display: flex;
-    justify-content: center;
+/*region 8. Контактная информация и интерактивная карта */
+.contacts {
+    padding: 120px 10%;
+    background: #18181b;
+    color: white;
+    border-radius: 80px 80px 0 0;
     text-align: center;
-
-    /* Единый градиент на все слово целиком */
-    background: linear-gradient(to right, #ffffff 50%, #757577 50%);
-    background-size: 200% 100%;
-    background-position: 100% 0; /* Изначально все серое */
-
-    /* Магия маски на весь контейнер */
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    /* Запускаем общую волну заливки (1.5s с секундной задержкой) */
-    animation: textFillReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
 }
 
-/* Анимация движения общей волны */
-@keyframes textFillReveal {
-    0% { background-position: 100% 0; }
-    100% { background-position: 0% 0; } /* Все слово стало белым */
-}
-
-/* Буквы теперь просто "пропускают" общий градиент сквозь себя */
-.intro-logo span {
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    display: inline-block;
-    transform-origin: center center;
-
-    /* Наследуем прозрачность, чтобы видеть подложку-градиент */
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
-
-/* ——— ЭТАП 2: ЗАПУСК ЭФФЕКТА "РАСПАДА" (Добавляется через JS) ——— */
-/* Когда запускается распад, мы убираем общий градиент и красим каждую букву отдельно */
-#intro-loader.disintegrate .intro-logo {
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-}
-
-#intro-loader.disintegrate .intro-logo span {
-    /* Фиксируем белый цвет букв перед падением */
-    -webkit-text-fill-color: #ffffff;
-    color: #ffffff;
-
-    /* Включаем общую анимацию падения для всех букв */
-    animation-name: letterDropDown;
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); /* Плавное ускорение падения */
-    animation-fill-mode: forwards;
-}
-
-/* Настройка поочередной задержки (волна падения слева направо) */
-#intro-loader.disintegrate .intro-logo span:nth-child(1) { animation-delay: 0.0s; }
-#intro-loader.disintegrate .intro-logo span:nth-child(2) { animation-delay: 0.2s; }
-#intro-loader.disintegrate .intro-logo span:nth-child(3) { animation-delay: 0.4s; }
-#intro-loader.disintegrate .intro-logo span:nth-child(4) { animation-delay: 0.6s; }
-#intro-loader.disintegrate .intro-logo span:nth-child(5) { animation-delay: 0.8s; }
-#intro-loader.disintegrate .intro-logo span:nth-child(6) { animation-delay: 1.0s; }
-
-/* Единая анимация ухода букв строго вниз */
-@keyframes letterDropDown {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(100px); /* Все буквы падают вниз на 100px за край */
-    }
-}
-
-/* ==========================================
-   НОВЫЙ ДИЗАЙН ПЕРСОНАЛА (ШАХМАТНЫЕ ЛИНИИ)
-========================================== */
-.team {
-    padding: 100px 0;
-    background: #ffffff;
-    overflow: hidden; /* Чтобы вылезающие фото не ломали горизонтальный скролл сайта */
-}
-
-.team-header {
-    text-align: center;
-    margin-bottom: 90px;
-    padding: 0 20px;
-}
-
-.team-header h2 {
+.contacts h2 {
     font-size: 2.5rem;
-    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-item h3 {
+    color: var(--accent-blue);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: 15px;
 }
 
-.team-header p {
-    color: #86868b;
-    font-size: 1.1rem;
+.contact-item p {
+    font-size: 1.4rem;
+    font-weight: 300;
 }
 
-/* Общий контейнер рядов */
-.team-rows-container {
+.contacts-addresses {
     display: flex;
     flex-direction: column;
-    gap: 120px; /* Большой отступ между рядами, так как фото сильно вылезают */
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 5%;
-}
-
-/* Базовый горизонтальный ряд (Нечетные: Фото СПРАВА, текст СЛЕВА) */
-.member-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #ededf0; /* Светло-серая плашка фона из референса */
-    min-height: 240px;
-    position: relative;
-    padding: 20px 80px;
-    border-radius: 4px; /* Легкое скругление самой длинной плашки */
-}
-
-/* Зеркальный разворот для каждого ЧЕТНОГО ряда (Фото СЛЕВА, текст СПРАВА) */
-.member-row:nth-child(even) {
-    flex-direction: row-reverse;
-}
-
-/* Контейнер для центрирования текстового контента */
-.member-info-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 25px;
-    width: 55%;
-}
-
-/* Выравнивание текста: у нечетных рядов текст прижат к левому краю */
-.member-row:not(:nth-child(even)) .member-info-box {
-    align-items: flex-start;
-    text-align: left;
-}
-
-/* Выравнивание текста: у четных рядов текст прижат к правому краю */
-.member-row:nth-child(even) .member-info-box {
-    align-items: flex-end;
-    text-align: right;
-}
-
-/* ФИО и Должность */
-.member-titles h3 {
-    font-size: 2rem;
-    font-weight: 400;
-    color: #1d1d1f;
-    margin: 0 0 8px 0;
-}
-
-.member-titles .position {
-    font-size: 1.1rem;
-    color: #515154;
-    margin: 0;
-}
-
-/* Контейнер кнопок */
-.member-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 260px; /* Фиксированная ширина кнопок как на картинке */
-}
-
-/* Стилизация кнопок */
-.btn-more, .btn-book {
+    gap: 16px;
+    margin-top: 20px;
     width: 100%;
-    padding: 14px 20px;
-    font-size: 0.95rem;
+    max-width: 400px;
+}
+
+.map-target-btn {
+    background-color: var(--light-gray);
+    color: var(--text-main);
+    border: 2px solid transparent;
+    padding: 18px 50px 18px 24px;
+    border-radius: 20px;
     font-family: 'Inter', sans-serif;
-    border-radius: 6px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-/* Кнопка "Подробнее о враче" */
-.btn-more {
-    background: transparent;
-    color: #1d1d1f;
-    border: 1px solid #1d1d1f;
-}
-.btn-more:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-/* Кнопка "Записаться на приём" */
-.btn-book {
-    background: #1d1d1f;
-    color: #ffffff;
-    border: 1px solid #1d1d1f;
-}
-.btn-book:hover {
-    background: #333336;
-    border-color: #333336;
-}
-
-/* --- МАГИЯ ВЫЛЕЗАЮЩЕГО ФОТО --- */
-.member-photo-box {
     position: relative;
-    width: 320px; /* Оптимальная ширина под пропорции референса */
-    height: 380px; /* Высота больше, чем min-height строки, чтобы был вылет */
-    margin-top: -70px; /* Выталкиваем фото вверх */
-    margin-bottom: -70px; /* Выталкиваем фото вниз */
-    z-index: 5;
-}
-
-.member-image {
+    outline: none;
+    transition: var(--transition);
     width: 100%;
-    height: 100%;
-    background-color: #b8b8bc; /* Серый фон под врачом внутри рамки */
-    background-size: cover;
-    background-position: center top; /* Прижимаем фото к низу рамки */
-    background-repeat: no-repeat;
-    border-radius: 16px; /* Красивые скругленные углы фото */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Мягкая тень, отделяющая фото от плашки */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
 }
 
-/* Адаптивность под планшеты и мобилки (перестраиваем в вертикальные карточки) */
+.map-target-btn:hover {
+    background-color: #e8e8ed;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.map-target-btn.active {
+    background-color: #ffffff;
+    border-color: var(--accent-blue);
+    color: var(--text-main);
+    font-weight: 600;
+    transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(0, 122, 255, 0.12);
+}
+
+.map-target-btn::after {
+    content: '📍';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    font-size: 1.1rem;
+    opacity: 0.25;
+    transition: var(--transition);
+}
+
+.map-target-btn.active::after {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+    filter: drop-shadow(0 2px 4px rgba(0, 122, 255, 0.3));
+}
+
+.map-wrapper {
+    max-width: 1100px;
+    margin: 50px auto 0 auto;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpMap 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+#map {
+    width: 100%;
+    height: 450px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: #1a1a1e;
+    filter: grayscale(100%) invert(85%) contrast(145%) brightness(140%) hue-rotate(190deg);
+    transition: filter 0.3s ease;
+}
+
+#map [class*="controls-pane"],
+#map [class*="copyright"] {
+    filter: grayscale(100%) invert(85%) contrast(155%) brightness(140%) hue-rotate(190deg) !important;
+}
+/*endregion*/
+
+/*region 9. Адаптивный дизайн и медиа-запросы */
+@media (min-width: 1025px) {
+    .member-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+    }
+
+    .member-card:hover .member-image {
+        transform: scale(1.04);
+    }
+}
+
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .about-image {
+        position: static;
+    }
+
+    .ba-slider {
+        height: 380px;
+    }
+}
+
+@media (max-width: 992px) {
+    .decor-top-pattern {
+        width: 300px;
+        left: -40px;
+        top: -20px;
+        height: 500px;
+    }
+
+    .line-decor-v-1 {
+        height: 400px;
+    }
+
+    .line-decor-v-2 {
+        height: 280px;
+    }
+
+    .line-decor-h-1 {
+        width: 300px;
+    }
+
+    .line-decor-h-2 {
+        width: 220px;
+    }
+
+    .decor-bottom-corner {
+        right: -40px;
+        bottom: -60px;
+    }
+
+    .decor-bottom-corner::before {
+        left: -320px;
+    }
+}
+
 @media (max-width: 991px) {
     .team-rows-container {
         gap: 60px;
         padding: 0 20px;
     }
-    .member-row, .member-row:nth-child(even) {
+
+    .member-row,
+    .member-row:nth-child(even) {
         flex-direction: column-reverse;
         align-items: center;
         padding: 40px 25px;
         min-height: auto;
         gap: 30px;
     }
+
     .member-photo-box {
         margin: 0;
         width: 100%;
         max-width: 300px;
         height: 340px;
     }
+
     .member-info-box,
     .member-row:not(:nth-child(even)) .member-info-box,
     .member-row:nth-child(even) .member-info-box {
@@ -1069,20 +1195,96 @@ body.loading {
         align-items: center;
         text-align: center;
     }
+
     .member-actions {
         width: 100%;
         max-width: 280px;
     }
-}
 
-/* ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (HOLLYWOOD SMILE) */
-@media (min-width: 1025px) {
-    .member-card:hover {
-        transform: translateY(-8px); /* Карточка аккуратно приподнимается */
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06); /* Мягкая тень объема */
+    .reviews-motivation {
+        border-right: none;
+        padding: 0;
     }
 
-    .member-card:hover .member-image {
-        transform: scale(1.04); /* Фотография плавно увеличивается внутри рамки */
+    .motivation-sticky {
+        position: static;
+        transform: none;
+        margin-bottom: 10px;
+    }
+
+    .review-item {
+        padding: 25px;
     }
 }
+
+@media (max-width: 768px) {
+    #about.hero-timeline {
+        padding: 120px 20px 80px 20px;
+    }
+
+    .line-decor-v-2,
+    .line-decor-h-2 {
+        display: none;
+    }
+
+    .decor-top-pattern {
+        left: -10px;
+        top: -10px;
+        height: 300px;
+    }
+
+    .line-decor-v-1 {
+        left: 20px;
+        height: 250px;
+    }
+
+    .line-decor-h-1 {
+        width: 160px;
+    }
+
+    .decor-bottom-corner {
+        right: 10px;
+        bottom: -40px;
+    }
+
+    .decor-bottom-corner::before {
+        left: -180px;
+    }
+
+    .about-macro-title {
+        font-size: 2.6rem;
+        letter-spacing: 2px;
+    }
+
+    .timeline-card p {
+        font-size: 1.45rem;
+        line-height: 1.6;
+    }
+
+    .handwritten-card p {
+        font-size: 1.65rem;
+    }
+
+    .price {
+        padding: 60px 20px;
+    }
+
+    .price-header h2 {
+        font-size: 2rem;
+    }
+
+    .price-card {
+        padding: 25px;
+        border-radius: 24px;
+    }
+
+    .map-wrapper {
+        margin-top: 40px;
+        border-radius: 24px;
+    }
+
+    #map {
+        height: 300px;
+    }
+}
+/*endregion*/
