@@ -1,50 +1,55 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
 
-    // === БЛОКИРОВКА СКРОЛЛА ПРИ СТАРТЕ ===
+    //region 1. Загрузка и Интро-экран (Loader & Intro)
     document.body.classList.add('loading');
 
-    // === ЛОГИКА ИНТРО-ЭКРАНА (ОБНОВЛЕНО ДЛЯ "РАСПАДА") ===
     const introLoader = document.getElementById('intro-loader');
     if (introLoader) {
-
-        // 1. Ждем, пока закрасится текст (задержка 1s + заливка 1.5s = 2.5s)
-        // Добавим микропаузу на фиксацию закрашенного состояния (0.3s)
+        // Ждем закрашивания текста, затем запускаем эффект "распада"
         setTimeout(() => {
-
-            // Запускаем эффект "распада" букв вверх/вниз
             introLoader.classList.add('disintegrate');
 
-            // 2. Ждем, пока все буквы исчезнут.
-            // Последняя буква исчезает через 1s (delay) + 0.5s (duration) = 1.5s
+            // Ждем исчезновения букв и сворачиваем окно вверх
             setTimeout(() => {
-
-                // Команда на сворачивание всего окна вверх
                 introLoader.classList.add('fade-out');
-
-                // Возвращаем скролл сайту
                 document.body.classList.remove('loading');
+            }, 1500);
+        }, 2800);
+    }
+    //endregion
 
-            }, 1500); // Тайминг полной анимации исчезновения букв
-
-        }, 2800); // Тайминг полного закрашивания + фиксация (1000 + 1500 + 300)
+    //region 2. Шапка и Навигация (Header & Navigation)
+    const header = document.getElementById('header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.padding = '12px 5%';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+            } else {
+                header.style.padding = '20px 5%';
+                header.style.background = 'rgba(255, 255, 255, 0.85)';
+                header.style.boxShadow = 'none';
+            }
+        });
     }
 
-    // 1. Анимация шапки при скролле
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.padding = '12px 5%';
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
-        } else {
-            header.style.padding = '20px 5%';
-            header.style.background = 'rgba(255, 255, 255, 0.85)';
-            header.style.boxShadow = 'none';
-        }
+    // Плавная навигация по якорным ссылкам с отступом под шапку
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
+    //endregion
 
-    // 2. Логика интерактивной шторки "До / После"
+    //region 3. Слайдер "До / После" (Before / After Slider)
     const sliders = document.querySelectorAll('.ba-slider');
 
     function syncSliderImages() {
@@ -54,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const afterImg = slider.querySelector('.after-side img');
 
             if (beforeImg && afterImg) {
-                beforeImg.style.width = width + 'px';
-                afterImg.style.width = width + 'px';
+                beforeImg.style.width = `${width}px`;
+                afterImg.style.width = `${width}px`;
             }
         });
     }
@@ -75,31 +80,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (x > rect.width) x = rect.width;
 
             const percentage = (x / rect.width) * 100;
-            dragLine.style.left = percentage + '%';
-            beforeSide.style.width = percentage + '%';
+            dragLine.style.left = `${percentage}%`;
+            beforeSide.style.width = `${percentage}%`;
         }
 
-        slider.addEventListener('mousemove', (e) => {
-            if (e.buttons === 1) {
-                processMove(e.clientX);
-                stopAutoPlay();
-            }
-        });
-        slider.addEventListener('mousedown', (e) => {
-            processMove(e.clientX);
+        // Единый обработчик для перетаскивания (мышь и тач)
+        const handleMove = (e) => {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            processMove(clientX);
             stopAutoPlay();
+        };
+
+        slider.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) handleMove(e);
         });
-
-        slider.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                processMove(e.touches[0].clientX);
-                stopAutoPlay();
-            }
-        }, { passive: true });
+        slider.addEventListener('mousedown', handleMove);
+        slider.addEventListener('touchmove', handleMove, { passive: true });
     });
+    //endregion
 
-
-    // 3. Логика переключения карточек работ (Карусель)
+    //region 4. Карусель работ (Cases Carousel)
     let currentSlide = 0;
     const totalSlides = 5;
     const casesTrack = document.getElementById('casesTrack');
@@ -108,30 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('nextCase');
 
     function showTargetSlide(index) {
-        currentSlide = index;
-        if (currentSlide >= totalSlides) currentSlide = 0;
-        if (currentSlide < 0) currentSlide = totalSlides - 1;
+        // Элегантный перенос индекса по кругу без кучи условий if
+        currentSlide = (index + totalSlides) % totalSlides;
 
-        casesTrack.style.transform = `translateX(-${currentSlide * 20}%)`;
-        caseCounter.textContent = `${currentSlide + 1} из ${totalSlides}`;
+        if (casesTrack) casesTrack.style.transform = `translateX(-${currentSlide * 20}%)`;
+        if (caseCounter) caseCounter.textContent = `${currentSlide + 1} из ${totalSlides}`;
 
         setTimeout(syncSliderImages, 50);
     }
 
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            stopAutoPlay();
-            showTargetSlide(currentSlide - 1);
-        });
-
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            stopAutoPlay();
-            showTargetSlide(currentSlide + 1);
-        });
-    }
-
+    // Запуск автопроигрывания карусели работ
     let sliderInterval = setInterval(() => {
         showTargetSlide(currentSlide + 1);
     }, 5000);
@@ -142,54 +128,74 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderInterval = null;
         }
     }
+    //endregion
 
-
-    // 4. Логика слайдера отзывов (Карусель отзывов)
+    //region 5. Отзывы (Reviews)
     let currentReview = 0;
     const totalReviews = 3;
     const reviewsTrack = document.getElementById('reviewsTrack');
     const reviewCounter = document.getElementById('reviewCounter');
     const prevReviewBtn = document.getElementById('prevReview');
     const nextReviewBtn = document.getElementById('nextReview');
+    const reviewWrappers = document.querySelectorAll('.review-text-wrap');
 
     function showTargetReview(index) {
-        currentReview = index;
-        if (currentReview >= totalReviews) currentReview = 0;
-        if (currentReview < 0) currentReview = totalReviews - 1;
+        currentReview = (index + totalReviews) % totalReviews;
 
-        reviewsTrack.style.transform = `translateX(-${currentReview * (100 / totalReviews)}%)`;
-        reviewCounter.textContent = `${currentReview + 1} из ${totalReviews}`;
+        if (reviewsTrack) {
+            reviewsTrack.style.transform = `translateX(-${currentReview * (100 / totalReviews)}%)`;
+        }
+        if (reviewCounter) {
+            reviewCounter.textContent = `${currentReview + 1} из ${totalReviews}`;
+        }
     }
 
-    if (prevReviewBtn && nextReviewBtn) {
-        prevReviewBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showTargetReview(currentReview - 1);
-        });
+    // Управление кнопками раскрытия длинного текста ("Читать дальше")
+    reviewWrappers.forEach(wrapper => {
+        const btn = wrapper.nextElementSibling;
+        if (!btn || !btn.classList.contains('read-more-btn')) return;
 
-        nextReviewBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showTargetReview(currentReview + 1);
-        });
-    }
+        if (wrapper.scrollHeight > wrapper.clientHeight) {
+            btn.style.display = 'inline-block';
+        }
 
+        btn.addEventListener('click', () => {
+            const isExpanded = wrapper.classList.toggle('expanded');
+            btn.textContent = isExpanded ? 'Свернуть' : 'Читать дальше';
 
-    // 5. Навигация по якорям (Обновлено)
-    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+            if (!isExpanded) {
+                const item = wrapper.closest('.review-item');
+                if (item) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
     });
 
+    // Показ и скрытие дополнительных карточек отзывов в списке
+    const loadMoreBtn = document.getElementById('loadMoreReviews');
+    const hideBtn = document.getElementById('hideReviews');
+    const controlsContainer = document.getElementById('reviewsControls');
+    const hiddenReviews = document.querySelectorAll('.review-item.hidden-review');
+    const reviewsSection = document.getElementById('reviews');
 
-    // Переменная карты теперь объявлена глобально, чтобы до нее доставал переключатель кнопок
+    if (loadMoreBtn && hideBtn && controlsContainer) {
+        loadMoreBtn.addEventListener('click', () => {
+            hiddenReviews.forEach((review, index) => {
+                setTimeout(() => review.classList.add('show-animated'), index * 120);
+            });
+            controlsContainer.classList.add('expanded');
+        });
+
+        hideBtn.addEventListener('click', () => {
+            hiddenReviews.forEach(review => review.classList.remove('show-animated'));
+            controlsContainer.classList.remove('expanded');
+            if (reviewsSection) {
+                reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+    //endregion
+
+    //region 6. Интерактивная карта (Yandex Map)
     let myMap;
 
     if (typeof ymaps !== 'undefined') {
@@ -200,102 +206,77 @@ document.addEventListener('DOMContentLoaded', () => {
         const mapElement = document.getElementById("map");
         if (!mapElement) return;
 
-        // Твои точные координаты для филиалов
-        const exactClinicCoordinates = [66.117996, 76.679430]; // Новый Уренгой
-        const moscowClinicCoordinates = [66.083964, 76.685328]; // Новый Уренгой, Ленинградский пр-т, 10
+        const exactClinicCoordinates = [66.117996, 76.679430];
+        const moscowClinicCoordinates = [66.083964, 76.685328];
 
         myMap = new ymaps.Map("map", {
             center: exactClinicCoordinates,
-            zoom: 17, // Твой базовый зум
+            zoom: 17,
             controls: ['zoomControl', 'fullscreenControl']
         });
 
-        // Твоя настройка: отключаем скролл мышкой, чтобы страница не залипала
         myMap.behaviors.disable('scrollZoom');
 
-        // 1. МЕТКА: Новый Уренгой (твоя оригинальная)
         const placemarkNUR = new ymaps.Placemark(exactClinicCoordinates, {
             hintContent: 'Стоматология Dental — Новый Уренгой',
             balloonContentHeader: '<strong>Dental (Новый Уренгой)</strong>',
             balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
-            balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~66.117996,76.679430" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
-        }, {
-            preset: 'islands#blackDarkGlyphIcon' // Твой стильный черный цвет значка
-        });
-
-        // 2. МЕТКА: Москва (сделана по аналогии с твоей первой)
-        const placemarkMSK = new ymaps.Placemark(moscowClinicCoordinates, {
-            hintContent: 'Стоматология Dental — Москва',
-            balloonContentHeader: '<strong>Dental (Москва)</strong>',
-            balloonContentBody: 'Премиальная стоматология<br>Ленинградский проспект, 10',
-            balloonContentFooter: '<a href="https://yandex.ru/maps/?rtext=~55.782422,37.560126" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>'
+            // Координаты для маршрута теперь подставляются автоматически
+            balloonContentFooter: `<a href="https://yandex.ru/maps/?rtext=~${exactClinicCoordinates.join(',')}" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>`
         }, {
             preset: 'islands#blackDarkGlyphIcon'
         });
 
-        // Добавляем обе метки на карту
+        const placemarkMSK = new ymaps.Placemark(moscowClinicCoordinates, {
+            hintContent: 'Стоматология Dental — Москва',
+            balloonContentHeader: '<strong>Dental (Москва)</strong>',
+            balloonContentBody: 'Премиальная стоматология<br>Ленинградский проспект, 10',
+            balloonContentFooter: `<a href="https://yandex.ru/maps/?rtext=~${moscowClinicCoordinates.join(',')}" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>`
+        }, {
+            preset: 'islands#blackDarkGlyphIcon'
+        });
+
         myMap.geoObjects.add(placemarkNUR).add(placemarkMSK);
     }
 
-// ЛОГИКА ПЕРЕКЛЮЧЕНИЯ АДРЕСОВ ПО КЛИКУ
+    // Переключение центрирования карты по кнопкам филиалов
     document.querySelectorAll('.map-target-btn').forEach(button => {
         button.addEventListener('click', function() {
-            if (!myMap) return; // Защита: если карта еще не прогрузилась, выходим
+            if (!myMap) return;
 
-            // Переключаем активный класс подсветки кнопок
             document.querySelectorAll('.map-target-btn').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Считываем координаты из нажатой кнопки
             const targetCoords = JSON.parse(this.getAttribute('data-coord'));
-
-            // Плавно летим к новому адресу, сохраняя твой масштаб 17
             myMap.setCenter(targetCoords, 17, {
                 checkZoomRange: true,
-                duration: 1000 // Время полета камеры — 1 секунда
+                duration: 1000
             });
         });
     });
+    //endregion
 
-    // === УПРАВЛЕНИЕ СПИСКОМ ОТЗЫВОВ (Через класс-переключатель) ===
-    const loadMoreBtn = document.getElementById('loadMoreReviews');
-    const hideBtn = document.getElementById('hideReviews');
-    const controlsContainer = document.getElementById('reviewsControls');
-    const hiddenReviews = document.querySelectorAll('.review-item.hidden-review');
-    const reviewsSection = document.getElementById('reviews');
-
-    // Проверяем, что все элементы управления физически есть на странице
-    if (loadMoreBtn && hideBtn && controlsContainer) {
-
-        // Клик на "Читать больше"
-        loadMoreBtn.addEventListener('click', function() {
-            hiddenReviews.forEach((review, index) => {
-                setTimeout(() => {
-                    review.classList.add('show-animated');
-                }, index * 120);
+    //region 7. Вспомогательные функции (Helpers)
+    // Универсальный обработчик событий клика по кнопкам каруселей ("Вперед" / "Назад")
+    function setupCarouselNav(prevBtn, nextBtn, showCallback) {
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopAutoPlay();
+                showCallback(-1);
             });
 
-            // Включаем режим "Раскрыто" (CSS сам спрячет первую кнопку и покажет вторую)
-            controlsContainer.classList.add('expanded');
-        });
-
-        // Клик на "Скрыть отзывы"
-        hideBtn.addEventListener('click', function() {
-            // 1. Прячем карточки
-            hiddenReviews.forEach((review) => {
-                review.classList.remove('show-animated');
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopAutoPlay();
+                showCallback(1);
             });
-
-            // 2. Выключаем режим "Раскрыто" (кнопки вернутся в исходное состояние)
-            controlsContainer.classList.remove('expanded');
-
-            // 3. Скроллим к началу секции
-            if (reviewsSection) {
-                reviewsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+        }
     }
+
+    // Инициализация кнопок управления каруселями
+    setupCarouselNav(prevBtn, nextBtn, (direction) => showTargetSlide(currentSlide + direction));
+    setupCarouselNav(prevReviewBtn, nextReviewBtn, (direction) => showTargetReview(currentReview + direction));
+    //endregion
+
 });
