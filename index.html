@@ -366,15 +366,149 @@
         <h2>Стоимость услуг</h2>
         <p>Прозрачное ценообразование без скрытых платежей. В стоимость включены все премиальные материалы</p>
     </div>
-    <div class="price-grid">
-        <div class="price-card">
-            <h3>Терапия</h3>
-            <div class="price-item"><h4>Кариес</h4><span>от 6 670 ₽ до 8 500 ₽</span></div>
-            <div class="price-item"><h4>Пульпит</h4><span>от 13 950 ₽ до 20 890 ₽</span></div>
-            <div class="price-item"><h4>Периодонтит</h4><span>от 19 720 ₽ до 26 460 ₽</span></div>
 
-            <h3>Дополнительно</h3>
-            <div class="price-item"><h4>Штифт</h4><span>2 380 ₽</span></div>
+    <div class="price-container">
+        <!-- Окно 1: Левое (Категории) -->
+        <aside class="price-sidebar">
+            <ul class="price-categories">
+                <li class="category-btn active" data-tab="ortho-implants">Протезирование на имплантах</li>
+                <li class="category-btn" data-tab="ortho-fixed">Несъёмное протезирование</li>
+                <li class="category-btn" data-tab="ortho-removable">Съёмное протезирование</li>
+                <li class="category-btn" data-tab="ortho-clasp">Бюгельное протезирование</li>
+                <li class="category-btn" data-tab="orthodontics">Ортодонтия</li>
+                <li class="category-btn" data-tab="hygiene">Гигиена</li>
+                <li class="category-btn" data-tab="implantology">Имплантология</li>
+                <li class="category-btn" data-tab="surgery">Хирургия</li>
+            </ul>
+        </aside>
+
+        <!-- Окно 2: Правое (Цены) -->
+        <div class="price-content-wrapper">
+
+            <!-- Ортопедия — протезирование на имплантах -->
+            <div class="price-tab active" id="ortho-implants">
+                <div class="price-item">
+                    <h4>Металлокерамическая коронка на импланте CoCr/CADCAM</h4>
+                    <span>31&nbsp;400&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка на импланте (ZrO2)</h4>
+                    <span>41&nbsp;560&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Условно-съёмный протез на балке с опорой на имплантах</h4>
+                    <span>240&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Съёмный протез на балке</h4>
+                    <span>142&nbsp;760&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка ZrO2 с облицовкой на импланте</h4>
+                    <span>42&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Временная PMMA на имплантах (ALL-ON-4) ЭКОНОМ</h4>
+                    <span>70&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Временная PMMA на имплантах (ALL-ON-4) ПРЕМИУМ</h4>
+                    <span>120&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Ортопедия — несъёмное протезирование -->
+            <div class="price-tab" id="ortho-fixed">
+                <div class="price-item">
+                    <h4>Металлокерамическая коронка (CoCr) CAD/CAM</h4>
+                    <span>21&nbsp;410&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка, винир (IPS e.max Press)</h4>
+                    <span>43&nbsp;200&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Керамическая коронка (ZrO2)</h4>
+                    <span>29&nbsp;450&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка, винир (IPS e.max Press) Премиум</h4>
+                    <span>67&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка ZrO2 с облицовкой</h4>
+                    <span>31&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка ZrO2 (Премиум)</h4>
+                    <span>67&nbsp;000&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Коронка ZrO2 с облицовкой (Премиум)</h4>
+                    <span>73&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Ортопедия — съёмное протезирование -->
+            <div class="price-tab" id="ortho-removable">
+                <div class="price-item">
+                    <h4>Полный съёмный протез</h4>
+                    <span>32&nbsp;500&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Полный съёмный протез (Премиум)</h4>
+                    <span>85&nbsp;600&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Частичный съёмный протез</h4>
+                    <span>28&nbsp;550&nbsp;₽</span>
+                </div>
+                <div class="price-item">
+                    <h4>Частичный съёмный протез (Премиум)</h4>
+                    <span>45&nbsp;830&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Ортопедия — бюгельное протезирование -->
+            <div class="price-tab" id="ortho-clasp">
+                <div class="price-item">
+                    <h4>Бюгель на замковой или телескопической системе крепления</h4>
+                    <span>98&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Ортодонтия -->
+            <div class="price-tab" id="orthodontics">
+                <div class="price-item">
+                    <h4>Постановка брекет-системы Damon Q</h4>
+                    <span>192&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Гигиена -->
+            <div class="price-tab" id="hygiene">
+                <div class="price-item">
+                    <h4>Проведение профилактической гигиены полости рта с применением ультразвуковых и воздушно-абразивных систем Air-Flow (за 1 зуб)</h4>
+                    <span>300&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Имплантология -->
+            <div class="price-tab" id="implantology">
+                <div class="price-item">
+                    <h4>Операция установки зубного имплантата</h4>
+                    <span>от 50&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
+            <!-- Хирургия -->
+            <div class="price-tab" id="surgery">
+                <div class="price-item">
+                    <h4>Удаление постоянного зуба</h4>
+                    <span>от 3&nbsp;500&nbsp;₽ до 8&nbsp;000&nbsp;₽</span>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

@@ -279,4 +279,24 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCarouselNav(prevReviewBtn, nextReviewBtn, (direction) => showTargetReview(currentReview + direction));
     //endregion
 
+    //region 8. Прайс
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const priceTabs = document.querySelectorAll('.price-tab');
+
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 1. Убираем класс active у всех кнопок и вкладок
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            priceTabs.forEach(t => t.classList.remove('active'));
+
+            // 2. Добавляем класс active нажатой кнопке
+            btn.classList.add('active');
+
+            // 3. Находим нужную вкладку по data-tab и показываем её
+            const tabId = btn.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+    //endregion
+
 });
