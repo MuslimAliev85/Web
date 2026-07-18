@@ -185,7 +185,7 @@ header {
 
 .about-macro-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4.2rem;
+    font-size: 3rem;
     font-weight: 700;
     font-style: italic;
     letter-spacing: 2px;
@@ -266,7 +266,7 @@ header {
 .timeline-card p {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.85rem;
+    font-size: 1.4rem;
     line-height: 1.65;
     color: #1d1d1f;
     margin: 0 auto;
@@ -284,7 +284,7 @@ header {
 .handwritten-card p {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 2.1rem;
+    font-size: 1.8rem;
     color: #1d1d1f;
     font-weight: 700;
     text-align: center;
