@@ -299,4 +299,191 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     //endregion
 
+    //region 9. Боковая панель
+    function initMobileMenu() {
+        const burgerMenu = document.getElementById('burgerMenu');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+
+        if (!burgerMenu || !navLinks || !navOverlay) return;
+
+        const toggleMenu = (e) => {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            burgerMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        };
+
+        burgerMenu.onclick = toggleMenu;
+        navOverlay.onclick = toggleMenu;
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.onclick = () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            };
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        initMobileMenu();
+    }
+    //endregion
+
+    //region 10. Слайдер "Наша команда"
+    const teamContainer = document.querySelector('.team-rows-container');
+    const teamButtons = document.querySelectorAll('.team-pagination .page-num');
+
+    if (teamContainer && teamButtons.length > 0) {
+        teamButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const index = Number(btn.dataset.index);
+                const cards = teamContainer.querySelectorAll('.member-row');
+                if (cards[index]) {
+                    teamContainer.scrollTo({
+                        left: cards[index].offsetLeft - teamContainer.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        teamContainer.addEventListener('scroll', () => {
+            const card = teamContainer.querySelector('.member-row');
+            if (!card) return;
+
+            const cardWidth = card.offsetWidth + 16;
+            const activeIndex = Math.round(teamContainer.scrollLeft / cardWidth);
+
+            teamButtons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === activeIndex);
+            });
+        });
+    }
+    //endregion
+
+    /*region 11. Cлайдер "Фото работ"*/
+    (function initWorksSlider() {
+        const worksContainer = document.querySelector('.main-gallery-wrapper');
+        const worksButtons = document.querySelectorAll('.works-pagination .page-num');
+
+        if (!worksContainer || !worksButtons.length) return;
+
+        worksButtons.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const index = parseInt(btn.getAttribute('data-index'), 10);
+                const cards = worksContainer.querySelectorAll('.mega-slider-card');
+
+                if (cards[index]) {
+                    // Прокручиваем ТОЛЬКО контейнер слайдера, не затрагивая страницу
+                    worksContainer.scrollTo({
+                        left: cards[index].offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Переключение активной цифры при пальцевом свайпе
+        worksContainer.addEventListener('scroll', () => {
+            const cards = worksContainer.querySelectorAll('.mega-slider-card');
+            if (!cards.length) return;
+
+            const containerLeft = worksContainer.getBoundingClientRect().left;
+            let activeIndex = 0;
+            let minDiff = Infinity;
+
+            cards.forEach((card, idx) => {
+                const diff = Math.abs(card.getBoundingClientRect().left - containerLeft);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    activeIndex = idx;
+                }
+            });
+
+            worksButtons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === activeIndex);
+            });
+        }, { passive: true });
+    })();
+    /*endregion*/
+
+    /*region 12. Шторка Price*/
+    (function initPriceTabs() {
+        function setup() {
+            const mobileSelect = document.querySelector('.price-mobile-select');
+            const dropdownToggle = document.querySelector('.price-dropdown-toggle');
+            const selectedCategoryText = document.querySelector('.selected-category');
+            const allCategoryBtns = document.querySelectorAll('.category-btn');
+            const priceTabs = document.querySelectorAll('.price-tab');
+
+            if (!dropdownToggle && !allCategoryBtns.length) return;
+
+            // Переключение табов
+            function switchTab(tabId, categoryTitle) {
+                priceTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.id === tabId);
+                });
+
+                allCategoryBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tabId);
+                });
+
+                if (selectedCategoryText && categoryTitle) {
+                    selectedCategoryText.textContent = categoryTitle;
+                }
+            }
+
+            // Обработка кликов по категориям
+            allCategoryBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = btn.dataset.tab;
+                    const title = btn.textContent.trim();
+
+                    switchTab(tabId, title);
+
+                    if (mobileSelect) {
+                        mobileSelect.classList.remove('open');
+                        dropdownToggle?.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Открытие / закрытие мобильной шторки
+            if (dropdownToggle && mobileSelect) {
+                dropdownToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Предотвращаем всплытие
+
+                    const isOpen = mobileSelect.classList.toggle('open');
+                    dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+
+                // Закрытие при клике мимо меню
+                document.addEventListener('click', (e) => {
+                    if (!mobileSelect.contains(e.target)) {
+                        mobileSelect.classList.remove('open');
+                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        }
+
+        // Запуск независимо от того, загрузился ли DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setup);
+        } else {
+            setup();
+        }
+    })();
+    /*endregion*/
 });

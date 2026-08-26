@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dental</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg?v=2">
+    <link rel="apple-touch-icon" href="img/logo.jpg?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&display=swap" rel="stylesheet">
@@ -19,7 +21,14 @@
 
 <header id="header">
     <div class="logo">Dental</div>
-    <nav class="nav-links">
+
+    <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="nav-links" id="navLinks">
         <a href="#about">О нас</a>
         <a href="#team">Персонал</a>
         <a href="#results">Результаты</a>
@@ -27,6 +36,8 @@
         <a href="#price">Прайс</a>
         <a href="#contact">Контакты</a>
     </nav>
+
+    <div class="nav-overlay" id="navOverlay"></div>
 </header>
 
 <section id="about" class="hero-timeline">
@@ -172,6 +183,12 @@
             </div>
         </div>
     </div>
+    <div class="team-pagination">
+        <button class="page-num active" data-index="0" type="button">1</button>
+        <button class="page-num" data-index="1" type="button">2</button>
+        <button class="page-num" data-index="2" type="button">3</button>
+        <button class="page-num" data-index="3" type="button">4</button>
+    </div>
 </section>
 
 <section id="results" class="results">
@@ -262,6 +279,13 @@
             </div>
         </div>
 
+    </div>
+    <div class="works-pagination">
+        <button class="page-num active" data-index="0" type="button">1</button>
+        <button class="page-num" data-index="1" type="button">2</button>
+        <button class="page-num" data-index="2" type="button">3</button>
+        <button class="page-num" data-index="3" type="button">4</button>
+        <button class="page-num" data-index="4" type="button">5</button>
     </div>
 </section>
 
@@ -372,25 +396,41 @@
         <p>Прозрачное ценообразование без скрытых платежей. В стоимость включены все премиальные материалы</p>
     </div>
 
+    <!-- Мобильная выпадающая шторка -->
+    <div class="price-mobile-select">
+        <button class="price-dropdown-toggle" type="button" aria-expanded="false">
+            <span class="selected-category">Протезирование на имплантах</span>
+            <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="price-dropdown-menu">
+            <button class="category-btn active" data-tab="ortho-implants" type="button">Протезирование на имплантах</button>
+            <button class="category-btn" data-tab="ortho-fixed" type="button">Несъёмное протезирование</button>
+            <button class="category-btn" data-tab="ortho-removable" type="button">Съёмное протезирование</button>
+            <button class="category-btn" data-tab="ortho-clasp" type="button">Бюгельное протезирование</button>
+            <button class="category-btn" data-tab="orthodontics" type="button">Ортодонтия</button>
+            <button class="category-btn" data-tab="hygiene" type="button">Гигиена</button>
+            <button class="category-btn" data-tab="implantology" type="button">Имплантология</button>
+            <button class="category-btn" data-tab="surgery" type="button">Хирургия</button>
+        </div>
+    </div>
+
     <div class="price-container">
-        <!-- Окно 1: Левое (Категории) -->
+        <!-- Десктопный сайдбар -->
         <aside class="price-sidebar">
             <ul class="price-categories">
-                <li class="category-btn active" data-tab="ortho-implants">Протезирование на имплантах</li>
-                <li class="category-btn" data-tab="ortho-fixed">Несъёмное протезирование</li>
-                <li class="category-btn" data-tab="ortho-removable">Съёмное протезирование</li>
-                <li class="category-btn" data-tab="ortho-clasp">Бюгельное протезирование</li>
-                <li class="category-btn" data-tab="orthodontics">Ортодонтия</li>
-                <li class="category-btn" data-tab="hygiene">Гигиена</li>
-                <li class="category-btn" data-tab="implantology">Имплантология</li>
-                <li class="category-btn" data-tab="surgery">Хирургия</li>
+                <li><button class="category-btn active" data-tab="ortho-implants" type="button">Протезирование на имплантах</button></li>
+                <li><button class="category-btn" data-tab="ortho-fixed" type="button">Несъёмное протезирование</button></li>
+                <li><button class="category-btn" data-tab="ortho-removable" type="button">Съёмное протезирование</button></li>
+                <li><button class="category-btn" data-tab="ortho-clasp" type="button">Бюгельное протезирование</button></li>
+                <li><button class="category-btn" data-tab="orthodontics" type="button">Ортодонтия</button></li>
+                <li><button class="category-btn" data-tab="hygiene" type="button">Гигиена</button></li>
+                <li><button class="category-btn" data-tab="implantology" type="button">Имплантология</button></li>
+                <li><button class="category-btn" data-tab="surgery" type="button">Хирургия</button></li>
             </ul>
         </aside>
 
-        <!-- Окно 2: Правое (Цены) -->
+        <!-- Контент табов -->
         <div class="price-content-wrapper">
-
-            <!-- Ортопедия — протезирование на имплантах -->
             <div class="price-tab active" id="ortho-implants">
                 <div class="price-item">
                     <h4>Металлокерамическая коронка на импланте CoCr/CADCAM</h4>
@@ -422,7 +462,6 @@
                 </div>
             </div>
 
-            <!-- Ортопедия — несъёмное протезирование -->
             <div class="price-tab" id="ortho-fixed">
                 <div class="price-item">
                     <h4>Металлокерамическая коронка (CoCr) CAD/CAM</h4>
@@ -454,7 +493,6 @@
                 </div>
             </div>
 
-            <!-- Ортопедия — съёмное протезирование -->
             <div class="price-tab" id="ortho-removable">
                 <div class="price-item">
                     <h4>Полный съёмный протез</h4>
@@ -474,7 +512,6 @@
                 </div>
             </div>
 
-            <!-- Ортопедия — бюгельное протезирование -->
             <div class="price-tab" id="ortho-clasp">
                 <div class="price-item">
                     <h4>Бюгель на замковой или телескопической системе крепления</h4>
@@ -482,7 +519,6 @@
                 </div>
             </div>
 
-            <!-- Ортодонтия -->
             <div class="price-tab" id="orthodontics">
                 <div class="price-item">
                     <h4>Постановка брекет-системы Damon Q</h4>
@@ -490,7 +526,6 @@
                 </div>
             </div>
 
-            <!-- Гигиена -->
             <div class="price-tab" id="hygiene">
                 <div class="price-item">
                     <h4>Проведение профилактической гигиены полости рта с применением ультразвуковых и воздушно-абразивных систем Air-Flow (за 1 зуб)</h4>
@@ -498,10 +533,9 @@
                 </div>
             </div>
 
-            <!-- Имплантология -->
             <div class="price-tab" id="implantology">
                 <div class="price-item">
-                    <h4>Формировать десны</h4>
+                    <h4>Установка формирователя десны</h4>
                     <span>от 7&nbsp;000&nbsp;₽ до 9&nbsp;000&nbsp;₽</span>
                 </div>
                 <div class="price-item">
@@ -518,7 +552,6 @@
                 </div>
             </div>
 
-            <!-- Хирургия -->
             <div class="price-tab" id="surgery">
                 <div class="price-item">
                     <h4>Удаление постоянного зуба (простое)</h4>
@@ -537,7 +570,6 @@
                     <span>от 20&nbsp;000&nbsp;₽ до 25&nbsp;000&nbsp;₽</span>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
