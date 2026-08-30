@@ -1774,6 +1774,63 @@ html, body {
         color: #ffffff;
         transform: scale(1.1);
     }
+    @media (max-width: 768px) {
+        /* 1. Общий контейнер текста — по центру */
+        .case-info {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 16px 12px 0 12px !important; /* комфортные поля по бокам */
+            text-align: center !important; /* выравнивание всех заголовков и текста по центру */
+            box-sizing: border-box !important;
+            margin: 0 auto !important;
+        }
+
+        /* 2. Заголовки и описание внутри карточки */
+        .case-info h3,
+        .case-info h4,
+        .case-info p {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        /* Контейнер строго вписывается в экран и не дает элементам выпадать */
+        .price-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 100% !important;      /* Адаптируется под любой узкий экран */
+            box-sizing: border-box !important;
+            padding: 10px 12px !important;    /* Внутренние отступы безопасности */
+            margin: 8px 0 !important;
+            gap: 8px !important;
+            background: #f8f9fa !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;       /* Блокирует любой случайный вылет текста */
+        }
+
+        /* Название ужимается и переносится, освобождая место цене */
+        .price-item h4 {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;           /* Главный фикс: разрешает названию сжиматься */
+            font-size: 13px !important;
+            text-align: left !important;
+            margin: 0 !important;
+            line-height: 1.3 !important;
+            word-break: break-word !important; /* Переносит длинные слова */
+        }
+
+        /* Цена надежно зафиксирована у правого края внутри рамки */
+        .price-item span {
+            flex: 0 0 auto !important;         /* Цена не сжимается и не растягивает блок */
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            color: #007bff !important;
+            white-space: nowrap !important;
+            text-align: right !important;
+        }
+    }
 }
 /*endregion*/
 
