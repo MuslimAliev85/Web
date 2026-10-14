@@ -1831,6 +1831,162 @@ html, body {
             text-align: right !important;
         }
     }
+    @media (max-width: 768px) {
+        /* 1. Контейнер карточки отзыва автоматически подстраивается под объем текста */
+        .review-card,
+        .reviews-slider .swiper-slide,
+        .review-item {
+            height: auto !important;          /* Снимает жесткое ограничение по высоте */
+            min-height: min-content !important;
+            max-height: none !important;      /* Разрешает карточке расти вниз */
+            overflow: visible !important;     /* Гарантирует, что текст не обрезается снизу */
+        }
+
+        /* 2. Текстовый блок внутри отзыва */
+        .review-text,
+        .review-content {
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            white-space: normal !important;   /* Обеспечивает корректный перенос строк */
+            word-break: break-word !important; /* Предотвращает выпадение длинных слов */
+        }
+    }
+    @media (max-width: 768px) {
+        /* ===================================================
+           1. ОПИСАНИЕ ПРАЙСА: Расширяем текст на узких экранах
+           =================================================== */
+
+        /* Снимаем ограничения ширины с контейнера и текста */
+        .case-info,
+        .case-info p {
+            width: 100% !important;
+            max-width: 100% !important;
+            /* Убираем лишние боковые поля, оставляем по 8px по краям экрана */
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+
+        /* ===================================================
+           2. ОТЗЫВЫ: Разрешаем развернутому тексту выходить вниз
+           =================================================== */
+
+        /* Не трогаем display и flex-структуру, чтобы НЕ ЛОМАТЬ кнопки.
+           Снимаем только блокировку видимости и жесткую высоту при разворачивании. */
+        .reviews-slider,
+        .swiper-wrapper,
+        .swiper-slide,
+        .review-card,
+        .review-item {
+            overflow: visible !important; /* Даем развернутому тексту свободно выходить вниз */
+            max-height: none !important;  /* Снимаем потолок высоты */
+        }
+
+        /* Когда отзыв развернут (активен), разрешаем блоку растягиваться по контенту */
+        .review-card.active,
+        .review-card.expanded,
+        .review-card.is-open {
+            height: auto !important;
+        }
+    }
+    /* ==========================================================================
+   ФИНАЛЬНЫЙ ФИКС ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (iPhone SE и узкие экраны)
+   ========================================================================== */
+    @media (max-width: 768px) {
+
+        /* ----------------------------------------------------------------------
+           1. ОТЗЫВЫ: Исправление скрытия развернутого текста и работы кнопок
+           ---------------------------------------------------------------------- */
+
+        /* Главный фикс: разрешаем внутренней обертке текста расширяться */
+        .review-text-wrap {
+            max-height: calc(1.5em * 10) !important; /* В свернутом состоянии — 10 строк */
+            overflow: hidden !important;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        /* Когда кликнули «Развернуть» (JS добавляет класс .expanded) */
+        .review-text-wrap.expanded {
+            max-height: 5000px !important; /* Даем раскрыться абсолютно любому объему текста */
+            overflow: visible !important;
+        }
+
+        /* Гарантируем, что сама карточка и слайдер не режут высоту */
+        .review-item,
+        .reviews-container,
+        .reviews-list {
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        /* Гарантируем видимость кнопки «Читать далее» */
+        .read-more-btn {
+            display: inline-block !important;
+            position: relative !important;
+            z-index: 10 !important;
+            margin-top: 6px !important;
+        }
+
+
+        /* ----------------------------------------------------------------------
+           2. ПРАЙС-ЛИСТ: Расширение контейнера и предотвращение "столбиков"
+           ---------------------------------------------------------------------- */
+
+        /* Снимаем жесткие боковые отступы у всей секции и контейнера прайса */
+        .price {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        .price-container,
+        .price-content-wrapper,
+        .price-tab {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Окно прайса сделаем максимально широким на узком экране */
+        .price-content-wrapper {
+            padding: 12px 8px !important; /* Уменьшаем внутренние поля окна с 40px до 8px */
+            border-radius: 16px !important;
+        }
+
+        /* Строка цены: гарантирует, что услуга не сжимается в тонкую полоску */
+        .price-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 12px 8px !important;
+            gap: 8px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Название услуги гибко занимает всё свободное место */
+        .price-item h4 {
+            flex: 1 1 auto !important;
+            min-width: 0 !important; /* Позволяет названию сжиматься и переноситься */
+            font-size: 13.5px !important;
+            line-height: 1.35 !important;
+            margin: 0 !important;
+            word-break: break-word !important;
+        }
+
+        /* Цена всегда зафиксирована справа и не выпадает */
+        .price-item span {
+            flex: 0 0 auto !important;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
+            text-align: right !important;
+        }
+    }
 }
 /*endregion*/
 
