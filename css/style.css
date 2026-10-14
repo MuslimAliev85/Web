@@ -16,6 +16,9 @@
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -24,6 +27,8 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -168,7 +173,6 @@ header {
     font-family: 'Cormorant Garamond', Georgia, serif;
     box-sizing: border-box;
     text-align: center;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -411,44 +415,6 @@ header {
     margin: 0;
 }
 
-.member-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 260px;
-}
-
-.btn-more, .btn-book {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 0.95rem;
-    font-family: 'Inter', sans-serif;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-more {
-    background: transparent;
-    color: #1d1d1f;
-    border: 1px solid #1d1d1f;
-}
-
-.btn-more:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-.btn-book {
-    background: #1d1d1f;
-    color: #ffffff;
-    border: 1px solid #1d1d1f;
-}
-
-.btn-book:hover {
-    background: #333336;
-    border-color: #333336;
-}
-
 .member-photo-box {
     position: relative;
     width: 320px;
@@ -491,65 +457,6 @@ header {
 
 .team-pagination {
     display: none;
-}
-
-@media (max-width: 768px) {
-    .team-rows-container {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 16px;
-        width: 100%;
-    }
-
-    .team-rows-container::-webkit-scrollbar {
-        display: none;
-    }
-
-    .member-row {
-        flex: 0 0 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: center;
-        box-sizing: border-box;
-    }
-
-    .team-pagination {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-        margin-top: 24px;
-    }
-
-    .page-num {
-        background: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: #555;
-        cursor: pointer;
-        transition: all 0.25s ease;
-    }
-
-    .page-num.active {
-        background: #007bff;
-        color: #ffffff;
-        transform: scale(1.1);
-    }
 }
 /*endregion*/
 
@@ -761,87 +668,6 @@ header {
 .works-pagination {
     display: none;
 }
-
-@media (max-width: 768px) {
-    /* 1. Основной контейнер галереи */
-    .main-gallery-wrapper {
-        position: relative;
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 16px;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .main-gallery-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* 2. Карточки — полная ширина 100% */
-    .mega-slider-card {
-        flex: 0 0 100% !important;
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: center;
-        box-sizing: border-box !important;
-        margin-bottom: 0 !important;
-    }
-
-    /* Внутренние блоки карточки на 100% ширины */
-    .showcase-viewport,
-    .case-info {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 3. Изоляция свайпа: на фото работает только До/После */
-    .ba-slider {
-        touch-action: pan-y !important;
-    }
-
-    /* 4. Кнопки нумерации снизу */
-    .works-pagination {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-        margin-top: 12px;
-    }
-
-    .works-pagination .page-num {
-        background: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: #555;
-        cursor: pointer;
-        transition: all 0.25s ease;
-    }
-
-    .works-pagination .page-num.active {
-        background: #007bff;
-        color: #ffffff;
-        transform: scale(1.1);
-    }
-}
 /*endregion*/
 
 /*region 6. Отзывы клиентов */
@@ -884,7 +710,7 @@ header {
     position: relative;
     height: 100%;
     border-right: 1px solid #e5e5ea;
-    padding: 200px 5% 200px 5%;
+    padding: 200px 5%;
 }
 
 .motivation-sticky {
@@ -1016,11 +842,12 @@ header {
     max-height: calc(1.5em * 10);
     line-height: 1.5;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .review-text-wrap.expanded {
-    max-height: 1000px;
+    max-height: 5000px;
+    overflow: visible;
 }
 
 .read-more-btn {
@@ -1069,93 +896,24 @@ header {
     line-height: 1.6;
 }
 
-.price-card h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: var(--text-main);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    padding-bottom: 15px;
-}
-
-.price-card h3:not(:first-child) {
-    margin-top: 40px;
-}
-
-.price-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    font-size: 1rem;
-}
-
-.price-item h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-main);
-    margin: 0;
-    background: #ffffff;
-    padding-right: 8px;
-    position: relative;
-    z-index: 1;
-    order: 1;
-}
-
-.price-item::after {
-    content: "";
-    flex-grow: 1;
-    border-bottom: 1px dashed #e5e5ea;
-    position: relative;
-    top: -5px;
-    margin: 0 4px;
-    order: 2;
-}
-
-.price-item span {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--text-main);
-    background: #ffffff;
-    padding-left: 8px;
-    position: relative;
-    z-index: 1;
-    white-space: nowrap;
-    order: 3;
-}
-
-.price-item strong {
-    color: var(--text-main);
-    font-weight: 600;
-    background: #ffffff;
-    padding-left: 8px;
-    position: relative;
-    z-index: 1;
-    white-space: nowrap;
-}
-
-/* Основной контейнер для двух окон */
 .price-container {
-    display: grid;
-    grid-template-columns: 350px 1fr; /* Ширина левого окна и правого */
-    gap: 30px; /* Расстояние между окнами */
+    display: flex;
+    gap: 30px;
     max-width: 1200px;
     margin: 40px auto 0;
     align-items: start;
+    box-sizing: border-box;
 }
 
-/* =========================================
-   ДВА БОЛЬШИХ ОКНА С ЗАКРУГЛЕНИЯМИ
-   ========================================= */
-.price-sidebar,
-.price-content-wrapper {
-    background: #ffffff; /* Белый цвет самих окон */
-    border-radius: 30px; /* Закругления как в До/После */
-    padding: 40px; /* Внутренние отступы */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Мягкая тень для объема */
+.price-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
-/* --- Настройки левого окна (Категории) --- */
 .price-categories {
     list-style: none;
     padding: 0;
@@ -1166,30 +924,40 @@ header {
 }
 
 .category-btn {
+    width: 100%;
+    text-align: left;
     padding: 16px 20px;
     font-size: 1.05rem;
-    font-weight: 400 !important;
+    font-weight: 400;
     color: #1d1d1f;
     cursor: pointer;
     border-radius: 15px;
     transition: all 0.3s ease;
     background: transparent;
-    border: 2px solid transparent; /* Добавили прозрачную рамку для стабильности верстки */
+    border: 2px solid transparent;
 }
 
 .category-btn:hover {
     background: #f5f5f7;
 }
 
-/* Активная категория */
 .category-btn.active {
     background: #f5f5f7;
     color: #1d1d1f;
-    font-weight: 400 !important;
-    border: 2px solid #0071e3; /* ТА САМАЯ СИНЯЯ ОБВОДКА */
+    font-weight: 400;
+    border: 2px solid #0071e3;
 }
 
-/* --- Настройки правого окна (Цены) --- */
+.price-content-wrapper {
+    flex-grow: 1;
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
 .price-tab {
     display: none;
     animation: fadeInTab 0.4s ease forwards;
@@ -1199,17 +967,16 @@ header {
     display: block;
 }
 
-/* Строки с ценами внутри правого окна */
 .price-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 22px 0;
-    border-bottom: 1px solid #e5e5ea; /* Тонкая линия разделитель */
+    border-bottom: 1px solid #e5e5ea;
     gap: 20px;
+    box-sizing: border-box;
 }
 
-/* Убираем линию у последней услуги в окне */
 .price-item:last-child {
     border-bottom: none;
     padding-bottom: 0;
@@ -1219,27 +986,35 @@ header {
     padding-top: 0;
 }
 
-/* НАЗВАНИЕ УСЛУГИ */
 .price-item h4 {
     margin: 0;
     font-size: 1.05rem;
-    font-weight: 400 !important; /* ЖЕСТКО УБИРАЕМ ЖИРНОСТЬ */
+    font-weight: 400;
     color: #1d1d1f;
-    background: transparent !important; /* ЖЕСТКО УБИРАЕМ ФОН ПОД ТЕКСТОМ */
+    background: transparent;
     max-width: 75%;
     line-height: 1.5;
+    flex: 1 1 auto;
+    word-break: break-word;
 }
 
-/* ЦЕНА */
 .price-item span {
     font-size: 1.05rem;
-    font-weight: 400 !important; /* ЖЕСТКО УБИРАЕМ ЖИРНОСТЬ */
+    font-weight: 400;
     color: #1d1d1f;
-    background: transparent !important; /* ЖЕСТКО УБИРАЕМ ФОН ПОД ТЕКСТОМ */
+    background: transparent;
     white-space: nowrap;
+    flex: 0 0 auto;
+    text-align: right;
 }
 
-/* Анимация переключения вкладок */
+.price-mobile-select {
+    display: none;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 20;
+}
+
 @keyframes fadeInTab {
     from {
         opacity: 0;
@@ -1286,7 +1061,8 @@ header {
 }
 
 .contact-item p {
-    font-size: 1.4rem;
+    margin: 0;
+    font-size: 1.3rem;
     font-weight: 500;
     color: #1d1d1f;
 }
@@ -1395,22 +1171,66 @@ header {
     text-align: center;
     font-weight: 500;
 }
+/*endregion*/
 
-.contact-item p {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: #1d1d1f;
+/*region 9. Боковая панель и Мобильное меню */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10002;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    outline: none;
+}
+
+.burger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-main, #323131);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9999;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 /*endregion*/
 
-/*region 9. Адаптивный дизайн и медиа-запросы */
-html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
+/*region 10. Адаптивный дизайн и Медиа-запросы */
 @media (min-width: 1025px) {
     .member-card:hover {
         transform: translateY(-8px);
@@ -1445,21 +1265,10 @@ html, body {
         height: 500px;
     }
 
-    .line-decor-v-1 {
-        height: 400px;
-    }
-
-    .line-decor-v-2 {
-        height: 280px;
-    }
-
-    .line-decor-h-1 {
-        width: 300px;
-    }
-
-    .line-decor-h-2 {
-        width: 220px;
-    }
+    .line-decor-v-1 { height: 400px; }
+    .line-decor-v-2 { height: 280px; }
+    .line-decor-h-1 { width: 300px; }
+    .line-decor-h-2 { width: 220px; }
 
     .decor-bottom-corner {
         right: -40px;
@@ -1501,11 +1310,6 @@ html, body {
         text-align: center;
     }
 
-    .member-actions {
-        width: 100%;
-        max-width: 280px;
-    }
-
     .reviews-motivation {
         border-right: none;
         padding: 0;
@@ -1523,43 +1327,64 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    /* 1. Навигация и Шапка */
     header {
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         background: rgba(255, 255, 255, 0.98);
     }
 
+    .burger-menu {
+        display: flex;
+    }
+
+    header .nav-links,
+    #navLinks.nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 10001;
+    }
+
+    header .nav-links.active,
+    #navLinks.nav-links.active {
+        transform: translateX(0);
+    }
+
+    header .nav-links a,
+    #navLinks.nav-links a {
+        margin: 16px 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1d1d1f;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    /* 2. О нас и Декорации */
     #about.hero-timeline {
         padding: 120px 20px 80px 20px;
     }
 
     .line-decor-v-2,
-    .line-decor-h-2 {
+    .line-decor-h-2,
+    .decor-top-pattern,
+    .decor-bottom-pattern,
+    .decor-left-bottom-pattern,
+    .decor-right-top-pattern {
         display: none;
-    }
-
-    .decor-top-pattern {
-        left: -10px;
-        top: -10px;
-        height: 300px;
-    }
-
-    .line-decor-v-1 {
-        left: 20px;
-        height: 250px;
-    }
-
-    .line-decor-h-1 {
-        width: 160px;
-    }
-
-    .decor-bottom-corner {
-        right: 10px;
-        bottom: -40px;
-    }
-
-    .decor-bottom-corner::before {
-        left: -180px;
     }
 
     .about-macro-title {
@@ -1576,19 +1401,333 @@ html, body {
         font-size: 1.65rem;
     }
 
+    /* 3. Персонал */
+    .team-rows-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .team-rows-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .member-row {
+        flex: 0 0 100%;
+        min-width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+        box-sizing: border-box;
+    }
+
+    .team-pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .page-num {
+        background: #f0f0f0;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .page-num.active {
+        background: #007bff;
+        color: #ffffff;
+        transform: scale(1.1);
+    }
+
+    /* 4. Результаты (Слайдер До/После) */
+    .main-gallery-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .main-gallery-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mega-slider-card {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+        box-sizing: border-box;
+        margin-bottom: 0;
+    }
+
+    .showcase-viewport {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .ba-slider {
+        height: 380px;
+        touch-action: pan-y;
+    }
+
+    .case-info {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 12px 0 12px;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .case-info h3,
+    .case-info h4,
+    .case-info p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .works-pagination {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .works-pagination .page-num {
+        background: #f0f0f0;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .works-pagination .page-num.active {
+        background: #007bff;
+        color: #ffffff;
+        transform: scale(1.1);
+    }
+
+    .mega-slider-card:nth-child(1) .before-side img { object-position: 60% 50%; transform: scale(1.6) translateY(5%); }
+    .mega-slider-card:nth-child(1) .after-side img  { object-position: 85% 50%; transform: scale(1.3) translateY(8%); }
+
+    .mega-slider-card:nth-child(2) .before-side img { object-position: 50% 50%; transform: scale(1.5) translateY(-5%); }
+    .mega-slider-card:nth-child(2) .after-side img  { object-position: 65% 50%; transform: scale(1.5) translateY(5%); }
+
+    .mega-slider-card:nth-child(3) .before-side img { object-position: 50% 50%; transform: scale(1.3) translateY(2%); }
+    .mega-slider-card:nth-child(3) .after-side img  { object-position: 40% 50%; transform: scale(1.3) translateY(-7%); }
+
+    .mega-slider-card:nth-child(4) .before-side img { object-position: 35% 50%; transform: scale(1.1) translateY(-2%); }
+    .mega-slider-card:nth-child(4) .after-side img  { object-position: 43% 50%; transform: scale(1.2) translateY(3%); }
+
+    .mega-slider-card:nth-child(5) .before-side img { object-position: 47% 50%; transform: scale(1.05) translateY(2%); }
+    .mega-slider-card:nth-child(5) .after-side img  { object-position: 50% 50%; transform: scale(1.0) translateY(0%); }
+
+    /* 5. Отзывы */
+    .reviews-header {
+        margin-bottom: 12px;
+    }
+
+    .reviews-container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .reviews-container > *:first-child {
+        margin-top: -15px;
+        padding-top: 0;
+    }
+
+    .review-item {
+        height: auto;
+        min-height: min-content;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .review-text {
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    /* 6. Прайс-лист */
     .price {
-        padding: 60px 20px;
+        padding: 60px 10px;
     }
 
     .price-header h2 {
         font-size: 2rem;
     }
 
-    .price-card {
-        padding: 25px;
-        border-radius: 24px;
+    .price-container,
+    .price-content-wrapper,
+    .price-tab {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
+    .price-sidebar {
+        display: none;
+    }
+
+    .price-mobile-select {
+        display: block;
+    }
+
+    .price-dropdown-toggle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        font-size: 16px;
+        font-weight: 600;
+        color: #1e293b;
+        cursor: pointer;
+        position: relative;
+        z-index: 21;
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .price-dropdown-toggle span {
+        pointer-events: none;
+    }
+
+    .dropdown-arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    .price-mobile-select.open .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    .price-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+        z-index: 30;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    }
+
+    .price-mobile-select.open .price-dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .price-dropdown-menu .category-btn {
+        padding: 12px 14px;
+        border-radius: 8px;
+    }
+
+    .price-content-wrapper {
+        padding: 12px 8px;
+        border-radius: 16px;
+    }
+
+    .price-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 8px;
+        margin: 8px 0;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        background: transparent;
+        border-bottom: 1px solid #e5e5ea;
+        border-radius: 0;
+        overflow: hidden;
+    }
+
+    .price-item h4 {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 13.5px;
+        text-align: left;
+        margin: 0;
+        line-height: 1.35;
+        word-break: break-word;
+    }
+
+    .price-item span {
+        flex: 0 0 auto;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #007bff;
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    /* 7. Контакты и Карта */
     .map-wrapper {
         margin-top: 40px;
         border-radius: 24px;
@@ -1638,702 +1777,15 @@ html, body {
     }
 }
 
-@media (max-width: 768px) {
-    /* Переводим сетку/флекс в один вертикальный столбец */
-    .reviews-container,
-    .reviews-wrapper,
-    .reviews-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: 1fr !important;
-        gap: 24px;
-        width: 100%;
-    }
-
-    /* Растягиваем левую и правую колонки на 100% ширины */
-    .reviews-left,
-    .reviews-right,
-    .reviews-col {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-@media (max-width: 768px) {
-    /* 1. Уменьшаем отступ под заголовком отзывов */
-    .reviews-header {
-        margin-bottom: 12px !important;
-    }
-
-    /* 2. Приподнимаем первую (левую) колонку выше */
-    .reviews-left,
-    .reviews-container > *:first-child {
-        margin-top: -15px !important; /* Подберите значение (-10px...-25px) под нужную высоту */
-        padding-top: 0 !important;
-    }
-}
-
-/* Отключение всех декоративных паттернов на мобильных экранах */
-@media (max-width: 768px) {
-    .decor-top-pattern,
-    .decor-bottom-pattern,
-    .decor-left-bottom-pattern,
-    .decor-right-top-pattern {
-        display: none !important;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Адаптивные трансформации через object-position и scale/translateY */
-    .mega-slider-card:nth-child(1) .before-side img { object-position: 60% 50% !important; transform: scale(1.6) translateY(5%) !important; }
-    .mega-slider-card:nth-child(1) .after-side img  { object-position: 85% 50% !important; transform: scale(1.3) translateY(8%) !important; }
-
-    .mega-slider-card:nth-child(2) .before-side img { object-position: 50% 50% !important; transform: scale(1.5) translateY(-5%) !important; }
-    .mega-slider-card:nth-child(2) .after-side img  { object-position: 65% 50% !important; transform: scale(1.5) translateY(5%) !important; }
-
-    .mega-slider-card:nth-child(3) .before-side img { object-position: 50% 50% !important; transform: scale(1.3) translateY(2%) !important; }
-    .mega-slider-card:nth-child(3) .after-side img  { object-position: 40% 50% !important; transform: scale(1.3) translateY(-7%) !important; }
-
-    .mega-slider-card:nth-child(4) .before-side img { object-position: 35% 50% !important; transform: scale(1.1) translateY(-2%) !important; }
-    .mega-slider-card:nth-child(4) .after-side img  { object-position: 43% 50% !important; transform: scale(1.2) translateY(3%) !important; }
-
-    .mega-slider-card:nth-child(5) .before-side img { object-position: 47% 50% !important; transform: scale(1.05) translateY(2%) !important; }
-    .mega-slider-card:nth-child(5) .after-side img  { object-position: 50% 50% !important; transform: scale(1.0) translateY(0%) !important; }
-
-    /* 2. Мобильная верстка слайдера */
-    .main-gallery-wrapper {
-        position: relative;
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 16px;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .main-gallery-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-
-    .mega-slider-card {
-        flex: 0 0 100% !important;
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: center;
-        box-sizing: border-box !important;
-        margin-bottom: 0 !important;
-    }
-
-    .showcase-viewport,
-    .case-info {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .ba-slider {
-        height: 380px !important;
-        touch-action: pan-y !important;
-    }
-
-    .works-pagination {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-        margin-top: 12px;
-    }
-
-    .works-pagination .page-num {
-        background: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: #555;
-        cursor: pointer;
-        transition: all 0.25s ease;
-    }
-
-    .works-pagination .page-num.active {
-        background: #007bff;
-        color: #ffffff;
-        transform: scale(1.1);
-    }
-    @media (max-width: 768px) {
-        /* 1. Общий контейнер текста — по центру */
-        .case-info {
-            width: 100% !important;
-            max-width: 100% !important;
-            padding: 16px 12px 0 12px !important; /* комфортные поля по бокам */
-            text-align: center !important; /* выравнивание всех заголовков и текста по центру */
-            box-sizing: border-box !important;
-            margin: 0 auto !important;
-        }
-
-        /* 2. Заголовки и описание внутри карточки */
-        .case-info h3,
-        .case-info h4,
-        .case-info p {
-            text-align: center !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-
-        /* Контейнер строго вписывается в экран и не дает элементам выпадать */
-        .price-item {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            width: 100% !important;
-            max-width: 100% !important;      /* Адаптируется под любой узкий экран */
-            box-sizing: border-box !important;
-            padding: 10px 12px !important;    /* Внутренние отступы безопасности */
-            margin: 8px 0 !important;
-            gap: 8px !important;
-            background: #f8f9fa !important;
-            border-radius: 8px !important;
-            overflow: hidden !important;       /* Блокирует любой случайный вылет текста */
-        }
-
-        /* Название ужимается и переносится, освобождая место цене */
-        .price-item h4 {
-            flex: 1 1 auto !important;
-            min-width: 0 !important;           /* Главный фикс: разрешает названию сжиматься */
-            font-size: 13px !important;
-            text-align: left !important;
-            margin: 0 !important;
-            line-height: 1.3 !important;
-            word-break: break-word !important; /* Переносит длинные слова */
-        }
-
-        /* Цена надежно зафиксирована у правого края внутри рамки */
-        .price-item span {
-            flex: 0 0 auto !important;         /* Цена не сжимается и не растягивает блок */
-            font-size: 13px !important;
-            font-weight: 700 !important;
-            color: #007bff !important;
-            white-space: nowrap !important;
-            text-align: right !important;
-        }
-    }
-    @media (max-width: 768px) {
-        /* 1. Контейнер карточки отзыва автоматически подстраивается под объем текста */
-        .review-card,
-        .reviews-slider .swiper-slide,
-        .review-item {
-            height: auto !important;          /* Снимает жесткое ограничение по высоте */
-            min-height: min-content !important;
-            max-height: none !important;      /* Разрешает карточке расти вниз */
-            overflow: visible !important;     /* Гарантирует, что текст не обрезается снизу */
-        }
-
-        /* 2. Текстовый блок внутри отзыва */
-        .review-text,
-        .review-content {
-            height: auto !important;
-            max-height: none !important;
-            overflow: visible !important;
-            white-space: normal !important;   /* Обеспечивает корректный перенос строк */
-            word-break: break-word !important; /* Предотвращает выпадение длинных слов */
-        }
-    }
-    @media (max-width: 768px) {
-        /* ===================================================
-           1. ОПИСАНИЕ ПРАЙСА: Расширяем текст на узких экранах
-           =================================================== */
-
-        /* Снимаем ограничения ширины с контейнера и текста */
-        .case-info,
-        .case-info p {
-            width: 100% !important;
-            max-width: 100% !important;
-            /* Убираем лишние боковые поля, оставляем по 8px по краям экрана */
-            padding-left: 8px !important;
-            padding-right: 8px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            box-sizing: border-box !important;
-        }
-
-
-        /* ===================================================
-           2. ОТЗЫВЫ: Разрешаем развернутому тексту выходить вниз
-           =================================================== */
-
-        /* Не трогаем display и flex-структуру, чтобы НЕ ЛОМАТЬ кнопки.
-           Снимаем только блокировку видимости и жесткую высоту при разворачивании. */
-        .reviews-slider,
-        .swiper-wrapper,
-        .swiper-slide,
-        .review-card,
-        .review-item {
-            overflow: visible !important; /* Даем развернутому тексту свободно выходить вниз */
-            max-height: none !important;  /* Снимаем потолок высоты */
-        }
-
-        /* Когда отзыв развернут (активен), разрешаем блоку растягиваться по контенту */
-        .review-card.active,
-        .review-card.expanded,
-        .review-card.is-open {
-            height: auto !important;
-        }
-    }
-    /* ==========================================================================
-   ФИНАЛЬНЫЙ ФИКС ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (iPhone SE и узкие экраны)
-   ========================================================================== */
-    @media (max-width: 768px) {
-
-        /* ----------------------------------------------------------------------
-           1. ОТЗЫВЫ: Исправление скрытия развернутого текста и работы кнопок
-           ---------------------------------------------------------------------- */
-
-        /* Главный фикс: разрешаем внутренней обертке текста расширяться */
-        .review-text-wrap {
-            max-height: calc(1.5em * 10) !important; /* В свернутом состоянии — 10 строк */
-            overflow: hidden !important;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        }
-
-        /* Когда кликнули «Развернуть» (JS добавляет класс .expanded) */
-        .review-text-wrap.expanded {
-            max-height: 5000px !important; /* Даем раскрыться абсолютно любому объему текста */
-            overflow: visible !important;
-        }
-
-        /* Гарантируем, что сама карточка и слайдер не режут высоту */
-        .review-item,
-        .reviews-container,
-        .reviews-list {
-            height: auto !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        /* Гарантируем видимость кнопки «Читать далее» */
-        .read-more-btn {
-            display: inline-block !important;
-            position: relative !important;
-            z-index: 10 !important;
-            margin-top: 6px !important;
-        }
-
-
-        /* ----------------------------------------------------------------------
-           2. ПРАЙС-ЛИСТ: Расширение контейнера и предотвращение "столбиков"
-           ---------------------------------------------------------------------- */
-
-        /* Снимаем жесткие боковые отступы у всей секции и контейнера прайса */
-        .price {
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-        }
-
-        .price-container,
-        .price-content-wrapper,
-        .price-tab {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-        }
-
-        /* Окно прайса сделаем максимально широким на узком экране */
-        .price-content-wrapper {
-            padding: 12px 8px !important; /* Уменьшаем внутренние поля окна с 40px до 8px */
-            border-radius: 16px !important;
-        }
-
-        /* Строка цены: гарантирует, что услуга не сжимается в тонкую полоску */
-        .price-item {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 12px 8px !important;
-            gap: 8px !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
-        }
-
-        /* Название услуги гибко занимает всё свободное место */
-        .price-item h4 {
-            flex: 1 1 auto !important;
-            min-width: 0 !important; /* Позволяет названию сжиматься и переноситься */
-            font-size: 13.5px !important;
-            line-height: 1.35 !important;
-            margin: 0 !important;
-            word-break: break-word !important;
-        }
-
-        /* Цена всегда зафиксирована справа и не выпадает */
-        .price-item span {
-            flex: 0 0 auto !important;
-            font-size: 13.5px !important;
-            font-weight: 600 !important;
-            white-space: nowrap !important;
-            text-align: right !important;
-        }
-    }
-}
-/*endregion*/
-
-/*region 10. Боковая панель */
-.burger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 22px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 10002;
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-    outline: none;
-}
-
-.burger-menu span {
-    width: 100%;
-    height: 3px;
-    background-color: var(--text-main, #323131);
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.burger-menu.active span:nth-child(1) {
-    transform: translateY(9.5px) rotate(45deg);
-}
-
-.burger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.burger-menu.active span:nth-child(3) {
-    transform: translateY(-9.5px) rotate(-45deg);
-}
-
-.nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 9999;
-}
-
-.nav-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media (max-width: 768px) {
-    .burger-menu {
-        display: flex;
-    }
-
-    header .nav-links,
-    #navLinks.nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 20px;
-        box-sizing: border-box;
-        box-shadow: none;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 10001;
-    }
-
-    header .nav-links.active,
-    #navLinks.nav-links.active {
-        transform: translateX(0);
-    }
-
-    header .nav-links a,
-    #navLinks.nav-links a {
-        margin: 16px 0;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #1d1d1f;
-        text-decoration: none;
-        text-align: center;
-    }
-}
-/*endregion*/
-
-/*region 11. Блок сдвига*/
-/* Предотвращаем сдвиг всего сайта влево/вправо */
-html, body {
-    overflow-x: hidden;
-}
-
-@media (max-width: 768px) {
-    .main-gallery-wrapper {
-        position: relative !important; /* Гарантирует точный отсчет координат внутри контейнера */
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 16px;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .main-gallery-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-}
-/*endregion*/
-
-/*region 12. Шторка Price*/
-/* ==========================================================================
-   СЕКЦИЯ ЦЕН (ОБЩИЕ СТИЛИ)
-   ========================================================================== */
-
-.price-container {
-    display: flex;
-    gap: 30px;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-/* --- Десктопный сайдбар --- */
-.price-sidebar {
-    width: 280px;
-    flex-shrink: 0;
-}
-
-.price-categories {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.category-btn {
-    width: 100%;
-    text-align: left;
-    padding: 12px 16px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    border-radius: 8px;
-    color: #334155;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.category-btn:hover {
-    background: #f8fafc;
-}
-
-.category-btn.active {
-    font-weight: 600;
-    background: #f0f4f8;
-    color: #0066cc;
-}
-
-/* --- Окно со списком услуг --- */
-.price-content-wrapper {
-    flex-grow: 1;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.price-tab {
-    display: none;
-}
-
-.price-tab.active {
-    display: block;
-}
-
-/* --- Элемент услуги (Строка с ценой) --- */
-.price-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Центрирование цены по высоте */
-    gap: 16px;
-    padding: 16px 20px;
-    border-bottom: 1px solid #f1f5f9;
-    box-sizing: border-box;
-}
-
-.price-item:last-child {
-    border-bottom: none;
-}
-
-/* Название услуги */
-.price-item h4 {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.4;
-    color: #1e293b;
-    flex: 1;
-    word-break: normal;
-    overflow-wrap: break-word;
-}
-
-/* Цена */
-.price-item span {
-    flex-shrink: 0;
-    font-weight: 600;
-    white-space: nowrap;
-    color: #0066cc;
-    font-size: 15px;
-    line-height: 1.4;
-    text-align: right;
-}
-
-/* --- Мобильный селектор --- */
-.price-mobile-select {
-    display: none;
-    position: relative;
-    margin-bottom: 20px;
-    z-index: 20;
-}
-
-
-/* ==========================================================================
-   АДАПТИВНОСТЬ И МОБИЛЬНАЯ ВЕРСТКА
-   ========================================================================== */
-
-@media (max-width: 768px) {
-    .price-sidebar {
-        display: none;
-    }
-
-    .price-mobile-select {
-        display: block;
-    }
-
-    /* Кнопка открытия меню */
-    .price-dropdown-toggle {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 20px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        font-size: 16px;
-        font-weight: 600;
-        color: #1e293b;
-        cursor: pointer;
-        position: relative;
-        z-index: 21;
-        box-sizing: border-box;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .price-dropdown-toggle span {
-        pointer-events: none;
-    }
-
-    /* Анимация стрелки */
-    .dropdown-arrow {
-        display: inline-block;
-        transition: transform 0.3s ease;
-        font-size: 12px;
-        color: #64748b;
-    }
-
-    .price-mobile-select.open .dropdown-arrow {
-        transform: rotate(180deg);
-    }
-
-    /* Плавное выпадающее меню */
-    .price-dropdown-menu {
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        right: 0;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        padding: 8px;
-        z-index: 30;
-
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    }
-
-    .price-mobile-select.open .price-dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .price-dropdown-menu .category-btn {
-        padding: 12px 14px;
-        border-radius: 8px;
-    }
-}
-
 @media (max-width: 480px) {
     .price-item {
-        padding: 14px 14px;
-        gap: 10px;
+        padding: 12px 8px;
+        gap: 8px;
     }
 
     .price-item h4,
     .price-item span {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
-/*endregion*/
-
-/*region 99. Цвета*/
-/*
-Белый: FFFFFF
-Светло-серый: 86868BFF
-Серый: 323131FF
-Черный: 1D1D1FFF
-Синий: 007AFFFF
-*/
-/*region 1. Text*/
-/*endregion*/
 /*endregion*/

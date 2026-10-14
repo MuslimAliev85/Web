@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const introLoader = document.getElementById('intro-loader');
     if (introLoader) {
-        // Ждем закрашивания текста, затем запускаем эффект "распада"
         setTimeout(() => {
             introLoader.classList.add('disintegrate');
 
-            // Ждем исчезновения букв и сворачиваем окно вверх
             setTimeout(() => {
                 introLoader.classList.add('fade-out');
                 document.body.classList.remove('loading');
@@ -72,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const beforeSide = slider.querySelector('.before-side');
         const dragLine = slider.querySelector('.drag-line');
 
+        if (!beforeSide || !dragLine) return;
+
         function processMove(clientX) {
             const rect = slider.getBoundingClientRect();
             let x = clientX - rect.left;
@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             beforeSide.style.width = `${percentage}%`;
         }
 
-        // Единый обработчик для перетаскивания (мышь и тач)
         const handleMove = (e) => {
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             processMove(clientX);
@@ -108,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('nextCase');
 
     function showTargetSlide(index) {
-        // Элегантный перенос индекса по кругу без кучи условий if
         currentSlide = (index + totalSlides) % totalSlides;
 
         if (casesTrack) casesTrack.style.transform = `translateX(-${currentSlide * 20}%)`;
@@ -117,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(syncSliderImages, 50);
     }
 
-    // Запуск автопроигрывания карусели работ
     let sliderInterval = setInterval(() => {
         showTargetSlide(currentSlide + 1);
     }, 5000);
@@ -150,14 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Управление кнопками раскрытия длинного текста ("Читать дальше")
+    // Инициализация и проверка кнопок "Читать дальше"
+    function checkReviewButtons() {
+        reviewWrappers.forEach(wrapper => {
+            const btn = wrapper.nextElementSibling;
+            if (!btn || !btn.classList.contains('read-more-btn')) return;
+
+            // Если текст не помещается по высоте — показываем кнопку
+            if (wrapper.scrollHeight > wrapper.clientHeight + 5 || wrapper.classList.contains('expanded')) {
+                btn.style.display = 'inline-block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+    }
+
     reviewWrappers.forEach(wrapper => {
         const btn = wrapper.nextElementSibling;
         if (!btn || !btn.classList.contains('read-more-btn')) return;
-
-        if (wrapper.scrollHeight > wrapper.clientHeight) {
-            btn.style.display = 'inline-block';
-        }
 
         btn.addEventListener('click', () => {
             const isExpanded = wrapper.classList.toggle('expanded');
@@ -170,7 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Показ и скрытие дополнительных карточек отзывов в списке
+    checkReviewButtons();
+    window.addEventListener('resize', checkReviewButtons);
+
+    // Показ и скрытие дополнительных карточек отзывов
     const loadMoreBtn = document.getElementById('loadMoreReviews');
     const hideBtn = document.getElementById('hideReviews');
     const controlsContainer = document.getElementById('reviewsControls');
@@ -180,7 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loadMoreBtn && hideBtn && controlsContainer) {
         loadMoreBtn.addEventListener('click', () => {
             hiddenReviews.forEach((review, index) => {
-                setTimeout(() => review.classList.add('show-animated'), index * 120);
+                setTimeout(() => {
+                    review.classList.add('show-animated');
+                    checkReviewButtons();
+                }, index * 120);
             });
             controlsContainer.classList.add('expanded');
         });
@@ -221,15 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
             hintContent: 'Стоматология Dental — Новый Уренгой',
             balloonContentHeader: '<strong>Dental (Новый Уренгой)</strong>',
             balloonContentBody: 'Премиальная стоматология<br>микрорайон Советский, 2к2',
-            // Координаты для маршрута теперь подставляются автоматически
             balloonContentFooter: `<a href="https://yandex.ru/maps/?rtext=~${exactClinicCoordinates.join(',')}" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>`
         }, {
             preset: 'islands#blackDarkGlyphIcon'
         });
 
         const placemarkMSK = new ymaps.Placemark(moscowClinicCoordinates, {
-            hintContent: 'Стоматология Dental — Москва',
-            balloonContentHeader: '<strong>Dental (Москва)</strong>',
+            hintContent: 'Стоматология Dental — Ленинградский проспект',
+            balloonContentHeader: '<strong>Dental</strong>',
             balloonContentBody: 'Премиальная стоматология<br>Ленинградский проспект, 10',
             balloonContentFooter: `<a href="https://yandex.ru/maps/?rtext=~${moscowClinicCoordinates.join(',')}" target="_blank" style="color:#007AFF; text-decoration:none; font-weight:600;">Построить маршрут</a>`
         }, {
@@ -239,7 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
         myMap.geoObjects.add(placemarkNUR).add(placemarkMSK);
     }
 
-    // Переключение центрирования карты по кнопкам филиалов
     document.querySelectorAll('.map-target-btn').forEach(button => {
         button.addEventListener('click', function() {
             if (!myMap) return;
@@ -257,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //endregion
 
     //region 7. Вспомогательные функции (Helpers)
-    // Универсальный обработчик событий клика по кнопкам каруселей ("Вперед" / "Назад")
     function setupCarouselNav(prevBtn, nextBtn, showCallback) {
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', (e) => {
@@ -274,32 +284,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Инициализация кнопок управления каруселями
     setupCarouselNav(prevBtn, nextBtn, (direction) => showTargetSlide(currentSlide + direction));
     setupCarouselNav(prevReviewBtn, nextReviewBtn, (direction) => showTargetReview(currentReview + direction));
     //endregion
 
-    //region 8. Прайс
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    const priceTabs = document.querySelectorAll('.price-tab');
-
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // 1. Убираем класс active у всех кнопок и вкладок
-            categoryBtns.forEach(b => b.classList.remove('active'));
-            priceTabs.forEach(t => t.classList.remove('active'));
-
-            // 2. Добавляем класс active нажатой кнопке
-            btn.classList.add('active');
-
-            // 3. Находим нужную вкладку по data-tab и показываем её
-            const tabId = btn.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-        });
-    });
-    //endregion
-
-    //region 9. Боковая панель
+    //region 9. Боковая панель (Мобильное меню)
     function initMobileMenu() {
         const burgerMenu = document.getElementById('burgerMenu');
         const navLinks = document.getElementById('navLinks');
@@ -328,12 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
     }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileMenu);
-    } else {
-        initMobileMenu();
-    }
+    initMobileMenu();
     //endregion
 
     //region 10. Слайдер "Наша команда"
@@ -368,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //endregion
 
-    /*region 11. Cлайдер "Фото работ"*/
+    //region 11. Слайдер "Фото работ" (Пагинация по цифрам)
     (function initWorksSlider() {
         const worksContainer = document.querySelector('.main-gallery-wrapper');
         const worksButtons = document.querySelectorAll('.works-pagination .page-num');
@@ -378,12 +362,12 @@ document.addEventListener('DOMContentLoaded', () => {
         worksButtons.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
+                stopAutoPlay();
 
                 const index = parseInt(btn.getAttribute('data-index'), 10);
                 const cards = worksContainer.querySelectorAll('.mega-slider-card');
 
                 if (cards[index]) {
-                    // Прокручиваем ТОЛЬКО контейнер слайдера, не затрагивая страницу
                     worksContainer.scrollTo({
                         left: cards[index].offsetLeft,
                         behavior: 'smooth'
@@ -392,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Переключение активной цифры при пальцевом свайпе
         worksContainer.addEventListener('scroll', () => {
             const cards = worksContainer.querySelectorAll('.mega-slider-card');
             if (!cards.length) return;
@@ -414,76 +397,64 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { passive: true });
     })();
-    /*endregion*/
+    //endregion
 
-    /*region 12. Шторка Price*/
+    //region 12. Шторка и табы Прайса
     (function initPriceTabs() {
-        function setup() {
-            const mobileSelect = document.querySelector('.price-mobile-select');
-            const dropdownToggle = document.querySelector('.price-dropdown-toggle');
-            const selectedCategoryText = document.querySelector('.selected-category');
-            const allCategoryBtns = document.querySelectorAll('.category-btn');
-            const priceTabs = document.querySelectorAll('.price-tab');
+        const mobileSelect = document.querySelector('.price-mobile-select');
+        const dropdownToggle = document.querySelector('.price-dropdown-toggle');
+        const selectedCategoryText = document.querySelector('.selected-category');
+        const allCategoryBtns = document.querySelectorAll('.category-btn');
+        const priceTabs = document.querySelectorAll('.price-tab');
 
-            if (!dropdownToggle && !allCategoryBtns.length) return;
+        if (!dropdownToggle && !allCategoryBtns.length) return;
 
-            // Переключение табов
-            function switchTab(tabId, categoryTitle) {
-                priceTabs.forEach(tab => {
-                    tab.classList.toggle('active', tab.id === tabId);
-                });
-
-                allCategoryBtns.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.tab === tabId);
-                });
-
-                if (selectedCategoryText && categoryTitle) {
-                    selectedCategoryText.textContent = categoryTitle;
-                }
-            }
-
-            // Обработка кликов по категориям
-            allCategoryBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const tabId = btn.dataset.tab;
-                    const title = btn.textContent.trim();
-
-                    switchTab(tabId, title);
-
-                    if (mobileSelect) {
-                        mobileSelect.classList.remove('open');
-                        dropdownToggle?.setAttribute('aria-expanded', 'false');
-                    }
-                });
+        function switchTab(tabId, categoryTitle) {
+            priceTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.id === tabId);
             });
 
-            // Открытие / закрытие мобильной шторки
-            if (dropdownToggle && mobileSelect) {
-                dropdownToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation(); // Предотвращаем всплытие
+            allCategoryBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabId);
+            });
 
-                    const isOpen = mobileSelect.classList.toggle('open');
-                    dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                });
-
-                // Закрытие при клике мимо меню
-                document.addEventListener('click', (e) => {
-                    if (!mobileSelect.contains(e.target)) {
-                        mobileSelect.classList.remove('open');
-                        dropdownToggle.setAttribute('aria-expanded', 'false');
-                    }
-                });
+            if (selectedCategoryText && categoryTitle) {
+                selectedCategoryText.textContent = categoryTitle;
             }
         }
 
-        // Запуск независимо от того, загрузился ли DOM
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setup);
-        } else {
-            setup();
+        allCategoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabId = btn.dataset.tab;
+                const title = btn.textContent.trim();
+
+                switchTab(tabId, title);
+
+                if (mobileSelect) {
+                    mobileSelect.classList.remove('open');
+                    dropdownToggle?.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        if (dropdownToggle && mobileSelect) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isOpen = mobileSelect.classList.toggle('open');
+                dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileSelect.contains(e.target)) {
+                    mobileSelect.classList.remove('open');
+                    dropdownToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
         }
     })();
-    /*endregion*/
+    //endregion
+
 });
